@@ -1,0 +1,49 @@
+<div class="leftColumn">
+	<h5>Time Zone</h5>
+	<select id="selectZone" ng-model="selectedZone" ng-options="c.label for c in zoneList" ng-change="selectZone(selectedZone)" ></select>
+	<!-- <div class="smallNote" ng-show="!formActive">Use Search to find members who might be playing WOT at a specific time.</div> -->
+	<button ng-click="showSearchForm()" ng-show="!formActive" type="button" class="button small">Find Match</button>
+	<!-- <div class="smallNote" ng-show="!formActive">Use Add to include your own online WOT availability.</div> -->
+	<button id="addFart" ng-click="showNewForm()" ng-show="!formActive" type="button" class="button small">Add Fart</button>
+	
+	<div class="submitForm" ng-show="editActive">
+		<h5>New Fart</h5>
+		<div class="attention">Select your local time zone above</div>
+		<form name="addSchedule" ng-submit="submitScheduleForm()">
+			<input name="gamertag" type="text" placeholder="XBL Gamertag" ng-model="xblgamertag" required>
+			<label>Start time</label>
+			<select id="selectBegin" ng-model="selectedBegin" ng-options="c.clock for c in timeList" ng-change="selectBegin(selectedBegin)" required></select>
+			<label>End time</label>
+			<select id="selectEnd" ng-model="selectedEnd" ng-options="c.clock for c in timeList" ng-change="selectEnd(selectedEnd)" required></select>
+			<label>Low Tier</label>
+			<select id="selectLow" ng-model="selectedLow" ng-options="c.tier for c in tierList" ng-change="selectLow(selectedLow)" required></select>
+			<label>High Tier</label>
+			<select id="selectHi" ng-model="selectedHigh" ng-options="c.tier for c in tierList" ng-change="selectHigh(selectedHigh)" required></select>
+			<button type="submit" class="button small">Submit</button>
+			<button type="button" class="button small" ng-click="hideForm()">Cancel</button>
+		</form>
+	</div>
+	<div class="submitForm" ng-show="searchActive">
+		<h4>Search</h4>
+		<div class="attention">Select your local time zone above</div>
+		<form name="searchSchedule" ng-submit="submitSearchForm()">
+			<label>Start time</label>
+			<select id="selectBegin" ng-model="selectedBegin" ng-options="c.clock for c in timeList" ng-change="selectBegin(selectedBegin)" required></select>
+			<label>Tier</label>
+			<select id="selectTier" ng-model="selectedTier" ng-options="c.tier for c in tierList" ng-change="selectTier(selectedTier)" required></select>
+			<button type="submit" class="button small">Submit</button>
+			<button type="button" class="button small"  ng-click="hideForm()">Cancel</button>
+		</form>
+	</div>
+	<div>
+		<p>When you select a Time Zone, all of the begin and end times for all members are transposed to that zone.  Find members who might be online during the same time as yourself and send them a XBL Friend Request.</p>
+		<!-- <p>For Time Zones to listed convert to UTC (Greenwich Mean Time). <a href="http://www.timeanddate.com/worldclock/converter.html"></a>Conversion Calculator</p> -->
+		<p>Contact Admin if you need to change your listing.</p>
+	</div>
+
+</div>
+
+<div class=" content timeline">
+	<h4>{{selectedZoneDescription}}<h4/>
+	<div  id="chartdiv" google-timeline/>
+</div>

@@ -1,0 +1,122 @@
+<!doctype html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>OFFicial Website</title>
+    <meta name="World of Tanks WOT Maps OFF Old Farts Fogies" content="">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+    <!-- build:css styles/vendor.css -->
+    <!-- bower:css -->
+    <!-- endbower -->
+    <!-- endbuild -->
+    <!-- build:css({.tmp,app}) styles/main.css -->
+    <link rel="stylesheet" href="bower_components/foundation-5.0.3/css/foundation.css" />
+    <script type="text/javascript" src="bower_components/foundation-5.0.3/js/vendor/modernizr.js"></script>
+    <script type="text/javascript" src="bower_components/foundation-5.0.3/js/vendor/jquery.js"></script>
+    <script type="text/javascript" src="bower_components/foundation-5.0.3/js/foundation.min.js"></script>
+    <script type="text/javascript" src="https://www.google.com/jsapi?autoload={'modules':[{'name':'visualization',
+       'version':'1','packages':['timeline']}]}"></script>
+    <link rel="stylesheet" href="styles/main.css">
+    
+    <link rel="stylesheet" href="styles/view.css">
+    
+   
+
+  </head>
+  <body ng-app="myApp">
+    <!--[if lt IE 7]>
+      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+
+    <!-- Add your site or application content here -->
+    <div class="pageHeader">
+      <img src="images/offheader.jpg">
+    </div>
+    <div style="clear:both">
+      
+    <div class="hrule"/>
+    <div class="container view">
+      <div class="fixed content" ng-controller="ScheduleCtrl">
+        <h5>OFF Member Registration</h5>
+        <p class="attention" ng-show=!newMemberComplete>Registration is not required. Information is for Platoon Matching.</p>
+        <p class="attention" ng-show=newMemberComplete>Thank You.</p>
+        <div class="row">
+            <div class="large-6 medium-8 small-12 columns">
+            <div class="submitForm" ng-show=!newMemberComplete>
+              <form name="addMember" ng-submit="submitNewMemberForm()">
+                <div class="col1">
+                <label>1. First name</label>
+                <input name="firstname" type="text" placeholder="first name" ng-model="membername" required>
+                <label>2a. Age</label>
+                <input name="age" type="text" placeholder="age" ng-model="memberage">
+                <label>2b. From</label>
+                <input name="base" type="text" placeholder="where you live" ng-model="memberbase">
+                <label>3. Gamertag</label>
+                <input name="gamertag" type="text" placeholder="XBL Gamertag" ng-model="xblgamertag" required>
+                <label>4. Time zone</label>
+                <select id="selectZone" ng-model="selectedZone" ng-options="c.label for c in zoneList" ng-change="selectZone(selectedZone)" required></select>
+                <button type="submit" class="button small">Submit</button>
+              </div>
+              <div class="col2">
+                <label>5a. Start time</label>
+                <select id="selectBegin" ng-model="selectedBegin" ng-options="c.clock for c in timeList" ng-change="selectBegin(selectedBegin)" required></select>
+                <label>5b. End time</label>
+                <select id="selectEnd" ng-model="selectedEnd" ng-options="c.clock for c in timeList" ng-change="selectEnd(selectedEnd)" required></select>
+                <label>6a. Low Tier</label>
+                <select id="selectLow" ng-model="selectedLow" ng-options="c.tier for c in tierList" ng-change="selectLow(selectedLow)" required></select>
+                <label>6b. High Tier</label>
+                <select id="selectHi" ng-model="selectedHigh" ng-options="c.tier for c in tierList" ng-change="selectHigh(selectedHigh)" required></select>
+              </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+            <div class="large-10 medium-12 small-12 columns">
+              <div class="footer" ng-show=!newMemberComplete>
+                <h5>Instructions</h5>
+                <p>1. Your first name or whatever you want people to call you online.</br>
+                2. Age and where you are from if you don't mind.  Just helps to get to know you. Optional.</br>
+                3. Your Gamertag should be exactly as it is on XBL, including letter case and spaces.</br>
+                4. Select your time zone.</br> 
+                5. Start and End times indicate when you are likely to be playing WoT so other members can choose to send an XBL Friend Request. If your avaliability is split during the day or different on weekends, just set the Begin and End to include all the hours. Example: You are available 6PM-10PM on weekdays and 10AM-12AM on weekends.  Set Begin Time to 10AM and End Time to 10PM.  Once you are friended, they can see when you are available.</br>
+                6. Lowest and Highest Tiers you are willing and/or able to play. You will be able to edit this later when needed.</p>
+              </div>
+          </div>
+  </div>
+
+    </div>
+
+   
+
+    <!--[if lt IE 9]>
+    <script src="bower_components/es5-shim/es5-shim.js"></script>
+    <script src="bower_components/json3/lib/json3.min.js"></script>
+    <![endif]-->
+
+    <!-- build:js scripts/vendor.js -->
+    <!-- bower:js -->
+    <script src="bower_components/angular/angular.js"></script>
+    <script type="text/javascript" src="bower_components/angular-smart-table/dist/smart-table.min.js"></script>
+    <script src="bower_components/angular-resource/angular-resource.js"></script>
+    <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+    <script type="text/javascript" src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+    <!-- endbower -->
+    <!-- endbuild -->
+
+        <!-- build:js({.tmp,app}) scripts/scripts.js -->
+        <script src="scripts/app.js"></script>
+        <script src="scripts/controllers/home.js"></script>
+        <script src="scripts/controllers/schedule.js"></script>
+        
+        <script src="scripts/services/sqldb.js"></script>
+        <!-- endbuild -->
+        <script>$(document).foundation();</script>
+
+</body>
+</html>

@@ -1,0 +1,62 @@
+@charset "utf-8";
+.refList{
+  margin-top: 10px;
+  padding-left: 10px;
+}
+
+.refList p{
+  font-size:.8em;
+  margin-top:0;
+  margin-bottom:0;
+}
+
+.refList a{
+  font-size:.9em;
+ color:#3128FD;
+}
+
+.refList h2{
+  font-size:1em;
+ font-weight:500;
+ color:#000000;
+  margin-top:5px;
+  margin-bottom:0;
+}
+
+.indent a{
+  margin-left:10px;
+}
+
+.refList .indent a{
+  margin-left:10px;
+}
+
+.hilite{
+  font-size:.9em;
+ font-weight:500;
+  color:#e7535e;
+  margin-bottom: 10px;
+}
+
+.columnOne{
+  width:300px;
+  position: absolute;
+  left: 0;
+}
+
+.columnTwo{
+  width:300px;
+  position: absolute;
+  left: 300px;
+}
+
+.columnThree{
+  width:300px;
+  position: absolute;
+  left: 600px;
+}
+
+
+
+
+

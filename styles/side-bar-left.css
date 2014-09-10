@@ -1,0 +1,56 @@
+@charset "utf-8";
+
+.leftColumn{
+	padding-top: 2px;
+	padding-left: 10px;
+  	padding-right: 10px;
+	width:150px;
+  	background-color: #2d352a;
+  	color:#ffffff;
+	position:absolute;
+	top:1px;
+    bottom:0;
+	left:0;
+}
+
+.leftColumn h5{
+	color:#ada977;
+}
+
+.leftColumn p{
+	color:#ffffff;
+	font-size: .8em;
+}
+
+.leftColumn ul{
+	list-style: none;
+	margin-left:1em;
+	font-size:.9em;
+}
+
+
+.leftColumn .smallNote{
+	color: #ffffff;
+}
+
+.leftColumn .smallWhite{
+  font-size: .8em;
+  color: #ffffff;
+}
+
+
+
+.leftColumn a:hover, a:focus {
+    color: #FF0000; 
+}
+
+.leftColumn .submitForm {
+  color:#000000;
+}
+
+.submitForm form label{
+  color:#ffffff;
+}
+
+
+

@@ -1,0 +1,55 @@
+<div class="leftColumn">
+	<h5>Time Zone</h5>
+	<select id="selectZone" ng-model="selectedZone" ng-options="c.label for c in zoneList" ng-change="selectZone(selectedZone)" ></select>
+	<input type="radio" ng-model="displayType" value="Chart" ng-change="selectDisplayType()">Chart</input>
+	<input type="radio" ng-model="displayType" value="Table"  ng-change="selectDisplayType()">Table</input>
+	<button ng-click="showSearchForm()" ng-show="!formActive" type="button" class="button small">Find Match</button>
+	<!-- <div class="smallNote" ng-show="!formActive">Use Add to include your own online WOT availability.</div> -->
+	<div class="submitForm" ng-show="searchActive">
+		<h5>Search</h5>
+		<div class="attention">Select your local time zone above</div>
+		<form name="searchSchedule" ng-submit="submitSearchForm()">
+			<label>Start time</label>
+			<select id="selectBegin" ng-model="selectedBegin" ng-options="c.clock for c in timeList" ng-change="selectBegin(selectedBegin)" required></select>
+			<label>Tier</label>
+			<select id="selectTier" ng-model="selectedTier" ng-options="c.tier for c in tierList" ng-change="selectTier(selectedTier)" required></select>
+			<button type="submit" class="button small">Submit</button>
+			<button type="button" class="button small"  ng-click="hideForm()">Cancel</button>
+		</form>
+	</div>
+	<div>
+		<p>When you select a Time Zone, all of the begin and end times for all members are transposed to that zone.</p>
+		<!-- <p>For Time Zones to listed convert to UTC (Greenwich Mean Time). <a href="http://www.timeanddate.com/worldclock/converter.html"></a>Conversion Calculator</p> -->
+		<p>Contact Admin if you need to change your listing.</p>
+	</div>
+<div><img src="images/treat-em-rough-us-tank-corps.jpg"></div>
+</div>
+
+<div class=" content timeline">
+	<h4>{{selectedZoneDescription}}<h4/>
+
+	<div id="chartdiv" google-timeline ng-show="displayType=='Chart'"/>
+
+	<div ng-show="displayType=='Table'">	
+		<table st-table="currentTableData" class="table table-striped">
+			<thead>
+			<tr>
+				<th>Gamertag</th>
+				<th>Begin</th>
+				<th>End</th>
+				<th>Tier Lo</th>
+				<th>Tier Hi</th>
+			</tr>
+			</thead>
+			<tbody>
+			<tr ng-repeat="row in currentTableData">
+				<td>{{row.member}}</td>
+				<td>{{row.beg}}</td>
+				<td>{{row.end}}</td>
+				<td>{{row.tier_low}}</td>
+				<td>{{row.tier_high}}</td>
+			</tr>
+			</tbody>
+	</table>
+</div>
+</div>

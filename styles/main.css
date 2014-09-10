@@ -1,0 +1,165 @@
+/* Space out content a bit */
+body {
+  padding-top: 1px;
+  font-size: 100%;
+  color:#000000;
+}
+
+.pageHeader{
+  background-color: #2d352a;
+  height: 67px;
+  border-bottom: 1px solid #cccccc;
+  border-top: 1px solid #cccccc;
+}
+
+
+button, .button {
+  height:40px;
+  width: 130px;
+  background-color: #798351;
+  border-color: #263520;
+  font-size: 1em;
+  padding: 0;
+  margin-top: 5px;
+}
+
+button.small, .button.small {
+    padding-top: 0;
+    padding-right: 1rem;
+    padding-bottom: 0;
+    padding-left: 1rem;
+    font-size: 0.8125rem;
+  }
+
+button:hover, button:focus, .button:hover, .button:focus {
+    background-color: #393939; 
+}
+
+a {
+  color: #ffffff;
+  text-decoration: none;
+  line-height: inherit; }
+  a:hover, a:focus {
+    color: #FF0000; }
+  a img {
+    border: none; 
+ }
+ 
+h1{
+	font-size: 3em;
+	color: #000000;
+	font-weight:bold;
+}
+
+h2{
+	font-size: 2.5em;
+	color: #000000;
+	font-weight:bold;
+}
+
+h3{
+	font-size: 2em;
+	color: #000000;
+	font-weight:bold;
+}
+  
+h4{
+	font-size: 1.2em;
+	color: #000000;
+	font-weight:bold;
+}
+
+p{
+  color:#000000;
+  font-size: 1em;
+}
+
+h5{
+  font-size: 1em;
+  color: #000000;
+  font-weight:bold;
+}
+
+.fullHome{
+  bottom:0;
+  background-color: #000000;
+}
+
+.hrule{
+	 background-color: #2d352a;
+	 height:4px;
+	 margin-top:1px;
+}
+
+
+
+.submitForm {
+  color:#ffffff;
+}
+
+.submitForm form label{
+  color:#ffffff;
+}
+
+
+.attention{
+  color: #e7535e;
+  font-size: 14px;
+  padding-bottom: 5px;
+}
+
+ .top-bar-section li.hover > a:not(.button) {
+      background: #272727;
+      color: white; }
+    .top-bar-section li:not(.has-form) a:not(.button) {
+      padding: 0 15px;
+      line-height: 45px;
+      background: #333333; }
+      .top-bar-section li:not(.has-form) a:not(.button):hover {
+        background: #272727; }
+    .top-bar-section li.active:not(.has-form) a:not(.button) {
+      padding: 0 15px;
+      line-height: 45px;
+      color: white;
+      background: #798351; }
+      .top-bar-section li.active:not(.has-form) a:not(.button):hover {
+        background: #798351; }
+
+
+input[type="text"],
+textarea {
+  font-size: .8rem;
+  height: 2rem;
+  margin: 0 0 .5rem 0;
+  padding: 0.3rem;
+}
+
+select {
+  font-size: 0.8rem;
+  height:2rem;
+  padding: 0;
+  margin:0 0 8px 0;
+}
+
+.subHeader{
+ height: 30px;
+ color:#FFFFFF;
+ background-color: #FF0000;
+ font-size: 1.2em;
+}
+
+
+.gridStyle {
+  border: 1px solid rgb(212,212,212);
+  margin-top:10px;
+  width: 700px;
+  height: 400px
+}
+
+
+
+
+
+
+
+

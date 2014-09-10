@@ -1,0 +1,87 @@
+@charset "utf-8";
+.view{
+	position:absolute;
+ 	left:0;
+ 	top:113px;
+    bottom:0;
+    width: 100%;
+  	color:#000000;
+}
+
+.content{
+ 	position:absolute;
+	top:1px;
+	left:151px;
+	right: 0;
+    bottom:0;
+	margin-left: 10px;
+	margin-top: 10px;
+	width: 100%
+}
+
+.fixed{
+	width:50%;
+}
+
+.content h4{
+	margin-top: 0;
+	padding-top: 0;
+}
+
+/*.fixed{
+	width:900px;
+}*/
+
+.content a{
+  color: #0000FF;
+}
+
+a:hover, a:focus {
+    color: #FF0000; 
+}
+
+.topic{
+  border-top: 1px solid #000000;
+  border-bottom: 1px solid #000000;
+}
+
+.content .submitForm {
+  color:#000000;
+}
+
+.content .submitForm form label{
+  color:#000000;
+}
+
+.content .submitForm form .col1{
+ 	width: 50%;
+ 	float: left;
+ 	padding-right: 5px;
+}
+
+.content .submitForm form .col2{
+ 	width: 50%;
+ 	float: right;
+ 	padding-left: 5px;
+}
+
+.content .smallNote{
+  color: #000000;
+  font-size: .8em;
+  padding-bottom: 2px;
+  padding-top: 2px;
+  text-align: center;
+}
+
+.content .footer{
+	color:#000000;
+	right: 2em;
+}
+
+.content .footer p{
+	font-size: .7em;
+}
+
+
+
+
