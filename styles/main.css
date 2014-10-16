@@ -35,6 +35,16 @@ button:hover, button:focus, .button:hover, .button:focus {
     background-color: #393939; 
 }
 
+button.disabled, button[disabled], .button.disabled, .button[disabled] {
+  background-color: #666666;
+  border-color: #666666;
+  color: white;
+  cursor: default;
+  opacity: 0.7;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+
 a {
   color: #ffffff;
   text-decoration: none;
@@ -106,6 +116,12 @@ h5{
   color: #e7535e;
   font-size: 14px;
   padding-bottom: 5px;
+}
+
+.top-bar-section .name h1{
+  color:#FFFFFF;
+  margin-right: 20px;
+  font-size: .8rem;
 }
 
  .top-bar-section li.hover > a:not(.button) {

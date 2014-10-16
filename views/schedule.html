@@ -1,9 +1,9 @@
 <div class="leftColumn">
 	<h5>Time Zone</h5>
 	<select id="selectZone" ng-model="selectedZone" ng-options="c.label for c in zoneList" ng-change="selectZone(selectedZone)" ></select>
-	<input type="radio" ng-model="displayType" value="Chart" ng-change="selectDisplayType()">Chart</input>
-	<input type="radio" ng-model="displayType" value="Table"  ng-change="selectDisplayType()">Table</input>
-	<button ng-click="showSearchForm()" ng-show="!formActive" type="button" class="button small">Find Match</button>
+	<button type="button" class="button small"  ng-click="resetTable()" ng-show="searchResultsDisplay">Reset</button>
+	<button ng-click="showEventsOnly()" ng-show="!formActive" type="button" class="button small">Events Only</button>
+	<button ng-click="showSearchForm()" ng-show="!formActive" type="button" class="button small">Search</button>
 	<!-- <div class="smallNote" ng-show="!formActive">Use Add to include your own online WOT availability.</div> -->
 	<div class="submitForm" ng-show="searchActive">
 		<h5>Search</h5>
@@ -11,8 +11,6 @@
 		<form name="searchSchedule" ng-submit="submitSearchForm()">
 			<label>Start time</label>
 			<select id="selectBegin" ng-model="selectedBegin" ng-options="c.clock for c in timeList" ng-change="selectBegin(selectedBegin)" required></select>
-			<label>Tier</label>
-			<select id="selectTier" ng-model="selectedTier" ng-options="c.tier for c in tierList" ng-change="selectTier(selectedTier)" required></select>
 			<button type="submit" class="button small">Submit</button>
 			<button type="button" class="button small"  ng-click="hideForm()">Cancel</button>
 		</form>
@@ -27,18 +25,19 @@
 
 <div class=" content timeline">
 	<h4>{{selectedZoneDescription}}<h4/>
-
-	<div id="chartdiv" google-timeline ng-show="displayType=='Chart'"/>
-
-	<div ng-show="displayType=='Table'">	
-		<table st-table="currentTableData" class="table table-striped">
+	<p ng-show="searchResultsDisplay && displayType=='ALL'">Tankers who might be online at {{searchTimeDisplay}}</p>
+	<p ng-show="!searchResultsDisplay && displayType=='ALL'">XBL Schedule for all Registered Members and Events</p>
+	<p ng-show="searchResultsDisplay && displayType=='EVENTS'">XBL Schedule for all Events Only</p>
+	
+	<div class="table-container">
+		<table st-table="currentTableData" st-pagination-scroll  st-pipe="callServer" class="table table-striped">
 			<thead>
 			<tr>
-				<th>Gamertag</th>
-				<th>Begin</th>
-				<th>End</th>
-				<th>Tier Lo</th>
-				<th>Tier Hi</th>
+				<th>XBL Gamertag</th>
+				<th>Begin Time</th>
+				<th>End Time</th>
+				<th>Tier Low</th>
+				<th>Tier High</th>
 			</tr>
 			</thead>
 			<tbody>
@@ -51,5 +50,6 @@
 			</tr>
 			</tbody>
 	</table>
+	<div ng-show="isLoading" class="loading-indicator"></div>
 </div>
 </div>

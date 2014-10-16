@@ -1,0 +1,86 @@
+<div class="leftColumn">
+   <h5>Registration</h5>
+	<div ng-show="gamerCookie==null">
+    <h5>Sign-in</h5>
+    <input type="text" placeholder="XBL Gamertag" ng-model="signInTag">
+    <h3 class="attention" ng-show="signInResult=='FAIL_gamer'">Gamertag not found.</h3>
+    <input type="text" placeholder="Password" ng-model="signInPword">
+    <h3 class="attention" ng-show="signInResult=='FAIL_password'">Password incorrect.</h3>
+    <button ng-click="submitSignIn()" type="button" class="button tiny" >Submit</button>
+  </div>
+	<div><img src="images/tak.jpg"></div>
+</div>
+<div class="fixed content" ui-view>
+	<h5>OFF Member Registration</h5>
+  <h5 ng-show="gamerCookie==null">Sign-in at left if you have already registered.</h5>
+    <p class="attention" ng-show=!newMemberComplete>Registration is required for certain features.</p>
+    <p class="attention" ng-show=newMemberComplete>{{message}}</p>
+    <div class="row">
+        <div class="small-12 columns">
+        <div class="submitForm" ng-show=!newMemberComplete>
+          <form name="addMemberForm" ng-submit="submitNewMemberForm()" novalidate>
+            <div class="col1">
+            <label>1. First name</label>
+            <input name="firstname" type="text" placeholder="first name" ng-model="membername" ng-pattern="charCheck">
+            <div class="attention" ng-show="addMemberForm.firstname.$invalid && this.submissionInvalid">
+              <small class="attention" ng-show="addMemberForm.firstname.$error.pattern">Invalid character.</small>
+            </div>
+            <label>2a. Age</label>
+            <input name="age" type="text" placeholder="age" ng-model="memberage" ng-minlength=2 ng-maxlength=2 ng-pattern="charCheck">
+            <div class="attention" ng-show="addMemberForm.age.$invalid && this.submissionInvalid">
+              <small class="attention" ng-show="addMemberForm.age.$error.minlength">Age is required to be at least 2 characters long.</small>
+              <small class="attention" ng-show="addMemberForm.age.$error.maxlength">Age cannot be longer than 2 characters.</small>
+              <small class="attention" ng-show="addMemberForm.age.$error.pattern">Invalid character.</small>
+            </div>
+            <label>2b. From</label>
+            <input name="resides" type="text" placeholder="residence (state or country)" ng-model="home" ng-pattern="charCheck">
+            <div class="attention" ng-show="addMemberForm.resides.$invalid && this.submissionInvalid">
+              <small class="attention" ng-show="addMemberForm.resides.$error.pattern">Invalid character.</small>
+            </div>
+            <label>3. Gamertag</label>
+            <input name="gamertag" type="text" placeholder="XBL Gamertag" ng-model="xblgamertag" ng-pattern="charCheck" required>
+            <div class="attention" ng-show="addMemberForm.gamertag.$invalid && this.submissionInvalid">
+              <small class="attention" ng-show="addMemberForm.gamertag.$error.required">Gamertag is required.</small>
+              <small class="attention" ng-show="addMemberForm.gamertag.$error.pattern">Invalid character.</small>
+            </div>
+            <label>4. Password</label>
+            <input name="password" type="text" placeholder="password" ng-model="pword" required ng-pattern="charCheck" ng-minlength=4 ng-maxlength=15 >
+            <div class="attention" ng-show="addMemberForm.password.$invalid && this.submissionInvalid">
+              <small class="attention" ng-show="addMemberForm.password.$error.required">Password is required.</small>
+              <small class="attention" ng-show="addMemberForm.password.$error.minlength">Password is required to be at least 6 characters long.</small>
+              <small class="attention" ng-show="addMemberForm.password.$error.maxlength">Password cannot be longer than 15 characters.</small>
+              <small class="attention" ng-show="addMemberForm.password.$error.pattern">Invalid character.</small>
+            </div>
+          </div>
+          <div class="col2">
+          	<label>5. Time zone</label>
+            <select id="selectZone" ng-model="selectedZone" ng-options="c.label for c in zoneList" ng-change="selectZone(selectedZone)" required></select>
+            <label>6a. Start time</label>
+            <select id="selectBegin" ng-model="selectedBegin" ng-options="c.clock for c in timeList" ng-change="selectBegin(selectedBegin)" required></select>
+            <label>6b. End time</label>
+            <select id="selectEnd" ng-model="selectedEnd" ng-options="c.clock for c in timeListB" ng-change="selectEnd(selectedEnd)" required></select>
+            <label>7a. Low Tier</label>
+            <select id="selectLow" ng-model="selectedLow" ng-options="c.tier for c in tierList" ng-change="selectLow(selectedLow)" required></select>
+            <label>7b. High Tier</label>
+            <select id="selectHi" ng-model="selectedHigh" ng-options="c.tier for c in tierList" ng-change="selectHigh(selectedHigh)" required></select>
+             <label><input type="radio" ng-model="isNewRadioBtnValue" value=true> New Member (less than 30 days) </label>
+            <button type="submit" class="button small">Submit</button>
+          </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+        <div class="large-10 medium-12 small-12 columns">
+          <div class="footer" ng-show=!newMemberComplete>
+            <h5>Instructions</h5>
+            <p>1. Your first name or how you prefer others to address you online.</br>
+            2. Age and where you are from if you don't mind.  Just helps to get to know you. Optional.</br>
+            3. Your Gamertag should be exactly as it is on XBL, including letter case and spaces.</br>
+            4. Unfortunantly, you've done this many times.</br> 
+            5. Select your time zone.</br> 
+            6. Start and End times indicate when you are likely to be playing WoT so other members can choose to send an XBL Friend Request. If your avaliability is split during the day or different on weekends, just set the Begin and End to include all the hours. Example: You are available 6PM-10PM on weekdays and 10AM-12AM on weekends.  Set Begin Time to 10AM and End Time to 10PM.  Once you are friended, they can see when you are available.</br>
+            7. Lowest and Highest Tiers you are willing and/or able to play. You will be able to edit this later when needed.</p>
+          </div>
+      </div>
+</div>

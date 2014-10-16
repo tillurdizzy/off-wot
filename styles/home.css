@@ -22,6 +22,7 @@ margin: 0 auto;
 	color: #ffffff;
 	top:1px;
     bottom:0;
+    height: 1500px;
 	left:0;
 }
 
@@ -36,3 +37,9 @@ margin: 0 auto;
 	width: 100%
 }
 
+.twitterContainer{
+	width: 400px;
+	height: 400px;
+	float:left;
+	margin-right: 20px;
+}

@@ -3,13 +3,13 @@
 	<div><img src="images/join.jpg"></div>
 </div>
 <div class="content">	
-	<!-- <div class="gridStyle" ng-grid="newMemberGrid"></div>	 -->
+	<h4>Welcome to OFF!</h4>
 	<table st-table="newMemberData" class="table table-striped">
 	<thead>
 	<tr>
 		<th>First Name</th>
-		<th>Gamertag</th>
-		<th>Base</th>
+		<th>XBL Gamertag</th>
+		<th>Home</th>
 		<th>Age</th>
 		<th>Tier Lo</th>
 		<th>Tier Hi</th>
@@ -17,9 +17,9 @@
 	</thead>
 	<tbody>
 	<tr ng-repeat="row in newMemberData">
-		<td>{{row.name}}</td>
+		<td>{{row.member}}</td>
 		<td>{{row.gamertag}}</td>
-		<td>{{row.base}}</td>
+		<td>{{row.residence}}</td>
 		<td>{{row.age}}</td>
 		<td>{{row.lowtier}}</td>
 		<td>{{row.hitier}}</td>

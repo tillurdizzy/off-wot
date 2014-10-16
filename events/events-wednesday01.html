@@ -1,0 +1,52 @@
+<div class="leftColumn">
+	<h5>Events</h5>
+	<button ng-click="backToMenu()" type="button" class="button small">Back</button>
+	<div event-left-column></div>
+</div>
+<div class="eventListings fixed content">
+	<h1>Wallet Warrior Wednesday</h1>
+	<div class="eventPhoto"><img src="events/images/WalletWarriorWed.jpg" width="250"></div>
+	<div class="eventDetails">
+		<h2>8PM - 10PM EST</h2>
+		<h2>All Premiums any tier</h2>
+		<h2>Hosted by mrzip98</h2>
+	</div>
+	
+	<div class="listItem" style="clear:both;">
+		<button ng-click="addAttendee('A')" type="button" class="button tiny" ng-disabled="eventClosedA" ng-show="!isRegistered_A">Sign Up</button>
+		<button ng-click="cancelEvent('A')" type="button" class="button tiny alert" ng-show="isRegistered_A==true">Cancel</button>
+		<div class="datetitle"><h2>October 1</h2></div>
+		<ol><li ng-repeat="item in AttendeesA">{{item.gamerTag}}</li></ol>
+		
+	</div>
+	<div class="listItem">
+		<button ng-click="addAttendee('B')" type="button" class="button tiny" ng-disabled="eventClosedB" ng-show="!isRegistered_B">Sign Up</button>
+		<button ng-click="cancelEvent('B')" type="button" class="button tiny alert" ng-show="isRegistered_B==true">Cancel</button>
+		<div class="datetitle"><h2>October 8</h2></div>
+		<ol><li ng-repeat="item in AttendeesB">{{item.gamerTag}}</li></ol>
+		
+	</div>
+	<div class="listItem">
+		<button ng-click="addAttendee('C')" type="button" class="button tiny" ng-disabled="eventClosedC" ng-show="!isRegistered_C">Sign Up</button>
+		<button ng-click="cancelEvent('C')" type="button" class="button tiny alert" ng-show="isRegistered_C==true">Cancel</button>
+		<div class="datetitle"><h2>October 15</h2></div>
+		<ol><li ng-repeat="item in AttendeesC">{{item.gamerTag}}</li></ol>
+		
+	</div>
+	<div class="listItem">
+		<button ng-click="addAttendee('D')" type="button" class="button tiny" ng-disabled="eventClosedD" ng-show="!isRegistered_D">Sign Up</button></ol>
+		<button ng-click="cancelEvent('D')" type="button" class="button tiny alert" ng-show="isRegistered_D==true">Cancel</button>
+		<div class="datetitle"><h2>October 22</h2></div>
+		<ol><li ng-repeat="item in AttendeesD">{{item.gamerTag}}</li></ol>
+		
+	</div>
+	<div class="listItem">
+		<button ng-click="addAttendee('E')" type="button" class="button tiny" ng-disabled="eventClosedE" ng-show="!isRegistered_E">Sign Up</button></ol>
+		<button ng-click="cancelEvent('E')" type="button" class="button tiny alert" ng-show="isRegistered_E==true">Cancel</button>
+		<div class="datetitle"><h2>October 29</h2></div>
+		<ol><li ng-repeat="item in AttendeesE">{{item.gamerTag}}</li></ol>
+		
+	</div>
+
+</div>
+

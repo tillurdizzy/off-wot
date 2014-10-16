@@ -1,23 +1,22 @@
 'use strict';
 
 
- APP.controller('HomeCtrl', function ($scope) {
-    
- });
+APP.controller('HomeCtrl', ['$scope','cookieSrvc',function ($scope,cookieSrvc) {
+	var CS = cookieSrvc;
 
-APP.controller('EventsCtrl', function ($scope) {
+    $scope.gamerCookie = null;
+
+	$scope.getGamerCookie = function(){
+ 		$scope.gamerCookie = CS.gamerCookie;
+ 	};
+
+ 	$scope.getGamerCookie();
+
+ }]);
+
+
+APP.controller('ContributeCtrl', function ($scope) {
     
 });
 
-APP.controller('AnnouncementsCtrl', function ($scope) {
-    
-});
-
-APP.controller('TrainingCtrl', function ($scope) {
-    
-});
-
-APP.controller('ReferenceCtrl', function ($scope) {
-    
-});
 

@@ -1,0 +1,88 @@
+@charset "utf-8";
+
+
+.refList{
+  margin-top: 10px;
+  padding-left: 10px;
+}
+
+.refList p{
+  font-size:.8em;
+  margin-top:0;
+  margin-bottom:0;
+}
+
+.refListLink{
+  height: 25px;
+  width: 400px;
+  background-color: #2d352a;
+  border: 1px solid #000000;
+  color:#ffffff;
+  margin-bottom: 5px;
+  padding-left: 5px;
+  vertical-align: middle;
+}
+
+.refListLink a{
+  font-size:.9em;
+  vertical-align: middle;
+  line-height: 25px;
+}
+
+.refListLink a:link{
+    color: #FC9200; 
+}
+
+.refListLink a:visited{
+    color: #ffd396; 
+}
+
+.refListLink a:hover, a:focus {
+    color: #CC2801; 
+}
+
+.refList h2{
+  font-size:1em;
+  font-weight:500;
+  color:#000000;
+  margin-top:5px;
+  margin-bottom:0;
+}
+
+.indent a{
+  margin-left:10px;
+}
+
+.refList .indent a{
+  margin-left:10px;
+}
+
+.hilite{
+  font-size:.9em;
+ font-weight:500;
+  color:#e7535e;
+  margin-bottom: 10px;
+}
+
+.columnOne{
+  width:300px;
+  position: absolute;
+  left: 0;
+}
+
+.columnTwo{
+  width:300px;
+  position: absolute;
+  left: 300px;
+}
+
+.columnThree{
+  width:300px;
+  position: absolute;
+  left: 600px;
+}
+
+
+
+
+

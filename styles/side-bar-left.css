@@ -3,13 +3,14 @@
 .leftColumn{
 	padding-top: 2px;
 	padding-left: 10px;
-  	padding-right: 10px;
+  padding-right: 10px;
 	width:150px;
-  	background-color: #2d352a;
-  	color:#ffffff;
+  background-color: #2d352a;
+  color:#ffffff;
 	position:absolute;
 	top:1px;
-    bottom:0;
+  bottom:0;
+  height:100%;
 	left:0;
 }
 
@@ -28,6 +29,18 @@
 	font-size:.9em;
 }
 
+.leftColumn ul li{
+  list-style: none;
+  margin-left:1em;
+  font-size:.9em;
+}
+
+.h3{
+  color: #e7535e;
+  font-size: 14px;
+  padding-bottom: 0px;
+}
+
 
 .leftColumn .smallNote{
 	color: #ffffff;
@@ -38,10 +51,20 @@
   color: #ffffff;
 }
 
+.leftColumn img{
+  margin-top: 10px;
+}
 
+.leftColumn a:link{
+    color: #FC9200; 
+}
+
+.leftColumn a:visited{
+    color: #ffd396; 
+}
 
 .leftColumn a:hover, a:focus {
-    color: #FF0000; 
+    color: #CC2801; 
 }
 
 .leftColumn .submitForm {
@@ -50,6 +73,14 @@
 
 .submitForm form label{
   color:#ffffff;
+}
+
+.sideMenu button.tiny, .button.tiny{
+  height:25px;
+  width:100%;
+  font-size: .8em;
+  padding: 0;
+  margin-bottom: 3px;
 }
 
 

@@ -1,0 +1,532 @@
+
+	<div class="leftColumn">  
+		<h5>Select Map</h5>
+		<select id="selectMap" ng-model="selectedMap" ng-options="c.label for c in mapList" ng-change="selectMap(selectedMap)" ></select>
+		<div class="radioGroup">
+			<p><input type="checkbox" ng-model="showTankOne" ng-change="filterMapLayers()">  Red Spawn</p>
+			<p><input type="checkbox" ng-model="showTankTwo" ng-change="filterMapLayers()">  Green Spawn</p>
+		</div>
+		
+
+		<div class="submitForm">
+			<p class="smallNote" ng-show="formstate.visible">Choose spawn location and object type then click on the map to draw.</p>
+			<select id="selectSpawn" ng-model="selectedSpawn" ng-options="c.label for c in spawnLocationList" ng-change="selectSpawnType(selectedSpawn)" ng-show="formstate.visible"></select>
+			<select id="selectType" ng-model="selectedTank" ng-options="c.label for c in platoonConfig" ng-change="selectTankType(selectedTank)" ng-show="formstate.visible"></select>
+			<button id="addMarker" ng-click="saveMarker()" type="button" class="button small" ng-show="formstate.role=='saveMarker'">Save</button>
+			<button id="reject" ng-click="rejectForm()" type="button" class="button small" ng-show="formstate.role=='saveMarker'">Reject</button>
+			<button id="cancelForm" ng-click="cancelForm()" type="button" class="button small" ng-show="formstate.role=='placeMarker'">Cancel</button>
+			<button id="showform" ng-click="showForm()" type="button" class="button small" ng-show="!formstate.visible && formstate.role!='deleteMarker'">Add Marker</button>
+			<button id="delete" ng-click="deleteMarker()" type="button" class="button small alert" ng-show="formstate.role=='deleteMarker'">Delete</button>
+			<button id="savePath" ng-click="savePath()" type="button" class="button small" ng-show="formstate.role=='createPath'">Save Path</button>
+			<button id="canceldelete" ng-click="cancelDelete()" type="button" class="button small" ng-show="formstate.role=='deleteMarker'">Cancel</button>
+			
+		</div>
+	</div>
+
+	<div kinetic-platoon class="canvasContainer" formstate="formstate" is-editable="yes" id="idforkinetic"></div>
+
+
+	<div class="mapNotes" ng-show="selectedMap.value=='abbey'">
+		<h1>Abbey (Monastery)</h1>
+		<h2>3 Tank Platoon</h2>
+		<p>{{author}}</p>
+		<h3>Tank 1</h3>
+		<p></p>
+		<h3>Tank 2</h3>
+		<p></p>
+		<h3>Tank 3</h3>
+		<p></p>
+	</div>
+	<div class="mapNotes" ng-show="selectedMap.value=='airfield'">
+		<h1>Airfield</h1>
+		<h2>3 Tank Platoon</h2>
+		<p>{{author}}</p>
+		<h3>Tank 1</h3>
+		<p></p>
+		<h3>Tank 2</h3>
+		<p></p>
+		<h3>Tank 3</h3>
+		<p></p>
+
+	</div>
+	<div class="mapNotes" ng-show="selectedMap.value=='arctic'">
+		<h1>Arctic</h1>
+		<h2>3 Tank Platoon</h2>
+		<p>{{author}}</p>
+		<h3>Tank 1</h3>
+		<p></p>
+		<h3>Tank 2</h3>
+		<p></p>
+		<h3>Tank 3</h3>
+		<p></p>
+
+	</div>
+	<div class="mapNotes" ng-show="selectedMap.value=='cliff'">
+		<h1>Cliff</h1>
+		<h2>3 Tank Platoon</h2>
+		<p>{{author}}</p>
+		<h3>Tank 1</h3>
+		<p></p>
+		<h3>Tank 2</h3>
+		<p></p>
+		<h3>Tank 3</h3>
+		<p></p>
+
+	</div>
+	
+	<div class="mapNotes" ng-show="selectedMap.value=='hallouf'">
+		<h1>El Hallouf</h1>
+		<h2>3 Tank Platoon</h2>
+		<p>{{author}}</p>
+		<h3>Tank 1</h3>
+		<p></p>
+		<h3>Tank 2</h3>
+		<p></p>
+		<h3>Tank 3</h3>
+		<p></p>
+		
+	</div>
+	<div class="mapNotes" ng-show="selectedMap.value=='hallouf_e'">
+		<h1>El Hallouf Encounter Battle</h1>
+		<h2>3 Tank Platoon</h2>
+		<p>{{author}}</p>
+		<h3>Tank 1</h3>
+		<p></p>
+		<h3>Tank 2</h3>
+		<p></p>
+		<h3>Tank 3</h3>
+		<p></p>
+		
+	</div>
+
+	<div class="mapNotes" ng-show="selectedMap.value=='ensk'">
+		<h1>Ensk Standard Battle</h1>
+		<h2>3 Tank Platoon</h2>
+		<p>{{author}}</p>
+		<h3>Tank 1</h3>
+		<p></p>
+		<h3>Tank 2</h3>
+		<p></p>
+		<h3>Tank 3</h3>
+		<p></p>
+	</div>
+
+	<div class="mapNotes" ng-show="selectedMap.value=='ensk_e'">
+		<h1>Ensk Encounter Battle</h1>
+		<h2>3 Tank Platoon</h2>
+		<p>{{author}}</p>
+		<h3>Tank 1</h3>
+		<p></p>
+		<h3>Tank 2</h3>
+		<p></p>
+		<h3>Tank 3</h3>
+		<p></p>
+	</div>
+
+	<div class="mapNotes" ng-show="selectedMap.value=='erlenberg'">
+		<h1>Erlenberg</h1>
+		<h2>3 Tank Platoon</h2>
+		<p>{{author}}</p>
+		<h3>Tank 1</h3>
+		<p></p>
+		<h3>Tank 2</h3>
+		<p></p>
+		<h3>Tank 3</h3>
+		<p></p>
+
+	</div>
+	<div class="mapNotes" ng-show="selectedMap.value=='erlenberg_e'">
+		<h1>Erlenberg</h1>
+		<h2>3 Tank Platoon</h2>
+		<p>{{author}}</p>
+		<h3>Tank 1</h3>
+		<p></p>
+		<h3>Tank 2</h3>
+		<p></p>
+		<h3>Tank 3</h3>
+		<p></p>
+
+	</div>
+	<div class="mapNotes" ng-show="selectedMap.value=='erlenberg_a'">
+		<h1>Erlenberg</h1>
+		<h2>3 Tank Platoon</h2>
+		<p>{{author}}</p>
+		<h3>Tank 1</h3>
+		<p></p>
+		<h3>Tank 2</h3>
+		<p></p>
+		<h3>Tank 3</h3>
+		<p></p>
+
+	</div>
+
+	<div class="mapNotes" ng-show="selectedMap.value=='fish'">
+		<h1>Fisherman's Bay</h1>
+		<h2>3 Tank Platoon</h2>
+		<p>{{author}}</p>
+		<h3>Tank 1</h3>
+		<p></p>
+		<h3>Tank 2</h3>
+		<p></p>
+		<h3>Tank 3</h3>
+		<p></p>
+	</div>
+	<div class="mapNotes" ng-show="selectedMap.value=='fjords'">
+		<h1>Fjords</h1>
+		<h2>3 Tank Platoon</h2>
+		<p>{{author}}</p>
+		<h3>Tank 1</h3>
+		<p></p>
+		<h3>Tank 2</h3>
+		<p></p>
+		<h3>Tank 3</h3>
+		<p></p>
+
+	</div>
+	<div class="mapNotes" ng-show="selectedMap.value=='himmelsdorf'">
+		<h1>Himmelsdorf</h1>
+		<h2>3 Tank Platoon</h2>
+		<p>{{author}}</p>
+		<h3>Tank 1</h3>
+		<p></p>
+		<h3>Tank 2</h3>
+		<p></p>
+		<h3>Tank 3</h3>
+		<p></p>
+
+	</div>
+	<div class="mapNotes" ng-show="selectedMap.value=='karelia'">
+		<h1>Karelia</h1>
+		<h2>3 Tank Platoon</h2>
+		<p>{{author}}</p>
+		<h3>Tank 1</h3>
+		<p></p>
+		<h3>Tank 2</h3>
+		<p></p>
+		<h3>Tank 3</h3>
+		<p></p>
+
+
+	</div>
+	<div class="mapNotes" ng-show="selectedMap.value=='komarin'">
+		<h1>Komarin</h1>
+		<h2>3 Tank Platoon</h2>
+		<p>{{author}}</p>
+		<h3>Tank 1</h3>
+		<p></p>
+		<h3>Tank 2</h3>
+		<p></p>
+		<h3>Tank 3</h3>
+		<p></p>
+	</div>
+	<div class="mapNotes" ng-show="selectedMap.value=='lakeville'">
+		<h1>Lakeville</h1>
+		<h2>3 Tank Platoon</h2>
+		<p>{{author}}</p>
+		<h3>Tank 1</h3>
+		<p></p>
+		<h3>Tank 2</h3>
+		<p></p>
+		<h3>Tank 3</h3>
+		<p></p>
+	</div>
+	<div class="mapNotes" ng-show="selectedMap.value=='lakeville_e'">
+		<h1>Lakeville</h1>
+		<h2>3 Tank Platoon</h2>
+		<p>{{author}}</p>
+		<h3>Tank 1</h3>
+		<p></p>
+		<h3>Tank 2</h3>
+		<p></p>
+		<h3>Tank 3</h3>
+		<p></p>
+	</div>
+	<div class="mapNotes" ng-show="selectedMap.value=='oaks'">
+		<h1>Live Oaks</h1>
+		<h2>3 Tank Platoon</h2>
+		<p>{{author}}</p>
+		<h3>Tank 1</h3>
+		<p></p>
+		<h3>Tank 2</h3>
+		<p></p>
+		<h3>Tank 3</h3>
+		<p></p>
+	</div>
+	<div class="mapNotes" ng-show="selectedMap.value=='malinovka'">
+		<h1>Lakeville</h1>
+		<h2>3 Tank Platoon</h2>
+		<p>{{author}}</p>
+		<h3>Tank 1</h3>
+		<p></p>
+		<h3>Tank 2</h3>
+		<p></p>
+		<h3>Tank 3</h3>
+		<p></p>
+	</div>
+	<div class="mapNotes" ng-show="selectedMap.value=='malinovka_e'">
+		<h1>Lakeville</h1>
+		<h2>3 Tank Platoon</h2>
+		<p>{{author}}</p>
+		<h3>Tank 1</h3>
+		<p></p>
+		<h3>Tank 2</h3>
+		<p></p>
+		<h3>Tank 3</h3>
+		<p></p>
+	</div>
+	<div class="mapNotes" ng-show="selectedMap.value=='malinovka_a'">
+		<h1>Lakeville</h1>
+		<h2>3 Tank Platoon</h2>
+		<p>{{author}}</p>
+		<h3>Tank 1</h3>
+		<p></p>
+		<h3>Tank 2</h3>
+		<p></p>
+		<h3>Tank 3</h3>
+		<p></p>
+	</div>
+	<div class="mapNotes" ng-show="selectedMap.value=='mines'">
+		<h1>Mines</h1>
+		<h2>3 Tank Platoon</h2>
+		<p>{{author}}</p>
+		<h3>Tank 1</h3>
+		<p></p>
+		<h3>Tank 2</h3>
+		<p></p>
+		<h3>Tank 3</h3>
+		<p></p>
+	</div>
+	<div class="mapNotes" ng-show="selectedMap.value=='mines_e'">
+		<h1>Mines</h1>
+		<h2>3 Tank Platoon</h2>
+		<p>{{author}}</p>
+		<h3>Tank 1</h3>
+		<p></p>
+		<h3>Tank 2</h3>
+		<p></p>
+		<h3>Tank 3</h3>
+		<p></p>
+	</div>
+	<div class="mapNotes" ng-show="selectedMap.value=='mountain'">
+		<h1>Mountain Pass</h1>
+		<h2>3 Tank Platoon</h2>
+		<p>{{author}}</p>
+		<h3>Tank 1</h3>
+		<p></p>
+		<h3>Tank 2</h3>
+		<p></p>
+		<h3>Tank 3</h3>
+		<p></p>
+	</div>
+	<div class="mapNotes" ng-show="selectedMap.value=='murovanka'">
+		<h1>Murovanka</h1>
+		<h2>3 Tank Platoon</h2>
+		<p>{{author}}</p>
+		<h3>Tank 1</h3>
+		<p></p>
+		<h3>Tank 2</h3>
+		<p></p>
+		<h3>Tank 3</h3>
+		<p></p>
+	</div>
+	<div class="mapNotes" ng-show="selectedMap.value=='murovanka_e'">
+		<h1>Murovanka</h1>
+		<h2>3 Tank Platoon</h2>
+		<p>{{author}}</p>
+		<h3>Tank 1</h3>
+		<p></p>
+		<h3>Tank 2</h3>
+		<p></p>
+		<h3>Tank 3</h3>
+		<p></p>
+	</div>
+	<div class="mapNotes" ng-show="selectedMap.value=='port'">
+		<h1>Port</h1>
+		<h2>3 Tank Platoon</h2>
+		<p>{{author}}</p>
+		<h3>Tank 1</h3>
+		<p></p>
+		<h3>Tank 2</h3>
+		<p></p>
+		<h3>Tank 3</h3>
+		<p></p>
+	</div>
+	<div class="mapNotes" ng-show="selectedMap.value=='prokhorovka'">
+		<h1>Prokhorovka</h1>
+		<h2>Quick Strategy</h2>
+		<h2>3 Tank Platoon</h2>
+		<p>{{author}}</p>
+		<h3>Tank 1</h3>
+		<p></p>
+		<h3>Tank 2</h3>
+		<p></p>
+		<h3>Tank 3</h3>
+		<p></p>
+	</div>
+	<div class="mapNotes" ng-show="selectedMap.value=='prokhorovka_e'">
+		<h1>Prokhorovka</h1>
+		<h2>3 Tank Platoon</h2>
+		<p>{{author}}</p>
+		<h3>Tank 1</h3>
+		<p></p>
+		<h3>Tank 2</h3>
+		<p></p>
+		<h3>Tank 3</h3>
+		<p></p>
+	</div>
+	<div class="mapNotes" ng-show="selectedMap.value=='province'">
+		<h1>Province</h1>
+		<h2>3 Tank Platoon</h2>
+		<p>{{author}}</p>
+		<h3>Tank 1</h3>
+		<p></p>
+		<h3>Tank 2</h3>
+		<p></p>
+		<h3>Tank 3</h3>
+		<p></p>
+	</div>
+	<div class="mapNotes" ng-show="selectedMap.value=='redshire'">
+		<h1>Redshire</h1>
+		<h2>3 Tank Platoon</h2>
+		<p>{{author}}</p>
+		<h3>Tank 1</h3>
+		<p></p>
+		<h3>Tank 2</h3>
+		<p></p>
+		<h3>Tank 3</h3>
+		<p></p>
+		
+	</div>
+	<div class="mapNotes" ng-show="selectedMap.value=='redshire_e'">
+		<h1>Redshire</h1>
+		<h2>3 Tank Platoon</h2>
+		<p>{{author}}</p>
+		<h3>Tank 1</h3>
+		<p></p>
+		<h3>Tank 2</h3>
+		<p></p>
+		<h3>Tank 3</h3>
+		<p></p>
+		
+	</div>
+	<div class="mapNotes" ng-show="selectedMap.value=='ruinberg'">
+		<h1>Ruinberg</h1>
+		<h2>3 Tank Platoon</h2>
+		<p>{{author}}</p>
+		<h3>Tank 1</h3>
+		<p></p>
+		<h3>Tank 2</h3>
+		<p></p>
+		<h3>Tank 3</h3>
+		<p></p>
+	</div>
+	<div class="mapNotes" ng-show="selectedMap.value=='sandriver'">
+		<h1>Sand River</h1>
+		<h2>3 Tank Platoon</h2>
+		<p>{{author}}</p>
+		<h3>Tank 1</h3>
+		<p></p>
+		<h3>Tank 2</h3>
+		<p></p>
+		<h3>Tank 3</h3>
+		<p></p>
+	</div>
+	<div class="mapNotes" ng-show="selectedMap.value=='sandriver_e'">
+		<h1>Sand River</h1>
+		<h2>3 Tank Platoon</h2>
+		<p>{{author}}</p>
+		<h3>Tank 1</h3>
+		<p></p>
+		<h3>Tank 2</h3>
+		<p></p>
+		<h3>Tank 3</h3>
+		<p></p>
+	</div>
+	<div class="mapNotes" ng-show="selectedMap.value=='sandriver_a'">
+		<h1>Sand River</h1>
+		<h2>3 Tank Platoon</h2>
+		<p>{{author}}</p>
+		<h3>Tank 1</h3>
+		<p></p>
+		<h3>Tank 2</h3>
+		<p></p>
+		<h3>Tank 3</h3>
+		<p></p>
+	</div>
+	<div class="mapNotes" ng-show="selectedMap.value=='sigfried'">
+		<h1>Siegfried Line</h1>
+		<h2>3 Tank Platoon</h2>
+		<p>{{author}}</p>
+		<h3>Tank 1</h3>
+		<p></p>
+		<h3>Tank 2</h3>
+		<p></p>
+		<h3>Tank 3</h3>
+		<p></p>
+	</div>
+	<div class="mapNotes" ng-show="selectedMap.value=='southcoast'">
+		<h1>South Coast</h1>
+		<h2>3 Tank Platoon</h2>
+		<p>{{author}}</p>
+		<h3>Tank 1</h3>
+		<p></p>
+		<h3>Tank 2</h3>
+		<p></p>
+		<h3>Tank 3</h3>
+		<p></p>
+	</div>
+	<div class="mapNotes" ng-show="selectedMap.value=='steppes'">
+		<h1>Steppes Line</h1>
+		<h2>3 Tank Platoon</h2>
+		<p>{{author}}</p>
+		<h3>Tank 1</h3>
+		<p></p>
+		<h3>Tank 2</h3>
+		<p></p>
+		<h3>Tank 3</h3>
+		<p></p>
+	</div>
+	<div class="mapNotes" ng-show="selectedMap.value=='swamp'">
+		<h1>Swamp</h1>
+		<h2>3 Tank Platoon</h2>
+		<p>{{author}}</p>
+		<h3>Tank 1</h3>
+		<p></p>
+		<h3>Tank 2</h3>
+		<p></p>
+		<h3>Tank 3</h3>
+		<p></p>
+	</div>
+	<div class="mapNotes" ng-show="selectedMap.value=='Westfield'">
+		<h1>Westfield</h1>
+		<h2>3 Tank Platoon</h2>
+		<p>{{author}}</p>
+		<h3>Tank 1</h3>
+		<p></p>
+		<h3>Tank 2</h3>
+		<p></p>
+		<h3>Tank 3</h3>
+		<p></p>
+	</div>
+	<div class="mapNotes" ng-show="selectedMap.value=='Westfield_a'">
+		<h1>Westfield</h1>
+		<h2>3 Tank Platoon</h2>
+		<p>{{author}}</p>
+		<h3>Tank 1</h3>
+		<p></p>
+		<h3>Tank 2</h3>
+		<p></p>
+		<h3>Tank 3</h3>
+		<p></p>
+	</div>
+	<div class="mapNotes" ng-show="selectedMap.value=='widepark'">
+		<h1>Widepark</h1>
+		<h2>3 Tank Platoon</h2>
+		<p>{{author}}</p>
+		<h3>Tank 1</h3>
+		<p></p>
+		<h3>Tank 2</h3>
+		<p></p>
+		<h3>Tank 3</h3>
+		<p></p>
+	</div>

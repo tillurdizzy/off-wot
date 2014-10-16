@@ -1,0 +1,638 @@
+
+	<div class="leftColumn">
+		<h5>Commander</h5>
+		<select id="selectCommander" ng-model="selectedCommander" ng-options="c.label for c in commanderList" ng-change="selectCommander(selectedCommander)" ></select>  
+		<h5>Battlefield</h5>
+		<select id="selectMap" ng-model="selectedMap" ng-options="c.label for c in mapList" ng-change="selectMap(selectedMap)" ></select>
+		<div class="radioGroup">
+			<p><input type="radio" ng-model="showLayer" value="I" ng-change="filterMapLayers()">  Strategy I</p>
+			<p><input type="radio" ng-model="showLayer" value="II" ng-change="filterMapLayers()">   Strategy II</p>
+			<p><input type="radio" ng-model="showLayer" value="III" ng-change="filterMapLayers()">   Strategy III</p>
+			<p><input type="radio" ng-model="showLayer" value="IV" ng-change="filterMapLayers()">   Strategy IV</p>
+		</div>
+		<button id="editBtn" ng-click="clickEditBtn()" type="button" class="button small" >Edit Map</button>
+		<div ng-show="showLogIn">
+			<h5>Log in</h5>
+			<input type="text" placeholder="XBL Gamertag" ng-model="signInTag">
+			<h3 class="attention" ng-show="signInResult=='FAIL_gamer'">Gamertag not found.</h3>
+			<input type="text" placeholder="Password" ng-model="signInPword">
+			<h3 class="attention" ng-show="signInResult=='FAIL_password'">Password incorrect.</h3>
+			<button ng-click="submitSignIn()" type="button" class="button tiny" >Submit</button>
+		</div>
+	</div>
+
+	<div kinetic-platoon class="canvasContainer" formstate="formstate" is-editable="yes" id="mapdisplay"></div>
+
+	<div ng-show="showHelp!=true">
+	<div class="mapNotes" ng-show="selectedMap.value=='abbey'">
+		<h1>Abbey (Monastery)</h1>
+		<h2>Platoon Strategy</h2>
+		<p>by {{selectedCommander.value}}</p>
+		<h3>Strategy I</h3>
+		<p ng-show="selectedCommander.value=='Example'">North spawn, attach West side.  Tanks 1 and 2 should push through to enemy base, Tanks 3 and 4 take up positions on the ridge.</p>
+		<p></p>
+		<h3>Strategy II</h3>
+		<p ng-show="selectedCommander.value=='Example'">North spawn, attach East side.  Regroup in sector H7.</p>
+		<p></p>
+		<h3>Strategy III</h3>
+		<p ng-show="selectedCommander.value=='Example'">South spawn, attach East side.  Tanks 1 and 2 take the lower road, Tanks 3 and 4 the ridge.</p>
+		<p></p>
+		<h3>Strategy IV</h3>
+		<p ng-show="selectedCommander.value=='Example'">South spawn, attach West side.  Regroup at B7.</p>
+		<p></p>
+	</div>
+	<div class="mapNotes" ng-show="selectedMap.value=='airfield'">
+		<h1>Airfield</h1>
+		<h2>Platoon Strategy</h2>
+		<p>by {{selectedCommander.value}}</p>
+		<h3>Strategy I</h3>
+		<p></p>
+		<h3>Strategy II</h3>
+		<p></p>
+		<h3>Strategy III</h3>
+		<p></p>
+		<h3>Strategy IV</h3>
+		<p></p>
+
+</div>
+	<div class="mapNotes" ng-show="selectedMap.value=='arctic'">
+		<h1>Arctic</h1>
+		<h2>Platoon Strategy</h2>
+		<p>by {{selectedCommander.value}}</p>
+		<h3>Strategy I</h3>
+		<p></p>
+		<h3>Strategy II</h3>
+		<p></p>
+		<h3>Strategy III</h3>
+		<p></p>
+		<h3>Strategy IV</h3>
+		<p></p>
+
+	</div>
+	<div class="mapNotes" ng-show="selectedMap.value=='cliff'">
+		<h1>Cliff</h1>
+		<h2>Platoon Strategy</h2>
+		<p>by {{selectedCommander.value}}</p>
+		<h3>Strategy I</h3>
+		<p ng-show="selectedCommander.value=='Example'">Around the Lighthouse.  Tanks 1 and 2 hug the cliff and trade firing position.  Tanks 3 and 4 take cover behind rocks to the outside.</p>
+		<p></p>
+		<h3>Strategy II</h3>
+		
+		<p></p>
+		<h3>Strategy III</h3>
+		<p ng-show="selectedCommander.value=='Example'">Around the Lighthouse.  Tanks 1 and 2 hug the cliff and trade firing position.  Tanks 3 and 4 take cover behind rocks and in the town.</p>
+		<p></p>
+		<h3>Strategy IV</h3>
+		
+		<p></p>
+
+	</div>
+	
+	<div class="mapNotes" ng-show="selectedMap.value=='hallouf'">
+		<h1>El Hallouf</h1>
+		<h2>Platoon Strategy</h2>
+		<p>by {{selectedCommander.value}}</p>
+		<h3>Strategy I</h3>
+		<p></p>
+		<h3>Strategy II</h3>
+		<p></p>
+		<h3>Strategy III</h3>
+		<p></p>
+		<h3>Strategy IV</h3>
+		<p></p>
+		
+	</div>
+	<div class="mapNotes" ng-show="selectedMap.value=='hallouf_e'">
+		<h1>El Hallouf Encounter Battle</h1>
+		<h2>Platoon Strategy</h2>
+		<p>by {{selectedCommander.value}}</p>
+		<h3>Strategy I</h3>
+		<p></p>
+		<h3>Strategy II</h3>
+		<p></p>
+		<h3>Strategy III</h3>
+		<p></p>
+		<h3>Strategy IV</h3>
+		<p></p>
+		
+	</div>
+
+	<div class="mapNotes" ng-show="selectedMap.value=='ensk'">
+		<h1>Ensk Standard Battle</h1>
+		<h2>Platoon Strategy</h2>
+		<p>by {{selectedCommander.value}}</p>
+		<h3>Strategy I</h3>
+		<p></p>
+		<h3>Strategy II</h3>
+		<p></p>
+		<h3>Strategy III</h3>
+		<p></p>
+		<h3>Strategy IV</h3>
+		<p></p>
+	</div>
+
+	<div class="mapNotes" ng-show="selectedMap.value=='ensk_e'">
+		<h1>Ensk Encounter Battle</h1>
+		<h2>Platoon Strategy</h2>
+		<p>by {{selectedCommander.value}}</p>
+		<h3>Strategy I</h3>
+		<p></p>
+		<h3>Strategy II</h3>
+		<p></p>
+		<h3>Strategy III</h3>
+		<p></p>
+		<h3>Strategy IV</h3>
+		<p></p>
+	</div>
+
+	<div class="mapNotes" ng-show="selectedMap.value=='erlenberg'">
+		<h1>Erlenberg</h1>
+		<h2>Platoon Strategy</h2>
+		<p>by {{selectedCommander.value}}</p>
+		<h3>Strategy I</h3>
+		<p></p>
+		<h3>Strategy II</h3>
+		<p></p>
+		<h3>Strategy III</h3>
+		<p></p>
+		<h3>Strategy IV</h3>
+		<p></p>
+
+	</div>
+	<div class="mapNotes" ng-show="selectedMap.value=='erlenberg_e'">
+		<h1>Erlenberg</h1>
+		<h2>Platoon Strategy</h2>
+		<p>by {{selectedCommander.value}}</p>
+		<h3>Strategy I</h3>
+		<p></p>
+		<h3>Strategy II</h3>
+		<p></p>
+		<h3>Strategy III</h3>
+		<p></p>
+		<h3>Strategy IV</h3>
+		<p></p>
+
+	</div>
+	<div class="mapNotes" ng-show="selectedMap.value=='erlenberg_a'">
+		<h1>Erlenberg</h1>
+		<h2>Platoon Strategy</h2>
+		<p>by {{selectedCommander.value}}</p>
+		<h3>Strategy I</h3>
+		<p></p>
+		<h3>Strategy II</h3>
+		<p></p>
+		<h3>Strategy III</h3>
+		<p></p>
+		<h3>Strategy IV</h3>
+		<p></p>
+
+	</div>
+
+	<div class="mapNotes" ng-show="selectedMap.value=='fish'">
+		<h1>Fisherman's Bay</h1>
+		<h2>Platoon Strategy</h2>
+		<p>by {{selectedCommander.value}}</p>
+		<h3>Strategy I</h3>
+		<p></p>
+		<h3>Strategy II</h3>
+		<p></p>
+		<h3>Strategy III</h3>
+		<p></p>
+		<h3>Strategy IV</h3>
+		<p></p>
+	</div>
+	<div class="mapNotes" ng-show="selectedMap.value=='fjords'">
+		<h1>Fjords</h1>
+		<h2>Platoon Strategy</h2>
+		<p>by {{selectedCommander.value}}</p>
+		<h3>Strategy I</h3>
+		<p></p>
+		<h3>Strategy II</h3>
+		<p></p>
+		<h3>Strategy III</h3>
+		<p></p>
+		<h3>Strategy IV</h3>
+		<p></p>
+
+	</div>
+	<div class="mapNotes" ng-show="selectedMap.value=='himmelsdorf'">
+		<h1>Himmelsdorf</h1>
+		<h2>Platoon Strategy</h2>
+		<p>by {{selectedCommander.value}}</p>
+		<h3>Strategy I</h3>
+		<p></p>
+		<h3>Strategy II</h3>
+		<p></p>
+		<h3>Strategy III</h3>
+		<p></p>
+		<h3>Strategy IV</h3>
+		<p></p>
+
+	</div>
+	<div class="mapNotes" ng-show="selectedMap.value=='karelia'">
+		<h1>Karelia</h1>
+		<h2>Platoon Strategy</h2>
+		<p>by {{selectedCommander.value}}</p>
+		<h3>Strategy I</h3>
+		<p></p>
+		<h3>Strategy II</h3>
+		<p></p>
+		<h3>Strategy III</h3>
+		<p></p>
+		<h3>Strategy IV</h3>
+		<p></p>
+
+
+	</div>
+	<div class="mapNotes" ng-show="selectedMap.value=='komarin'">
+		<h1>Komarin</h1>
+		<h2>Platoon Strategy</h2>
+		<p>by {{selectedCommander.value}}</p>
+		<h3>Strategy I</h3>
+		<p></p>
+		<h3>Strategy II</h3>
+		<p></p>
+		<h3>Strategy III</h3>
+		<p></p>
+		<h3>Strategy IV</h3>
+		<p></p>
+	</div>
+	<div class="mapNotes" ng-show="selectedMap.value=='lakeville'">
+		<h1>Lakeville</h1>
+		<h2>Platoon Strategy</h2>
+		<p>by {{selectedCommander.value}}</p>
+		<h3>Strategy I</h3>
+		<p></p>
+		<h3>Strategy II</h3>
+		<p></p>
+		<h3>Strategy III</h3>
+		<p></p>
+		<h3>Strategy IV</h3>
+		<p></p>
+	</div>
+	<div class="mapNotes" ng-show="selectedMap.value=='lakeville_e'">
+		<h1>Lakeville</h1>
+		<h2>Platoon Strategy</h2>
+		<p>by {{selectedCommander.value}}</p>
+		<h3>Strategy I</h3>
+		<p></p>
+		<h3>Strategy II</h3>
+		<p></p>
+		<h3>Strategy III</h3>
+		<p></p>
+		<h3>Strategy IV</h3>
+		<p></p>
+	</div>
+	<div class="mapNotes" ng-show="selectedMap.value=='oaks'">
+		<h1>Live Oaks</h1>
+		<h2>Platoon Strategy</h2>
+		<p>by {{selectedCommander.value}}</p>
+		<h3>Strategy I</h3>
+		<p></p>
+		<h3>Strategy II</h3>
+		<p></p>
+		<h3>Strategy III</h3>
+		<p></p>
+		<h3>Strategy IV</h3>
+		<p></p>
+	</div>
+	<div class="mapNotes" ng-show="selectedMap.value=='malinovka'">
+		<h1>Lakeville</h1>
+		<h2>Platoon Strategy</h2>
+		<p>by {{selectedCommander.value}}</p>
+		<h3>Strategy I</h3>
+		<p></p>
+		<h3>Strategy II</h3>
+		<p></p>
+		<h3>Strategy III</h3>
+		<p></p>
+		<h3>Strategy IV</h3>
+		<p></p>
+	</div>
+	<div class="mapNotes" ng-show="selectedMap.value=='malinovka_e'">
+		<h1>Lakeville</h1>
+		<h2>Platoon Strategy</h2>
+		<p>by {{selectedCommander.value}}</p>
+		<h3>Strategy I</h3>
+		<p></p>
+		<h3>Strategy II</h3>
+		<p></p>
+		<h3>Strategy III</h3>
+		<p></p>
+		<h3>Strategy IV</h3>
+		<p></p>
+	</div>
+	<div class="mapNotes" ng-show="selectedMap.value=='malinovka_a'">
+		<h1>Lakeville</h1>
+		<h2>Platoon Strategy</h2>
+		<p>by {{selectedCommander.value}}</p>
+		<h3>Strategy I</h3>
+		<p></p>
+		<h3>Strategy II</h3>
+		<p></p>
+		<h3>Strategy III</h3>
+		<p></p>
+		<h3>Strategy IV</h3>
+		<p></p>
+	</div>
+	<div class="mapNotes" ng-show="selectedMap.value=='mines'">
+		<h1>Mines</h1>
+		<h2>Platoon Strategy</h2>
+		<p>by {{selectedCommander.value}}</p>
+		<h3>Strategy I</h3>
+		<p></p>
+		<h3>Strategy II</h3>
+		<p></p>
+		<h3>Strategy III</h3>
+		<p></p>
+		<h3>Strategy IV</h3>
+		<p></p>
+	</div>
+	<div class="mapNotes" ng-show="selectedMap.value=='mines_e'">
+		<h1>Mines</h1>
+		<h2>Platoon Strategy</h2>
+		<p>by {{selectedCommander.value}}</p>
+		<h3>Strategy I</h3>
+		<p></p>
+		<h3>Strategy II</h3>
+		<p></p>
+		<h3>Strategy III</h3>
+		<p></p>
+		<h3>Strategy IV</h3>
+		<p></p>
+	</div>
+	<div class="mapNotes" ng-show="selectedMap.value=='mountain'">
+		<h1>Mountain Pass</h1>
+		<h2>Platoon Strategy</h2>
+		<p>by {{selectedCommander.value}}</p>
+		<h3>Strategy I</h3>
+		<p></p>
+		<h3>Strategy II</h3>
+		<p></p>
+		<h3>Strategy III</h3>
+		<p></p>
+		<h3>Strategy IV</h3>
+		<p></p>
+	</div>
+	<div class="mapNotes" ng-show="selectedMap.value=='murovanka'">
+		<h1>Murovanka</h1>
+		<h2>Platoon Strategy</h2>
+		<p>by {{selectedCommander.value}}</p>
+		<h3>Strategy I</h3>
+		<p></p>
+		<h3>Strategy II</h3>
+		<p></p>
+		<h3>Strategy III</h3>
+		<p></p>
+		<h3>Strategy IV</h3>
+		<p></p>
+	</div>
+	<div class="mapNotes" ng-show="selectedMap.value=='murovanka_e'">
+		<h1>Murovanka</h1>
+		<h2>Platoon Strategy</h2>
+		<p>by {{selectedCommander.value}}</p>
+		<h3>Strategy I</h3>
+		<p></p>
+		<h3>Strategy II</h3>
+		<p></p>
+		<h3>Strategy III</h3>
+		<p></p>
+		<h3>Strategy IV</h3>
+		<p></p>
+	</div>
+	<div class="mapNotes" ng-show="selectedMap.value=='port'">
+		<h1>Port</h1>
+		<h2>Platoon Strategy</h2>
+		<p>by {{selectedCommander.value}}</p>
+		<h3>Strategy I</h3>
+		<p></p>
+		<h3>Strategy II</h3>
+		<p></p>
+		<h3>Strategy III</h3>
+		<p></p>
+		<h3>Strategy IV</h3>
+		<p></p>
+	</div>
+	<div class="mapNotes" ng-show="selectedMap.value=='prokhorovka'">
+		<h1>Prokhorovka</h1>
+		<h2>Platoon Strategy</h2>
+		<p>by {{selectedCommander.value}}</p>
+		<h3>Strategy I</h3>
+		<p></p>
+		<h3>Strategy II</h3>
+		<p></p>
+		<h3>Strategy III</h3>
+		<p></p>
+		<h3>Strategy IV</h3>
+		<p></p>
+	</div>
+	<div class="mapNotes" ng-show="selectedMap.value=='prokhorovka_e'">
+		<h1>Prokhorovka</h1>
+		<h2>Platoon Strategy</h2>
+		<p>by {{selectedCommander.value}}</p>
+		<h3>Strategy I</h3>
+		<p></p>
+		<h3>Strategy II</h3>
+		<p></p>
+		<h3>Strategy III</h3>
+		<p></p>
+		<h3>Strategy IV</h3>
+		<p></p>
+	</div>
+	<div class="mapNotes" ng-show="selectedMap.value=='province'">
+		<h1>Province</h1>
+		<h2>Platoon Strategy</h2>
+		<p>by {{selectedCommander.value}}</p>
+		<h3>Strategy I</h3>
+		<p></p>
+		<h3>Strategy II</h3>
+		<p></p>
+		<h3>Strategy III</h3>
+		<p></p>
+		<h3>Strategy IV</h3>
+		<p></p>
+	</div>
+	<div class="mapNotes" ng-show="selectedMap.value=='redshire'">
+		<h1>Redshire</h1>
+		<h2>Platoon Strategy</h2>
+		<p>by {{selectedCommander.value}}</p>
+		<h3>Strategy I</h3>
+		<p></p>
+		<h3>Strategy II</h3>
+		<p></p>
+		<h3>Strategy III</h3>
+		<p></p>
+		<h3>Strategy IV</h3>
+		<p></p>
+	</div>
+	<div class="mapNotes" ng-show="selectedMap.value=='redshire_e'">
+		<h1>Redshire</h1>
+		<h2>Platoon Strategy</h2>
+		<p>by {{selectedCommander.value}}</p>
+		<h3>Strategy I</h3>
+		<p></p>
+		<h3>Strategy II</h3>
+		<p></p>
+		<h3>Strategy III</h3>
+		<p></p>
+		<h3>Strategy IV</h3>
+		<p></p>
+	</div>
+	<div class="mapNotes" ng-show="selectedMap.value=='ruinberg'">
+		<h1>Ruinberg</h1>
+		<h2>Platoon Strategy</h2>
+		<p>by {{selectedCommander.value}}</p>
+		<h3>Strategy I</h3>
+		<p></p>
+		<h3>Strategy II</h3>
+		<p></p>
+		<h3>Strategy III</h3>
+		<p></p>
+		<h3>Strategy IV</h3>
+		<p></p>
+	</div>
+	<div class="mapNotes" ng-show="selectedMap.value=='sandriver'">
+		<h1>Sand River</h1>
+		<h2>Platoon Strategy</h2>
+		<p>by {{selectedCommander.value}}</p>
+		<h3>Strategy I</h3>
+		<p></p>
+		<h3>Strategy II</h3>
+		<p></p>
+		<h3>Strategy III</h3>
+		<p></p>
+		<h3>Strategy IV</h3>
+		<p></p>
+	</div>
+	<div class="mapNotes" ng-show="selectedMap.value=='sandriver_e'">
+		<h1>Sand River</h1>
+		<h2>Platoon Strategy</h2>
+		<p>by {{selectedCommander.value}}</p>
+		<h3>Strategy I</h3>
+		<p></p>
+		<h3>Strategy II</h3>
+		<p></p>
+		<h3>Strategy III</h3>
+		<p></p>
+		<h3>Strategy IV</h3>
+		<p></p>
+	</div>
+	<div class="mapNotes" ng-show="selectedMap.value=='sandriver_a'">
+		<h1>Sand River</h1>
+		<h2>Platoon Strategy</h2>
+		<p>by {{selectedCommander.value}}</p>
+		<h3>Strategy I</h3>
+		<p></p>
+		<h3>Strategy II</h3>
+		<p></p>
+		<h3>Strategy III</h3>
+		<p></p>
+		<h3>Strategy IV</h3>
+		<p></p>
+	</div>
+	<div class="mapNotes" ng-show="selectedMap.value=='sigfried'">
+		<h1>Siegfried Line</h1>
+		<h2>Platoon Strategy</h2>
+		<p>by {{selectedCommander.value}}</p>
+		<h3>Strategy I</h3>
+		<p></p>
+		<h3>Strategy II</h3>
+		<p></p>
+		<h3>Strategy III</h3>
+		<p></p>
+		<h3>Strategy IV</h3>
+		<p></p>
+	</div>
+	<div class="mapNotes" ng-show="selectedMap.value=='southcoast'">
+		<h1>South Coast</h1>
+		<h2>3 Tank Platoon</h2>
+		<p>{{author}}</p>
+		<h3>Tank 1</h3>
+		<p></p>
+		<h3>Tank 2</h3>
+		<p></p>
+		<h3>Tank 3</h3>
+		<p></p>
+	</div>
+	<div class="mapNotes" ng-show="selectedMap.value=='steppes'">
+		<h1>Steppes Line</h1>
+		<h2>Platoon Strategy</h2>
+		<p>by {{author}}</p>
+		<h3>Strategy I</h3>
+		<p></p>
+		<h3>Strategy II</h3>
+		<p></p>
+		<h3>Strategy III</h3>
+		<p></p>
+		<h3>Strategy IV</h3>
+		<p></p>
+	</div>
+	<div class="mapNotes" ng-show="selectedMap.value=='swamp'">
+		<h1>Swamp</h1>
+		<h2>Platoon Strategy</h2>
+		<p>by {{author}}</p>
+		<h3>Strategy I</h3>
+		<p></p>
+		<h3>Strategy II</h3>
+		<p></p>
+		<h3>Strategy III</h3>
+		<p></p>
+		<h3>Strategy IV</h3>
+		<p></p>
+	</div>
+	<div class="mapNotes" ng-show="selectedMap.value=='Westfield'">
+		<h1>Westfield</h1>
+		<h2>Platoon Strategy</h2>
+		<p>by {{selectedCommander.value}}</p>
+		<h3>Strategy I</h3>
+		<p></p>
+		<h3>Strategy II</h3>
+		<p></p>
+		<h3>Strategy III</h3>
+		<p></p>
+		<h3>Strategy IV</h3>
+		<p></p>
+	</div>
+	<div class="mapNotes" ng-show="selectedMap.value=='Westfield_a'">
+		<h1>Westfield</h1>
+		<h2>Platoon Strategy</h2>
+		<p>by {{selectedCommander.value}}</p>
+		<h3>Strategy I</h3>
+		<p></p>
+		<h3>Strategy II</h3>
+		<p></p>
+		<h3>Strategy III</h3>
+		<p></p>
+		<h3>Strategy IV</h3>
+		<p></p>
+	</div>
+	<div class="mapNotes" ng-show="selectedMap.value=='widepark'">
+		<h1>Widepark</h1>
+		<h2>Platoon Strategy</h2>
+		<p>by {{selectedCommander.value}}</p>
+		<h3>Strategy I</h3>
+		<p></p>
+		<h3>Strategy II</h3>
+		<p></p>
+		<h3>Strategy III</h3>
+		<p></p>
+		<h3>Strategy IV</h3>
+		<p></p>
+	</div>
+</div>
+<div class="mapNotes" id="help" ng-show="showHelp==true">
+	<h1>HELP</h1>
+	<p>The purpose of these strategies is set an objective and show where members of the platoon should position themselves at the beginning of the battle.</p>
+	<p>Enter your notes at this <a href="http://bluewaveproduction.com/off_forum/" target="blank">forum</a>.  Notes will not show up immediately.</p>
+	<p>Instructions:</p>
+	<ul>
+		<li>1. Choose Commander and Battle Field</li>
+		<li>2. Select the Strategy Number. Four strategies are available for each map, roughly one for each quadrant, however there are no restrictions to where a marker can be placed.</li>
+		<li>3. Click the Add Position button.</li>
+		<li>4. Select Tank number (1-4).  There are 4 tanks to set a position for.</li>
+		<li>5. Click on the map to position the marker.</li>
+		<li>6. Click Save to keep, or click Reject to try again.</li>
+		<li>7. To Delete a saved marker, click on it, then click Delete.</li>
+	</ul>
+	<button id="helpBtn" ng-show="!formstate.visible && formstate.role!='deleteMarker'" class="button small" ng-click="showHelp=false">CLOSE</button>
+</div>

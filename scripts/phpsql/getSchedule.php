@@ -18,7 +18,9 @@ $resultValueObjects = array();
 while ($row = mysql_fetch_object($result)) {
 	$oneVO = new scheduleVO();
 	$oneVO->PRIMARY_ID = $row->PRIMARY_ID;
-	$oneVO->member = $row->name;
+	$oneVO->member = $row->member;
+	$oneVO->gamertag = $row->gamertag;
+	$oneVO->age = $row->age;
 	$oneVO->zone = $row->zone;
 	$oneVO->beg = $row->beg;
 	$oneVO->end = $row->end;
@@ -26,6 +28,7 @@ while ($row = mysql_fetch_object($result)) {
 	$oneVO->inputEnd = $row->inputEnd;
 	$oneVO->tier_low = $row->tier_low;
 	$oneVO->tier_high = $row->tier_high;
+	$oneVO->canEdit = $row->canEdit;
 	array_push( $resultValueObjects, $oneVO );
 }
 

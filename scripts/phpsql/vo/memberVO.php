@@ -1,12 +1,14 @@
 <?php
 class memberVO{
 	var $PRIMARY_ID;
-	var $name;
+	var $member;
 	var $gamertag;
-	var $base;	
+	var $pword;
+	var $residence;	
 	var $age;
 	var $lowtier;
 	var $hitier;
 	var $membersince;
+	var $canEdit;
 }
 ?>

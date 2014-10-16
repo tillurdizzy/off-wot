@@ -11,6 +11,11 @@ APP.directive('kineticCanvas',['mapSrvc',function(mapSrvc){
 			scope.canvasSize = 800;
 			scope.tempID = 20000;// Used for new objects... objects coming from DB will use PRIMARY_ID
 			scope.removeID = 0;//shape to remove
+			scope.pathPoints = new Object();
+			scope.pathPoints.xpos = 0;
+			scope.pathPoints.ypos = 0;
+			scope.pathPoints.xpos2 = 0;
+			scope.pathPoints.ypos2 = 0;
 			var mydiv = ele[0];
 			var id = attrs["id"];
 			
@@ -28,6 +33,7 @@ APP.directive('kineticCanvas',['mapSrvc',function(mapSrvc){
 			scope.lightLayer = new Kinetic.Layer({name:'lightLayer'});
 			scope.destroyerLayer = new Kinetic.Layer({name:'destroyerLayer'});
 			scope.artyLayer = new Kinetic.Layer({name:'artyLayer'});
+			scope.pathLayer = new Kinetic.Layer({name:'pathLayer'});
 			
 
 			scope.kineticStage.add(scope.mapLayer);
@@ -36,26 +42,38 @@ APP.directive('kineticCanvas',['mapSrvc',function(mapSrvc){
 			scope.kineticStage.add(scope.mediumLayer);
 			scope.kineticStage.add(scope.lightLayer);
 			scope.kineticStage.add(scope.destroyerLayer);
+			scope.kineticStage.add(scope.artyLayer);
+			scope.kineticStage.add(scope.pathLayer);
 
 			scope.kineticStage.on('mousedown', function(event) {
 				if(scope.isEditable == 'yes'){
 					var id = event.target.attrs.id;
+					var clickX = event.evt.layerX;
+					var clickY = event.evt.layerY;
 					if(id == "map"){
 						if(scope.formstate.visible){
-							scope.formstate.role = 'saveMarker';
 							scope.tempID++;
 							var curPos = scope.mapLayer.getAbsolutePosition();
-							var clickX = event.evt.layerX;
-							var clickY = event.evt.layerY;
-							scope.COM.newMarker = new Object();
-							scope.COM.newMarker.map = scope.COM.currentMapName;
-							scope.COM.newMarker.xpos = clickX;
-							scope.COM.newMarker.ypos = clickY;
-							scope.COM.newMarker.type = scope.COM.drawType;
-							scope.COM.newMarker.spawn = scope.COM.spawntype;
-							placeSymbol(clickX,clickY,scope.COM.drawType,scope.COM.spawntype,scope.tempID);
-							scope.$apply();
+							
+							if(scope.COM.drawType!="path"){
+								scope.formstate.role = 'saveMarker';
+								scope.COM.newMarker = new Object();
+								scope.COM.newMarker.map = scope.COM.currentMapName;
+								scope.COM.newMarker.xpos = clickX;
+								scope.COM.newMarker.ypos = clickY;
+								scope.COM.newMarker.xpos2 = 0;
+								scope.COM.newMarker.ypos2 = 0;
+								scope.COM.newMarker.type = scope.COM.drawType;
+								scope.COM.newMarker.spawn = scope.COM.spawnType;
+								scope.COM.newMarker.author = scope.COM.author;
+								placeSymbol(clickX,clickY,scope.COM.drawType,scope.COM.spawnType,scope.tempID);
+								scope.$apply();
+							}else{
+								savePathPoints(clickX,clickY);
+							}
 						}
+					}else if(scope.formstate.role=='createPath'){
+						savePathPoints(clickX,clickY);
 					}else{
 						scope.COM.removeID = id;
 						scope.formstate.visible = false;
@@ -64,6 +82,26 @@ APP.directive('kineticCanvas',['mapSrvc',function(mapSrvc){
 					}
 				}
 			});
+
+			function drawNewPath(xpos,ypos,xpos2,ypos2){
+				var config = {
+					points:[xpos,ypos,xpos2,ypos2],
+					strokeWidth:4,
+					lineCap:'round',
+					lineJoin: 'round',
+					id:scope.tempID
+				}
+
+				if(scope.COM.spawnType == "red"){
+					config.stroke="#EE0000";
+				}else{
+					config.stroke="#00EE00";
+				}
+
+				var line = new Kinetic.Line(config);
+				scope.pathLayer.add(line);
+				scope.pathLayer.draw();
+			};
 
 			function placeSymbol(xpos,ypos,type,spawn,_id){
 				var tankSymbol = new Image();
@@ -80,7 +118,7 @@ APP.directive('kineticCanvas',['mapSrvc',function(mapSrvc){
 					}else if(type == 'heavy'){
 						imageSrc = 'images/heavy-symbol-red.png';
 					}else if(type == 'danger'){
-						imageSrc = 'images/danger.fw.png';
+						imageSrc = 'images/danger-red.fw.png';
 					}
 				}else{
 					if(type == 'scout'){
@@ -140,8 +178,13 @@ APP.directive('kineticCanvas',['mapSrvc',function(mapSrvc){
 				scope.heavyLayer.removeChildren();
 				var objList = scope.COM.currentMapData;
 				for (var i = 0; i < objList.length; i++) {
-					placeSymbol(objList[i].xpos,objList[i].ypos,objList[i].type,objList[i].spawn,objList[i].PRIMARY_ID);
+					if(objList[i].type == "path"){
+						//drawpath(objList[i].xpos,objList[i].ypos,objList[i].xpos2,objList[i].ypos2,objList[i].spawn,objList[i].PRIMARY_ID);
+					}else{
+						placeSymbol(objList[i].xpos,objList[i].ypos,objList[i].type,objList[i].spawn,objList[i].PRIMARY_ID);
+					}
 				};
+				scope.pathLayer.draw();
 				scope.kineticStage.draw();
 			};
 
@@ -181,6 +224,33 @@ APP.directive('kineticCanvas',['mapSrvc',function(mapSrvc){
 				mapImage.src = url;
 				drawSavedObjects();
 			};
+
+			function newPointsObject(x,y){
+				scope.COM.pushPointSet(scope.pathPoints);
+				scope.pathPoints = new Object();
+				scope.pathPoints.xpos = x;
+				scope.pathPoints.ypos = y;
+				scope.pathPoints.xpos2 = 0;
+				scope.pathPoints.ypos2 = 0;
+			}
+
+			function savePathPoints(x,y){
+				// xpos==0 indicates the FIRST point in a new series
+				if(scope.pathPoints.xpos == 0){
+					scope.COM.newMarker = new Object();
+					scope.COM.newMarker.map = scope.COM.currentMapName;
+					scope.COM.newMarker.type = scope.COM.drawType;
+					scope.COM.newMarker.spawn = scope.COM.spawnType;
+					scope.COM.newMarker.author = scope.COM.author;
+					scope.pathPoints.xpos = x;
+					scope.pathPoints.ypos = y;
+				}else if(scope.pathPoints.xpos2 == 0){
+					scope.pathPoints.xpos2 = x;
+					scope.pathPoints.ypos2 = y;
+					drawNewPath(scope.pathPoints.xpos,scope.pathPoints.ypos,scope.pathPoints.xpos2,scope.pathPoints.ypos2);
+					newPointsObject(x,y);
+				}
+			}
 
 
 			scope.$on('event:newMapImage',function(){

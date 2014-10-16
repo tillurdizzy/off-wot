@@ -3,8 +3,11 @@ class wotVO{
 	var $PRIMARY_ID;
 	var $xpos;
 	var $ypos;
-	var $type;	
+	var $xpos2;
+	var $ypos2;
+	var $type;
 	var $map;
+	var $author;
 	var $spawn;
 }
 ?>

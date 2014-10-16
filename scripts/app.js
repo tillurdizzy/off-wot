@@ -1,6 +1,6 @@
 'use strict';
 
-var APP = angular.module('myApp', ['smart-table','ui.router','ngResource','ngSanitize'])
+var APP = angular.module('myApp', ['smart-table','ui.router','ngResource','ngSanitize','ngCookies','mm.foundation'])
 
 APP.config(function($stateProvider, $urlRouterProvider) {
  	
@@ -13,20 +13,22 @@ APP.config(function($stateProvider, $urlRouterProvider) {
 			templateUrl: "views/home.html",
 			controller:"HomeCtrl"
 		})
-		.state('admin', {
-			url: "/admin",
-			templateUrl: "views/admin.html"
+		.state('registration', {
+			url: "/registration",
+			templateUrl: "views/registration.html",
+			controller:"RegistrationCtrl"
+		})
+		.state('contribute', {
+			url: "/contribute",
+			templateUrl: "views/contribute.html",
+			controller:"ContributeCtrl"
 		})
 		.state('members', {
 			url: "/members",
 			templateUrl: "views/new-members.html",
 			controller:"MembersCtrl"
 		})
-		.state('memberadd', {
-			url: "/memberadd",
-			templateUrl: "views/new-members-edit.html",
-			controller:"ScheduleCtrl"
-		})
+		
 		.state('map', {
 			url: "/map",
 			templateUrl: "views/maps.html",
@@ -43,61 +45,131 @@ APP.config(function($stateProvider, $urlRouterProvider) {
 			templateUrl: "views/schedule.html",
 			controller:"ScheduleCtrl"
 		})
-		.state('scheduleEdit', {
-			url: "/scheduleedit",
-			templateUrl: "views/schedule-edit.html",
-			controller:"ScheduleCtrl"
-		})
-
-		.state('announcements', {
-			url: "/announcements",
-			templateUrl: "views/announcements.html",
-			controller:"AnnouncementsCtrl"
-		})
-
-		.state('training', {
-			url: "/training",
-			templateUrl: "views/training.html",
-			controller:"TrainingCtrl"
-		})
+		
 
 		.state('reference', {
 			url: "/reference",
-			templateUrl: "views/reference.html",
+			templateUrl: "ref/reference.html",
 			controller:"ReferenceCtrl"
 		})
 
-		.state('reference.xbox', {
-			url: "/refxbox",
-			templateUrl: "views/reference_xbox.html"
+		.state('reference.links', {
+			url: "/reflinks",
+			templateUrl: "ref/reference_links.html"
 		})
 		.state('reference.utube', {
 			url: "/refutube",
-			templateUrl: "views/reference_utube.html"
+			templateUrl: "ref/reference_utube.html"
 		})
 		.state('reference.equipment', {
 			url: "/refequip",
-			templateUrl: "views/reference_equipment.html"
+			templateUrl: "ref/reference_equipment.html"
 		})
 
 		.state('reference.maps', {
 			url: "/refmaps",
-			templateUrl: "views/reference_maps.html"
+			templateUrl: "ref/reference_maps.html"
 		})
 		.state('reference.strategy', {
-			url: "/refstratey",
-			templateUrl: "views/reference_strategy.html"
+			url: "/refstragey",
+			templateUrl: "ref/reference_strategy.html"
 		})
 
 		.state('reference.perks', {
 			url: "/refperks",
-			templateUrl: "views/reference_perks.html"
+			templateUrl: "ref/reference_perks.html"
+		})
+		.state('reference.glossary', {
+			url: "/refglossary",
+			templateUrl: "ref/reference_glossary.html",
+			controller:"GlossaryCtrl"
 		})
 
 		.state('events', {
 			url: "/events",
-			templateUrl: "views/events.html",
+			templateUrl: "events/events.html",
 			controller:"EventsCtrl"
+		})
+		.state('monday01', {
+			url: "/monday01",
+			templateUrl: "events/events-monday01.html",
+			controller:"CalendarCtrl"
+		})
+		.state('monday02', {
+			url: "/monday02",
+			templateUrl: "events/events-monday02.html",
+			controller:"CalendarCtrl"
+		})
+		.state('tuesday01', {
+			url: "/tuesday01",
+			templateUrl: "events/events-tuesday01.html",
+			controller:"CalendarCtrl"
+		})
+		.state('tuesday02', {
+			url: "/tuesday02",
+			templateUrl: "events/events-tuesday02.html",
+			controller:"CalendarCtrl"
+		})
+		.state('wednesday01', {
+			url: "/wednesday01",
+			templateUrl: "events/events-wednesday01.html",
+			controller:"CalendarCtrl"
+		})
+		.state('wednesday02', {
+			url: "/wednesday02",
+			templateUrl: "events/events-wednesday02.html",
+			controller:"CalendarCtrl"
+		})
+		.state('thursday01', {
+			url: "/thursday01",
+			templateUrl: "events/events-thursday01.html",
+			controller:"CalendarCtrl"
+		})
+		.state('thursday02', {
+			url: "/thursday02",
+			templateUrl: "events/events-thursday02.html",
+			controller:"CalendarCtrl"
+		})
+		.state('thursday03', {
+			url: "/thursday03",
+			templateUrl: "events/events-thursday03.html",
+			controller:"CalendarCtrl"
+		})
+		.state('thursday04', {
+			url: "/thursday04",
+			templateUrl: "events/events-thursday04.html",
+			controller:"CalendarCtrl"
+		})
+		.state('friday01', {
+			url: "/friday01",
+			templateUrl: "events/events-friday01.html",
+			controller:"CalendarCtrl"
+		})
+		.state('saturday01', {
+			url: "/saturday01",
+			templateUrl: "events/events-saturday01.html",
+			controller:"CalendarCtrl"
+		})
+		.state('sunday01', {
+			url: "/sunday01",
+			templateUrl: "events/events-sunday01.html",
+			controller:"CalendarCtrl"
+		})
+		.state('sunday02', {
+			url: "/sunday02",
+			templateUrl: "events/events-sunday02.html",
+			controller:"CalendarCtrl"
+		})
+		
+		.state('platoon', {
+			url: "/platoon",
+			templateUrl: "platoon/maps-platoon.html",
+			controller:"PlatoonCtrl"
+		})
+		.state('platoonedit', {
+			url: "/platoonedit",
+			templateUrl: "platoon/maps-platoon-edit.html",
+			controller:"PlatoonCtrl"
 		})
 
     

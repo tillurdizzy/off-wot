@@ -3,38 +3,47 @@
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+  <html xmlns:ng="http://angularjs.org">
   <head>
+    <!--[if lte IE 8]>
+      <script>
+        document.createElement('ng-show');
+        document.createElement('ng-view');
+      </script>
+    <![endif]-->
+    <!--[if lt IE 9]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->  
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>OFFicial Website</title>
     <meta name="World of Tanks WOT Maps OFF Old Farts Fogies" content="">
-   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <!-- build:css styles/vendor.css -->
     <!-- bower:css -->
     <!-- endbower -->
     <!-- endbuild -->
     <!-- build:css({.tmp,app}) styles/main.css -->
-    <link rel="stylesheet" href="bower_components/foundation-5.0.3/css/foundation.css" />
+    <!-- <link rel="stylesheet" href="bower_components/foundation-5.0.3/css/foundation.css" />-->
     <script type="text/javascript" src="bower_components/foundation-5.0.3/js/vendor/modernizr.js"></script>
     <script type="text/javascript" src="bower_components/foundation-5.0.3/js/vendor/jquery.js"></script>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/foundation/5.2.0/css/foundation.css">
     <script type="text/javascript" src="bower_components/foundation-5.0.3/js/foundation.min.js"></script>
-    
     <script type="text/javascript" src="bower_components/underscore.js"></script>
     <script type="text/javascript" src="http://d3lp1msu2r81bx.cloudfront.net/kjs/js/lib/kinetic-v5.0.2.min.js"></script>
-    <script type="text/javascript" src="https://www.google.com/jsapi?autoload={'modules':[{'name':'visualization',
-       'version':'1','packages':['timeline']}]}"></script>
+   
     <link rel="stylesheet" href="styles/main.css">
     <link rel="stylesheet" href="styles/home.css">
+    <link rel="stylesheet" href="styles/twitter.css">
     <link rel="stylesheet" href="styles/side-bar-left.css">
     <link rel="stylesheet" href="styles/view.css">
-    <link rel="stylesheet" href="styles/reference.css">
+    <link rel="stylesheet" href="ref/reference.css">
     <link rel="stylesheet" href="styles/maps.css">
-    <link rel="stylesheet" href="styles/events.css">
-   
+    <link rel="stylesheet" href="events/events.css">
+    <META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+    <META HTTP-EQUIV="Expires" CONTENT="-1">
 
   </head>
-  <body ng-app="myApp">
+  <body ng-app="myApp" id="ng-app">
     <!--[if lt IE 7]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
@@ -45,23 +54,33 @@
     </div>
     <div style="clear:both">
       <div class="header-bar"></div>
-        <nav class="top-bar" data-topbar>
+        <nav class="top-bar" data-topbar ng-controller="NavCtrl">
            <section class="top-bar-section">
             <!-- Left Nav Section -->
-            <ul class="left" ng-controller="NavCtrl">
+            <ul class="left" >
               <li ng-class="{ active: isCurrentPath('/home') }"><a ui-sref="home">Home</a></li>
-             <li ng-class="{ active: isCurrentPath('/members') }"><a ui-sref="members">New Members</a></li>
+              <li ng-class="{ active: isCurrentPath('/members') }"><a ui-sref="members">New Members</a></li>
               <li ng-class="{ active: isCurrentPath('/events') }"><a ui-sref="events">Events</a></li>
-              <li ng-class="{ active: isCurrentPath('/schedule') }"><a ui-sref="schedule">Platoon Matching</a></li>
+              <li ng-class="{ active: isCurrentPath('/schedule') }"><a ui-sref="schedule">XBOX Live</a></li>
               <li ng-class="{ active: isCurrentPath('/reference') }"><a ui-sref="reference">Reference</a></li>
               <li ng-class="{ active: isCurrentPath('/map') }"><a ui-sref="map">Maps POI</a></li>
-              <li ng-class="{ active: isCurrentPath('/admin') }"><a ui-sref="admin">Admin</a></li>
+              <li ng-class="{ active: isCurrentPath('/platoon') }"><a ui-sref="platoon">Platoon Strategy</a></li>
+              <li ng-class="{ active: isCurrentPath('/contribute') }"><a ui-sref="contribute">Contribute</a></li>
+              <li ng-class="{ active: isCurrentPath('/registration') }"><a ui-sref="registration">Registration</a></li>
+            </ul>
+            <ul class="right">
+              <li class="name" ng-show="gamerCookie!=null">
+                <h1>Welcome {{gamerCookie}}</h1>
+              </li>
+              <li class="name" ng-show="gamerCookie==null">
+                <h1>Unregistered or not signed in</h1>
+              </li>
             </ul>
           </section>
         </nav>
        <!--  <div sub-header sectiontitle="{{sectiontitle}}" ng-controller="NavCtrl"/> -->
      </div>
-     <div class="hrule"/>
+     <div class="hrule"></div>
       <div class="container view" ui-view></div>
 
    
@@ -73,11 +92,15 @@
 
     <!-- build:js scripts/vendor.js -->
     <!-- bower:js -->
-    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/angular/angular.min.js"></script>
     <script type="text/javascript" src="bower_components/angular-smart-table/dist/smart-table.min.js"></script>
-    <script src="bower_components/angular-resource/angular-resource.js"></script>
-    <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+    <script src="//pineconellc.github.io/angular-foundation/mm-foundation-0.3.1.js"></script>
+     <!-- <script type="text/javascript" src="bower_components/angular-foundation/mm-foundation-tpls.min.js"></script> -->
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.6/angular-cookies.js"></script>
+    <script src="bower_components/angular-resource/angular-resource.min.js"></script>
+    <script src="bower_components/angular-sanitize/angular-sanitize.min.js"></script>
     <script type="text/javascript" src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+
     <!-- endbower -->
     <!-- endbuild -->
 
@@ -88,13 +111,37 @@
         <script src="scripts/controllers/navBar.js"></script>
         <script src="scripts/controllers/maps.js"></script>
         <script src="scripts/controllers/newmembers.js"></script>
+        <script src="scripts/controllers/registration.js"></script>
         <script src="scripts/directives/canvasKinetic.js"></script>
         <script src="scripts/directives/googleTimeline.js"></script>
         <script src="scripts/directives/subHeader.js"></script>
+        <script src="scripts/directives/IrInfiniteScroll.js"></script>
+        <script src="scripts/directives/twitter-timeline.js"></script>
         <script src="scripts/services/scheduleDataSrvc.js"></script>
-         <script src="scripts/services/mapSrvc.js"></script>
+        <script src="scripts/services/mapsDataSrvc.js"></script>
+        <script src="scripts/services/registrationDataSrvc.js"></script>
+        <script src="scripts/services/mapSrvc.js"></script>
+        <script src="scripts/services/cookieSrvc.js"></script>
+        <script src="scripts/services/memberSrvc.js"></script>
+        <script src="scripts/services/varsSrvc.js"></script>
+        <script src="platoon/platoon.js"></script>
+        <script src="platoon/platoonSrvc.js"></script>
+        <script src="platoon/canvasPlatoon.js"></script>
+        <script src="events/eventsCtrl.js"></script>
+        <script src="events/calendarCtrl.js"></script>
+        <script src="events/eventsDataSrvc.js"></script>
+        <script src="events/eventLeftColumn.js"></script>
+        <script src="events/eventReservation.js"></script>
+        <script src="events/eventComSrvc.js"></script>
+        <script src="maps/mapComments.js"></script>
+        <script src="ref/referenceCtrl.js"></script>
+        <script src="ref/glossaryCtrl.js"></script>
+        <script src="ref/glossarySrvc.js"></script>
+    
         <!-- endbuild -->
-        <script>$(document).foundation();</script>
+      <script>
+        $(document).foundation();
+      </script>
 
-</body>
+  </body>
 </html>

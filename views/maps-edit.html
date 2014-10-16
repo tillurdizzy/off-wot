@@ -12,8 +12,8 @@
 		</div>
 		
 
-		<div class="submitForm">
-			<p class="smallNote" ng-show="formstate.visible">Choose spawn location and tank type then click on the map to add symbol.</p>
+		<div class="submitForm" ng-show="canEdit">
+			<p class="smallNote" ng-show="formstate.visible">Choose spawn location and object type then click on the map to draw.</p>
 			<select id="selectSpawn" ng-model="selectedSpawn" ng-options="c.label for c in spawnLocationList" ng-change="selectSpawnType(selectedSpawn)" ng-show="formstate.visible"></select>
 			<select id="selectType" ng-model="selectedType" ng-options="c.label for c in drawTypeList" ng-change="selectDrawType(selectedType)" ng-show="formstate.visible"></select>
 			<button id="addMarker" ng-click="saveMarker()" type="button" class="button small" ng-show="formstate.role=='saveMarker'">Save</button>
@@ -21,372 +21,232 @@
 			<button id="cancelForm" ng-click="cancelForm()" type="button" class="button small" ng-show="formstate.role=='placeMarker'">Cancel</button>
 			<button id="showform" ng-click="showForm()" type="button" class="button small" ng-show="!formstate.visible && formstate.role!='deleteMarker'">Add Marker</button>
 			<button id="delete" ng-click="deleteMarker()" type="button" class="button small alert" ng-show="formstate.role=='deleteMarker'">Delete</button>
+			<button id="savePath" ng-click="savePath()" type="button" class="button small" ng-show="formstate.role=='createPath'">Save Path</button>
 			<button id="canceldelete" ng-click="cancelDelete()" type="button" class="button small" ng-show="formstate.role=='deleteMarker'">Cancel</button>
+			<button id="cancelPath" ng-click="cancelPath()" type="button" class="button small" ng-show="formstate.role=='createPath'">Cancel Path</button>
+			<p class="smallNote" ng-show="formstate.role=='createPath'">Click along path route.  Click 'Save' when complete.</p>
 		</div>
 	</div>
 
 	<div kinetic-canvas class="canvasContainer" formstate="formstate" is-editable="yes" id="idforkinetic"></div>
 
+
 	<div class="mapNotes" ng-show="selectedMap.value=='abbey'">
-		<h1>Abbey (Monastery)</h1>
-		<h2>Quick Strategy</h2>
-		<p>Abbey is a smaller map that is decided very quickly which team will have the upper hand.  This map has 3 key locations located in the center of the map that are crucial to obtaining map control. Taking the west side is usually key to winning, since you can then defend the Abbey proper from the ridge across the lake.</p>
-		<p>Scouts: There's not a lot of scouting opportunities in the early stages.  Hold back until one of the 3 lanes to the enemy camp is clear, then go searching for hidden Artys and and TD's.</p>
-		<p>Mediums:</p>
-		<p>Destroyers: Let the Heavies and Mediums handle the hot spots.  Find a sniper position to defend the camp if the enemy breaks through any of the 3 lanes.</p>
-		<p>Heavies:</p>
-		<h2>Detailed</h2>
-		<p>A large abbey and town fill the center of the map with three roads allowing passage from the north and south, and includes an elevated firing position in the abbey's courtyard at the highest point on the hill. West of the town is an elongated hill with several positions allowing fire down into the town. Further west and past the hill, a valley offers significant protection against artillery fire. East of the town lies a curved cliff road which affords shielding from most tank and artillery fire, but forces attackers to travel in a single path.</p>
+		<h1>Abbey Standard Battle</h1>
+		<p class="attention">Share your expertise! See the Contribute tab for more information.</p>
+		<div abby-comments></div>
 	</div>
-	<div class="mapNotes" ng-show="selectedMap.value=='airfield'">
-		<h1>Airfield</h1>
-		<h2>Quick Strategy</h2>
-		<p>Airfield usually ends up favoring the team that gets the first good punch in since it can easily snowball due to the small map size.</p>
-		<p>Lights and Mediumss: Focus on the Center Hill area and also the northern spots on the edges of the map.</p>
-		<p>Heavies and Destroyers: Yyou should be in the front line (East and west lanes), unless you have very poor armor in which case setting up near the edge of the map to provide support fire works.</p>
-		<h2>Detailed</h2>
-		<p>This map offers many great ambush spots, as well as possibilities for maneuvers and breakthroughs. A large airfield in the upper part of the map and a rocky highland in the center offer a major tactical challenge. Occupy the highland to get a perfect view of the surrounding terrain and dominate routes to the enemy base. </p>
-		<p>Light tanks tend to scout the hill in the lower center of the map, counting on the combined support of the tank destroyers that camp back at the bases. Alternatively, an effective spotting area in the North can be found at B5-B6, where tanks advancing through the upper center of the map can be spotted.</p>
-		<p>There are many different options for medium tanks on this map. Medium tanks can choose to go to the southern hill, get to the small pocket at E7 (east base only), go to the B line, skulk at the low path next to the hill at F5-F6, or support the heavies at the chokepoint at E6.</p>
-		<p>Heavy tanks tend to attack the valley at E6 and flank around at D6 Those at E6 benefit from supporting fire from the tank on the South hill, as well as artillery support. Heavies advancing past these chokepoints must be wary of tank destroyers hiding at B9 and D9, as well as enemy artillery, but their success at these chokepoints is crucial to winning the map.</p>
-		<p>Tank destroyers tend to camp at various locations at the front of the base, D2 and D9 to provide support for the tanks in the center or northern part of the map, or support the south coast at D2-D3 or D8-D9.</p>
-		<p>SPGs traditionally go in/behind the base or head to the TD sniping spots in the north or south.</p>
-
-	</div>
-	<div class="mapNotes" ng-show="selectedMap.value=='arctic'">
-		<h1>Arctic</h1>
-		<h2>Quick Strategy</h2>
-		<p></p>
-		<p>Lights:</p>
-		<p>Mediums:</p>
-		<p>Destroyers:</p>
-		<p>Heavies:</p>
-		<h2>Detailed</h2>
-		<p>A large ice-and-snow covered area stretches through this map. Steep hills, rock encampments, twists and turns, and plenty of places to stay and wait will have you on your toes as you battle through this icy deathtrap. Ridge, hills, and lots of rocky outcrops give you many places to hide and ambush your enemy as they come about. Turns and twists could have you stuck if your not on your toes, so watch out.</p>
-
-	</div>
+	
 	<div class="mapNotes" ng-show="selectedMap.value=='cliff'">
-		<h1>Cliff</h1>
-		<h2>Quick Strategy</h2>
-		<p></p>
-		<p>Lights:</p>
-		<p>Mediums:</p>
-		<p>Destroyers:</p>
-		<p>Heavies:</p>
-		<h2>Detailed</h2>
-		<p>Starting in the north and south, both teams are connected through a valley on the extreme west of the map. Large boulders offer cover south of the valley, and a small town provides cover to the north. The eastern portion of the map is elevated, with two large jutting hills providing cover from enemy fire. An overlooking position near the center of the map allows tanks to fire into the valley from above. Plentiful cover throughout the area allow for multiple attack routes, with careful coordination and flanking playing a significant role. </p>
-
+		<h1>Cliff Standard Battle</h1>
+		<p class="attention">Share your expertise! See the Contribute tab for more information.</p>
+		<div cliff-comments></div>
 	</div>
-	<div class="mapNotes" ng-show="selectedMap.value=='dragon'">
-		<h1>Dragon</h1>
-		<p>A varied rugged landscape is marvelous for its fascinating grandeur. A lake, bamboo bushes and mountain ridges make this map peculiar and unique. The map offers several options for directions of attack, each of them being advantageous in its own way.</p>
 
+	<div class="mapNotes" ng-show="selectedMap.value=='cliff_e'">
+		<h1>Cliff Encounter Battle</h1>
+		<p class="attention">Share your expertise! See the Contribute tab for more information.</p>
+		<div cliff-encounter-comments></div>
 	</div>
+	
 	<div class="mapNotes" ng-show="selectedMap.value=='hallouf'">
-		<h1>El Hallouf</h1>
-		<h2>Quick Strategy</h2>
-		<p></p>
-		<p>Lights:</p>
-		<p>Mediums:</p>
-		<p>Destroyers:</p>
-		<p>Heavies:</p>
-		<h2>Detailed</h2>
-		<p>A large valley filled with rocks, vegetation, and a small village surrounding a dried out river bed separate the two teams. The large hills on either side of the valley offer many firing positions, and very little cover in the valley will protect a large tank completely against all positions. Regardless of approach, attackers will face a long climb into the enemy's camp, and effective use of the cover en route is essential. The northern approach offers plentiful protection to attack either hill, but the southern approach makes up for lack of protection with shorter distances and better concealment. </p>
-		<p>Typically both sides will spread out a few snipers along the ridgelines to defend against any rushes through the middle and counter-snipe, which ideally are TDs but other tank types will also work to a lesser effectiveness. It's important for snipers to have cover nearby, as although the ridges are at the edge of spotting and render distance from each other, tanks in the center valley can spot those on the ridges.</p>
-		<p>Heavily armored tanks should head north or west (depending on the spawn) towards the A1 corner. Traditionally, the northern flank takes a more defensive approach and allows the southern flank to cross the valley and advance partially up into A2. From the south, some snipers can be left in C3 or E2 to defend against any tanks popping out from the north. A flank around from A2 to B3 and then B2 is unlikely to succeed due to snipers at B6 spotting and destroying the flanking tanks, but if successful it can be very effective. For the northern team, in addition to occupying the south road at A2-A3, the northern hills can be used, though it tends to be less effective cover when popping out to take shots. Tanks with good gun depression and turret armor are at an advantage in the north, and both teams must be mindful of artillery focusing on their positions and take appropriate cover.</p>
-		<p>For light tanks and faster mediums, a dash to the south-eastern corner can also be used. The winner of this corner can spot the tanks on the ridges for their own snipers, as well as advance up into the enemies base to wreck havok on TDs and SPGs. Less contested but also less effective positions can also be found elsewhere in the valley. Typically, the map is decided by whichever team can more quickly win the north-east corner or advance into the enemy base from the south-west.</p>
-		<p>SPGs should primarily focus at the A2 corner, though this may be difficult for SPGs with poor gun arcs, especially the French, to hit targets behind cliffs. However, SPGs should also take advantage of any spotted snipers on the ridges.</p>
+		<h1>El Hallouf Standard Battle</h1>
+		<p class="attention">Share your expertise! See the Contribute tab for more information.</p>
+		<div elhalluf-comments></div>
+	</div>
+
+	<div class="mapNotes" ng-show="selectedMap.value=='hallouf_e'">
+		<h1>El Hallouf Encounter Battle</h1>
+		<p class="attention">Share your expertise! See the Contribute tab for more information.</p>
+		<div elhalluf-encounter-comments></div>
 	</div>
 
 	<div class="mapNotes" ng-show="selectedMap.value=='ensk'">
-		<h1>Ensk</h1>
-		<h2>Quick Strategy</h2>
-		<p></p>
-		<p>Lights:</p>
-		<p>Mediums:</p>
-		<p>Destroyers:</p>
-		<p>Heavies:</p>
-		<h2>Detailed</h2>
-		<p>A mixture of city outskirts and suburban areas with railroad tracks spanning and dividing this map. Plan your tactics to take advantage of defensive choke points and cover open areas with your vehicles. Artillery is great for deterring enemy breakthroughs, but remains almost defenseless when exposed to enemy vehicles attacking from cover.</p>
-
+		<h1>Ensk Standard Battle</h1>
+		<p class="attention">Share your expertise! See the Contribute tab for more information.</p>
+		<div ensk-comments></div>
 	</div>
+
+	<div class="mapNotes" ng-show="selectedMap.value=='ensk_e'">
+		<h1>Ensk Encounter Battle</h1>
+		<p class="attention">Share your expertise! See the Contribute tab for more information.</p>
+		<div ensk-encounter-comments></div>
+	</div>
+
 	<div class="mapNotes" ng-show="selectedMap.value=='erlenberg'">
-		<h1>Erlenberg</h1>
-		<h2>Quick Strategy</h2>
-		<p></p>
-		<p>Lights:</p>
-		<p>Mediums:</p>
-		<p>Destroyers: both sides ffeature a ridge that is an effective location for snipers.</p>
-		<p>Heavies: Typically the heavies split 50:50 or slightly more to the west.</p>
-		<h2>Detailed</h2>
-		<p>There are two main areas of contention regardless of the game mode. The west side of the map features a castle on the south, connected by a ridge to a hill on the south with a house and a ridge that serves as a defensive trench. There is also path that runs even further to the west right along the water's edge and around the hill to the north. The south side of the map also features a hill to the south-west of the castle in G1 that can be an effective location for snipers. The east features another ridge with a pair of houses on the north, and lots of undulations on the south side. There is a hill at the east edge of the map located in F0 that is a critical point for spotting the opposition, with some destructible houses on the foot of the hill in the north. Finally, a forested hill at the north east in C0 provides a location for snipers. Generally the east side emphasizes gun depression, viewrange/camo, and mobility, while the west requires armor and gun performance more. From the north, the west side is fairly easily won with an early, aggressive push if the team works together, while the same can be said for the south for the east, due to the fact that these pushes will deny sniping positions to the opposing team. However, more passive play favors the south in the west and north in the east due to the better sniping positions, though this doesn't mean that such an advantage can be defeated by a careful slow push later on.</p>
-		<p> Northern TDs tend to favor east more, while the south is usually more evenly split. Mediums and lights also split more evenly. Lights and fast mediums can play more to the center of the map, and occasionally at the center buildings next to the river, but this is usually less effective. SPGs can position either at the center or in one of the corner to better support an individual flank.</p>
-		<p>The role of the center is somewhat dependent on the game mode. For both Standard and Assault, tanks in the center can take advantage of unaware tanks on either flank, but tend to be easily focused down when spotted. A light tank might be able to streak down the center while the flanks are occupied to destroy enemy artillery, but otherwise the center is mostly a supporting role. However, for Encounter, the capture circle is in the center of the map. Fast captures are not uncommon, especially at low and mid-tiers, so it is wise to send a tank or two to the middle early to stall and spot the cappers, or risk having to have tanks from the flank cross open-fields to stop the cap in a rush.</p>
-
+		<h1>Erlenberg Standard Battle</h1>
+		<p class="attention">Share your expertise! See the Contribute tab for more information.</p>
+		<div erlenberg-comments></div>
 	</div>
+
+	<div class="mapNotes" ng-show="selectedMap.value=='erlenberg_e'">
+		<h1>Erlenberg Encounter Battle</h1>
+		<p class="attention">Share your expertise! See the Contribute tab for more information.</p>
+		<div erlenberg-encounter-comments></div>
+	</div>
+
+	<div class="mapNotes" ng-show="selectedMap.value=='erlenberg_a'">
+		<h1>Erlenberg Assault Battle</h1>
+		<p class="attention">Share your expertise! See the Contribute tab for more information.</p>
+		<div erlenberg-assault-comments></div>
+	</div>
+
 	<div class="mapNotes" ng-show="selectedMap.value=='fish'">
-		<h1>Fisherman's Bay</h1>
-		<h2>Quick Strategy</h2>
-		<p>Hot spots on East and West lanes. Red has the advantage moving south on the East side.  Mediums and TD's can lend support to the lanes from the middle.</p>
-		<p>Lights: Move quickly up the inside lanes to get some first spots for artillary and let the heavies know what is coming.  Then get the heck out once the fighting starts.  Move toward the middle to support the flanking positions.</p>
-		<p>Mediums and TD: Follow behind to support the heavies in the hot spots, or take up a flanking position in the middle.</p>
-		<p>Heavies: Get up close and personal in the East or West lanes.</p>
-		<h2>Detailed</h2>
-		<p>On Fisherman's Bay, typically heavy tanks and a few mediums and TDs head to the village at the east, fighting along the 8 column with oppurtunities for supporting fire from further out east in D9 or F9-F10. The buildings here are mostly indestuctive, and allow for tanks who excel at urban combat to shine, though the long sniping ranges down the alley can counter reckless pushes. Flanks though the 7 column can be devasting, if somewhat risky. A few mediums or lights may patrol the center ridge and pop up for spotting or supporting fire to either flank. In particular, flanking fire towards D7-D8 or F7-F8 to counter flanks or a synchronized push from the center towards the sea down the E line are options.</p>
-		<p>Meanwhile the rest of the mediums, TDs, and lights should go to the west. Support from the center in E4-F4 can also be useful, particularly from the north, but cannot convincingly win the flank. Fighting tends to be concentrated in the 1 column to the west of the raised road due to the cover it gives from flanking fire and the prevalance of rock cover in the depression. Many rocks are located here, large enough to totally conceal a tank, but spaced far enough away from each other that it is likely that enemy tanks will be able to get off a shot while you are moving from cover to cover. Very fast tanks may be able to get very close to the enemy lines by quickly heading down the west while the enemy is still moving into position, then hiding behind the rock and providing spotting for your own allies. Typical snipers reside in B1-B2 and A3 in the north and H1-H2 or J2-K2 in the south.</p>
-		<p>For both flanks, after defeating the first and second line enemies, continue to carefully progress north-south to eliminate any hiding snipers or SPGs, then sweep across laterally to or across the flag cap, but beware of enemy snipers in the other corner. Alternatively, heading to the middle allows you to support your allies pushing forward as well as supporting the other flank. Tight games on this map can be extremely entertaining to watch as teams react to spots, as long as the opponents do not insist in camping a corner.</p>
-		<p>The main pushes always occur on the east and/or west lanes.  One team will win a flank and push toward the enemy cap from that side.  So what’s the purpose of the middle?  You can’t push from the middle.  Even crossing the road exposes you to fire from many angles and many enemy tanks.  You can’t get much vision from the middle because both base areas have lots of camo cover.  The value in controlling the middle is being able to support and flank town.  From both sides the middle provides a number of good positions to fire from camo into lanes in town.</p>
+		<h1>Fisherman's Bay Standard Battle</h1>
+		<p class="attention">Share your expertise! See the Contribute tab for more information.</p>
+		<div fishbay-comments></div>
 	</div>
-	<div class="mapNotes" ng-show="selectedMap.value=='fjords'">
-		<h1>Fjords</h1>
-		<h2>Quick Strategy</h2>
-		<p></p>
-		<p>Lights:</p>
-		<p>Mediums:</p>
-		<p>Destroyers:</p>
-		<p>Heavies:</p>
-		<h2>Detailed</h2>
-		<p>Huge mountains and narrow valleys offer great advantages in a battle. You can engage in a fire duel across the gulf or enter a close quarter battle at the nearest port town or flank and capture enemy base. </p>
 
+	<div class="mapNotes" ng-show="selectedMap.value=='fish_e'">
+		<h1>Fisherman's Bay Encounter Battle</h1>
+		<p class="attention">Share your expertise! See the Contribute tab for more information.</p>
+		<div fishbay-encounter-comments></div>
 	</div>
+	
 	<div class="mapNotes" ng-show="selectedMap.value=='himmelsdorf'">
-		<h1>Himmelsdorf</h1>
-		<h2>Quick Strategy</h2>
-		<p></p>
-		<p>Lights:</p>
-		<p>Mediums:</p>
-		<p>Destroyers:</p>
-		<p>Heavies:</p>
-		<h2>Detailed</h2>
-		<p>Literally translated as "sky village" from German, this labyrinth of streets and squares are a large hindrance for artillery and tank destroyers, but ideal for speedy breakthrough and bypass by medium and light vehicles. With the castle dominating the area, access roads running by the hill and along the railway lines to help you out of the impasse. </p>
-
+		<h1>Himmelsdorf Standard Battle</h1>
+		<p class="attention">Share your expertise! See the Contribute tab for more information.</p>
+		<div himmelsdorf-comments></div>
 	</div>
+
+	<div class="mapNotes" ng-show="selectedMap.value=='himmelsdorf_e'">
+		<h1>Himmelsdorf Encounter Battle</h1>
+		<p class="attention">Share your expertise! See the Contribute tab for more information.</p>
+		<div himmelsdorf-encounter-comments></div>
+	</div>
+
 	<div class="mapNotes" ng-show="selectedMap.value=='karelia'">
 		<h1>Karelia</h1>
-		<h2>Quick Strategy</h2>
-		<p></p>
-		<p>Lights:</p>
-		<p>Mediums:</p>
-		<p>Destroyers:</p>
-		<p>Heavies:</p>
-		<h2>Detailed</h2>
-		<p>Swamps, rocks, and cliffs determine major avenues of approach on this map. This map, with sparse protection and no buildings, gives the combat advantage to artillery. Concentrate your attacks along the path of your main advance, while conducting delaying and defensive actions along the rest of your front lines. </p>
-		<p>For Standard Battles, the bases are as indicated in A0 and K1. For very low tier battles the middle is used, but otherwise the teams mainly split to the raised area in the north-west and around the mountain in the south-east, as the center tanks are too vulnerable to accurate fire from north-west. Generally light tanks will go to the north-west and heavy tanks will go to the south-east, but any tank type can be useful anywhere.</p>
-		<p>The hill in H6-G7 is extremely useful for winning the south-east, which generally requires fast tanks to be able to get around the corner and start going up their respective path up the hill before heavier firepower can arrive. Tanks going up the hill are shielded by a rock formation separating the paths up from each side. This hill is an important strategic location as not only does it allow flanking fire downwards into the tanks in H9 and J7, which prevents the enemy from holding these areas, it is also a location for shots across the map into the north-west flank. For the tanks that stay at the base of the mountain, there are lots of rock cover, small depressions to go hull-down in, corners to peek, and a few sniping positions in the far back. Having heavy here is critical to being able to push into the enemy.</p>
-		<p>The north-west has lots of open ground, broken by a few rock formations. Some TDs will typically hang in the back, while aggressive lights may take up positions in the mountain behind trees in B2-C2. Winning this flank usually requires superior spotting and better shot trading when popping out of cover behind the rock formations, if there isn't any extremely early spots while the enemies are still making their way to cover.</p>
-		<p>For the Assault Mode, the avenues and locations of clashes are much different. The attackers spawn in J7 and G9, while the defenders spawn around C3. The attackers generally split into two, with the SPGs and occasionally a few snipers climbing the hills. However, for the snipers to be effective, generally spots need to be made by a light tank or fast medium in the center, otherwise the snipers don't have any targets to shoot at, so usually such snipers are not very helpful to the team in random, uncoordinated battles. However, if the attacking team is able to get one or two tanks into the center under the hill, they can be very effective at spotting and/or destroying the soft TDs and SPGs in the base. To counter this, occasionally the defensive team will send a few lights and mediums into the center as well, underneath the attacking team's mountain. The attacking tanks on top of the mountain are very vulnerable to countersniping from all angles if they are spotted.</p>
-		<p>Otherwise, if there isn't significant action in the center, the attacking team will usually progress to J1 and A9 depending on their spawns, while the defensive team will set some snipers in D1 and anywhere in A3-A5 and B3, while pushing heavy tanks up to spot the attackers, which include positions in F1, H1, A7, and A8. Generally speaking, D1 depend slightly more on accuracy than the other positions. Afterwards, the teams will trade some shots and generally look to outflank each other. In the south, the attackers can flank around G1 through H2 and G2 to get shots into the rear of the tanks while being partially protected from snipers by a rock formation in F2. If they then manage to get rid of most of the tanks in F1, they can then blitz into the gorge in F2 while killing the remaining tanks, then be able to hull-down and spot the defending snipers in D1 from E2. E2 can also be reached simply by going around through the center. The defenders are forced to play passively and don't have many flanking opportunities in the south unless they manage to hold H1 convincingly, then the defenders can flank around carefully to H2 and crush the remaining tanks. The north also holds the potential for a lot of flanking maneuvers. Both attackers and defenders can flank around through A7-B9, though attackers risk being shot from the center. If the attackers are able to destroy the tanks in A8, they must advance to A7 to be safe from snipers. It may then be worth pushing a few tanks through B6 to provide another angle of attack to defeat the snipers.</p>
-		<p>There are a number of scenarios after a flank is won: If the attackers win the south side, the defenders must try to reinforce the defense by redirecting some of their tanks to defend the cap. Generally speaking, just defending the cap in this situation is somewhat favorable to the defense, all other variables equal and without attackers from the north, due to the superior hard cover in the north side of the base compared to the west. However, having to deal with attackers from both flanks may make the defense vulnerable to cross-fire, but as long as some tanks recognize that the west has fallen then they will be able to put up a fighting chance by advancing closer to the base to protect the flanks of their allies. If the attackers win the north side, the defenders have a much harder battle. Usually the attackers will not completely wipe the north flank, but they gain the advantage of good cover. If the defenders are able to rush to and past the cap before the flank falls, then the defense has a good chance; otherwise, the defenders will be mostly stuck in D1 and maybe E3. If the defenders have to try to fend off both flanks there is almost no hope, and if they only have to hold off the north it will still be a tough battle. If the defenders win either "chokepoint", they face a choice between returning to base and reinforcing the other flank or continuing to advance. Especially if the defenders are able to win early, sending a few faster tanks to deal with the enemy SPGs and TDs on the hill, then advance to harass the back of the opposing flank, may be worth it. However, destroying the enemy SPGs is no consolation if the base is overrun, so the rest of the flank, if not all of the tanks, should attempt to reinforce the other flank if necessary. Be careful not to be overzealous in rushing over to aid the defense however.</p>
-
-
+		<p class="attention">Share your expertise! See the Contribute tab for more information.</p>
+		<div karelia-comments></div>
 	</div>
+
 	<div class="mapNotes" ng-show="selectedMap.value=='komarin'">
-		<h1>Komarin</h1>
-		<h2>Quick Strategy</h2>
-		<p></p>
-		<p>Lights:</p>
-		<p>Mediums:</p>
-		<p>Destroyers:</p>
-		<p>Heavies:</p>
-		<h2>Detailed</h2>
-		<p>A more or less unique map in that the teams do not start near the flags, Komarin offers multiple tactical options. The teams start in the north and south, divided by rivers offering three routes. The rivers itself are mostly impassable. The middle bridge is also only accessible once a heavy tank clears the obstacles by driving over them or if someone clears them with HE ammo. The center route is a large, elevated, and wooded island connected by bridge to the south, and offers firing positions to nearly the entire map, but at the cost of being exposed if spotted. A small village on both the west and east side of the map offer attackers valuable cover en route to the flag, but leave any tank passing the village exposed to covered and concealed defenders once they leave the village.</p>
-		<p>1.  Heavies should secure the middle.  The middle provides good support fire and spotting, although the tanks are at major risk.  But once cleared out, tanks with good camo, fire, and view range can provide a major advantage to the rest of the map…however, its nearly impossible to leave the middle once you are there, as moving down the middle is horribly exposed.</p>
-		<p>2.  Mediums and Lights advance down the 1-2 line on spawn one or the 8-9 line on spawn two.</p>
-		<p>3.  TD's camp out in A1-E2 for spawn one or F9-K0 for spawn two.</p>
+		<h1>Komarin Standard Battle</h1>
+		<p class="attention">Share your expertise! See the Contribute tab for more information.</p>
+		<div komarin-comments></div>
 	</div>
+
 	<div class="mapNotes" ng-show="selectedMap.value=='lakeville'">
-		<h1>Lakeville</h1>
-		<h2>Quick Strategy</h2>
-		<p></p>
-		<h3>Lights</h3>
-		<h3>Mediums</h3>
-		<h3>Destroyers</h3>
-		<h3>Heavies</h3>
-		<h3>Dangers</h3>
-		<h3>Detailed</h3>
-		<p>An isolated mountain valley on one flank and city blocks on the other allow you to thrust close to the enemy. A large lake in the middle gives long-range weapons a clear field of fire.</p>
+		<h1>Lakeville Standard Battle</h1>
+		<p class="attention">Share your expertise! See the Contribute tab for more information.</p>
+		<div lakeville-comments></div>
 	</div>
+
+	<div class="mapNotes" ng-show="selectedMap.value=='lakeville_e'">
+		<h1>Lakeville Encounter Battle</h1>
+		<p class="attention">Share your expertise! See the Contribute tab for more information.</p>
+		<div lakeville-encounter-comments></div>
+	</div>
+
 	<div class="mapNotes" ng-show="selectedMap.value=='oaks'">
-		<h1>Live Oaks</h1>
-		<h2>Quick Strategy</h2>
-		<p></p>
-		<h3>Lights</h3>
-		<h3>Mediums</h3>
-		<h3>Destroyers</h3>
-		<h3>Heavies</h3>
-		<h3>Dangers</h3>
-		<p>H9: Safe place for cover on the downslope, but popping up to shoot is very dangerous as the ground does not level out to bring your turret down until you are very exposed.</p>
+		<h1>Live Oaks Standard Battle</h1>
+		<p class="attention">Share your expertise! See the Contribute tab for more information.</p>
+		<div liveoak-comments></div>
 	</div>
+
 	<div class="mapNotes" ng-show="selectedMap.value=='malinovka'">
-		<h1>Malinovka</h1>
-		<p>Initial staging areas are separated by a wide open field, ideal for artillery and defensive operations. Make use of flanking maneuvers and natural defenses like woods, hills, and farmhouses, as these can be decisive. Another option is a well-coordinated high-speed combined arms attack across the field which could bring victory, but at the risk of a bloody loss. Colloquially also known as "Campinovka" for the tendency of most players to just sit behind cover on their side of the starting field and snipe each other. </p>
+		<h1>Malinovka Standard Battle</h1>
+		<p class="attention">Share your expertise! See the Contribute tab for more information.</p>
+		<div malinovka-comments></div>
 	</div>
+
+	<div class="mapNotes" ng-show="selectedMap.value=='malinovka_e'">
+		<h1>Malinovka Encounter Battle</h1>
+		<p class="attention">Share your expertise! See the Contribute tab for more information.</p>
+		<div malinovka-encounter-comments></div>
+	</div>
+
+	<div class="mapNotes" ng-show="selectedMap.value=='malinovka_a'">
+		<h1>Malivnoka Assault Battle</h1>
+		<p class="attention">Share your expertise! See the Contribute tab for more information.</p>
+		<div malinovka-assault-comments></div>
+	</div>
+
 	<div class="mapNotes" ng-show="selectedMap.value=='mines'">
-		<h1>Mines</h1>
-		<h2>Quick Strategy</h2>
-		<p></p>
-		<p>Lights:</p>
-		<p>Mediums:</p>
-		<p>Destroyers:</p>
-		<p>Heavies:</p>
-		<h2>Detailed</h2>
-		<p>A flat hilltop in the center of this map provides an excellent firing position, but the short drive from either starting position makes climbing the hill a dangerous endeavor. Nestled in the canyon northeast of the hill is the small village of Pagorki; offering a tempting route with plenty of cover, but one that is exposed if the enemy controls the hill. West of the hill, surrounded by shallow water, is a small island which offers good cover while providing a large fire zone. While the island is protected from the hill, it is, for the most part, vulnerable to flanking attacks or fire from multiple angles. The island cover is solid, but not particularly large. </p>
+		<h1>Mines Standard Battle</h1>
+		<p class="attention">Share your expertise! See the Contribute tab for more information.</p>
+		<div mines-comments></div>
 	</div>
+
+	<div class="mapNotes" ng-show="selectedMap.value=='mines_e'">
+		<h1>Mines Encounter Battle</h1>
+		<p class="attention">Share your expertise! See the Contribute tab for more information.</p>
+		<div mines-encounter-comments></div>
+	</div>
+
 	<div class="mapNotes" ng-show="selectedMap.value=='mountain'">
-		<h1>Mountain Pass</h1>
-		<h2>Quick Strategy</h2>
-		<p></p>
-		<p>Scouts:</p>
-		<p>Mediums:</p>
-		<p>Destroyers:</p>
-		<p>Heavies:</p>
-		<h2>Detailed</h2>
-		<p>A large map with many turns and rough ground. The bridge near the center features natural choke points on both sides, and provides a good sniping position against opponents in the north passes if held. There are small positions for artillery near the bases, though artillery may have difficulty due to the terrain. </p>
+		<h1>Mountain Pass Standard Battle</h1>
+		<p class="attention">Share your expertise! See the Contribute tab for more information.</p>
+		<div mountainpass-comments></div>
 	</div>
+
+	<div class="mapNotes" ng-show="selectedMap.value=='mountain_e'">
+		<h1>Mountain Pass Encounter Battle</h1>
+		<p class="attention">Share your expertise! See the Contribute tab for more information.</p>
+		<div mountainpass-encounter-comments></div>
+	</div>
+
 	<div class="mapNotes" ng-show="selectedMap.value=='murovanka'">
 		<h1>Murovanka</h1>
-		<h2>Quick Strategy</h2>
-		<p></p>
-		<p>Lights:</p>
-		<p>Mediums:</p>
-		<p>Destroyers:</p>
-		<p>Heavies:</p>
-		<h2>Detailed</h2>
-		<p>A small town dominates the center of the map, with a large forest providing concealment in the east and high ground to the west. The forest provides effective concealment, but lacks cover from fire; whereas the town has plentiful cover, but lacks concealment.</p>
+		<p class="attention">Share your expertise! See the Contribute tab for more information.</p>
+		<div murovanka-comments></div>
 	</div>
+
+	<div class="mapNotes" ng-show="selectedMap.value=='murovanka_e'">
+		<h1>Murovanka Encounter Battle</h1>
+		<p class="attention">Share your expertise! See the Contribute tab for more information.</p>
+		<div murovanka-encounter-comments></div>
+	</div>
+
 	<div class="mapNotes" ng-show="selectedMap.value=='port'">
-		<h1>Port</h1>
-		<h2>Quick Strategy</h2>
-		<p></p>
-		<p>Scouts:</p>
-		<p>Mediums:</p>
-		<p>Destroyers:</p>
-		<p>Heavies:</p>
-		<h2>Detailed</h2>
-		<p>The setting is an industrial area of a port city. Teams begin the battle surrounded by factory buildings, warehouses, and docks. An open space in the center of the map consists of a hilly, open area and railroad tracks. Train cars can provide cover during combat. The most direct route to the enemy base is along the two highway bridges above the railway tracks. Common tactics on this map might include ambush and firing from defilade positions. Surprise attacks to the enemy's rear can break a deadlock. </p>
+		<h1>Port Standard Battle</h1>
+		<p class="attention">Share your expertise! See the Contribute tab for more information.</p>
+		<div port-comments></div>
 	</div>
+
 	<div class="mapNotes" ng-show="selectedMap.value=='prokhorovka'">
-		<h1>Prokhorovka</h1>
-		<h2>Quick Strategy</h2>
-		<p></p>
-		<p>Lights:</p>
-		<p>Mediums:</p>
-		<p>Destroyers:</p>
-		<p>Heavies:</p>
-		<h2>Detailed</h2>
-		<p>Generally open, but hilly, terrain around a vital railroad, with groups of trees providing shelter for tank destroyers. On the offensive, watch your own flanks while striking against the enemy flanks. Artillery has free reign, with the only real hindrance being the train cars themselves, but the open terrain makes them very vulnerable to raids by light vehicles.</p>
+		<h1>Prokhorovka Standard Battle</h1>
+		<p class="attention">Share your expertise! See the Contribute tab for more information.</p>
+		<div prokhorovka-comments></div>
 	</div>
+
+	<div class="mapNotes" ng-show="selectedMap.value=='prokhorovka_e'">
+		<h1>Prokhorovka Encounter Battle</h1>
+		<p class="attention">Share your expertise! See the Contribute tab for more information.</p>
+		<div prokhorovka-encounter-comments></div>
+	</div>
+
 	<div class="mapNotes" ng-show="selectedMap.value=='province'">
-		<h1>Province</h1>
-		<h2>Quick Strategy</h2>
-		<p></p>
-		<p>Lights:</p>
-		<p>Mediums:</p>
-		<p>Destroyers:</p>
-		<p>Heavies:</p>
-		<h2>Detailed</h2>
-		<p>Hills on the periphery of the map are covered with numerous houses and winding streets advantageous for surprise attacks. An open area between the bases is favorable for daring strikes. Except for clan wars, this map is only available to tiers 3 and below. </p>
+		<h1>Province Standard Battle</h1>
+		<p class="attention">Share your expertise! See the Contribute tab for more information.</p>
+		<div province-comments></div>
 	</div>
+
 	<div class="mapNotes" ng-show="selectedMap.value=='redshire'">
-		<h1>Redshire</h1>
-		<h2>Quick Strategy</h2>
-		<p></p>
-		<p>Lights:</p>
-		<p>Mediums:</p>
-		<p>Destroyers:</p>
-		<p>Heavies:</p>
-		<h2>Detailed</h2>
-		<p>A rolling area, dominated by a couple of hills. The village of Redshire gives places to hide from hill to its northeast. Artillery will play a powerful role on this map. </p>
-		<p>Mediums are tasked with holding their respective hills and conquer the middle hill. </p>
-		<p>Heavies are meant to manage a breakthrough at the east flank, and rarely they might make a stand down in the southwest.</p>
-		<p>Light tanks can zip around the map semi-comfortably, especially near the middle hill.</p>
-		
+		<h1>Redshire Standard Battle</h1>
+		<p class="attention">Share your expertise! See the Contribute tab for more information.</p>
+		<div redshire-comments></div>
 	</div>
-	<div class="mapNotes" ng-show="selectedMap.value=='ruinberg'">
-		<h1>Ruinberg</h1>
-		<h2>Quick Strategy</h2>
-		<p></p>
-		<p>Lights:</p>
-		<p>Mediums:</p>
-		<p>Destroyers:</p>
-		<p>Heavies:</p>
-		<h2>Detailed</h2>
-		<p>Concentric city streets, along with dense forests and bushes in the overgrown park allow for hidden maneuvers and redeployment of your troops. Although artillery fire is of limited use in the city, the debris provides effective cover for your troops. </p>
+
+	<div class="mapNotes" ng-show="selectedMap.value=='redshire_e'">
+		<h1>Redshire Encounter Battle</h1>
+		<p class="attention">Share your expertise! See the Contribute tab for more information.</p>
+		<div redshire-encounter-comments></div>
 	</div>
-	<div class="mapNotes" ng-show="selectedMap.value=='sandriver'">
-		<h1>Sand River</h1>
-		<h2>Quick Strategy</h2>
-		<p></p>
-		<p>Lights:</p>
-		<p>Mediums:</p>
-		<p>Destroyers:</p>
-		<p>Heavies:</p>
-		<h2>Detailed</h2>
-		<p>A mostly open map offering little concealment, but providing plentiful cover due to the large number of sand dunes. Three small villages provide temporary cover at best, but are easily destroyed, so they must be used cautiously. Each flag is well protected with a ridge offering defenders cover, concealment, and excellent firing positions. Plentiful cover allows an excellent arena for run and gun tactics while offering many routes for tanks to engage the enemy and make use of their mobility.</p>
+	
+	<div class="mapNotes" ng-show="selectedMap.value=='siegfried'">
+		<h1>Siegfried Line Standard Battle</h1>
+		<p class="attention">Share your expertise! See the Contribute tab for more information.</p>
+		<div siegfried-comments></div>
 	</div>
-	<div class="mapNotes" ng-show="selectedMap.value=='sigfried'">
-		<h1>Siegfried Line</h1>
-		<h2>Quick Strategy</h2>
-		<p></p>
-		<p>Lights:</p>
-		<p>Mediums:</p>
-		<p>Destroyers:</p>
-		<p>Heavies:</p>
-		<h2>Detailed</h2>
-		<p></p>
+	<div class="mapNotes" ng-show="selectedMap.value=='siegfried_a'">
+		<h1>Siegfried Line Assault Battle</h1>
+		<p class="attention">Share your expertise! See the Contribute tab for more information.</p>
+		<div siegfried-assault-comments></div>
 	</div>
-	<div class="mapNotes" ng-show="selectedMap.value=='southcoast'">
-		<h1>South Coast</h1>
-		<h2>Quick Strategy</h2>
-		<p></p>
-		<p>Lights:</p>
-		<p>Mediums:</p>
-		<p>Destroyers:</p>
-		<p>Heavies:</p>
-		<h2>Detailed</h2>
-		<p>This coastal area is bounded by ocean and mountains. A railroad crosses the territory from north to south. Woody hills on the western flank are favorable for a swift attack. A straight road connecting the bases passes through a small town, which often becomes a contested piece of terrain. The bases are protected by the hills from direct attacks. However, the flanks of the bases are insecure and must be protected. </p>
-	</div>
-	<div class="mapNotes" ng-show="selectedMap.value=='steppes'">
-		<h1>Steppes Line</h1>
-		<h2>Quick Strategy</h2>
-		<p></p>
-		<p>Lights:</p>
-		<p>Mediums:</p>
-		<p>Destroyers:</p>
-		<p>Heavies:</p>
-		<h2>Detailed</h2>
-		<p>A seemingly endless open expanse of fields and hills, scattered through this farmland-esque map. Open fields, varying ditches, and small hills and rises litter this map, allowing for some prime spots to lay ambushes. Long, open fields are great for those who prefer long-distance combat, with little cover available to your target. Just remember; This works both ways. </p>
-	</div>
-	<div class="mapNotes" ng-show="selectedMap.value=='swamp'">
-		<h1>Swamp</h1>
-		<h2>Quick Strategy</h2>
-		<p></p>
-		<p>Lights:</p>
-		<p>Mediums:</p>
-		<p>Destroyers:</p>
-		<p>Heavies:</p>
-		<h2>Detailed</h2>
-		<p>Flank routes offer great opportunities for surprise attacks and diversionary operations. A mire in the center is not only an obstacle, but also an important tactical location. </p>
-	</div>
-	<div class="mapNotes" ng-show="selectedMap.value=='Westfield'">
-		<h1>Westfield</h1>
-		<h2>Quick Strategy</h2>
-		<p></p>
-		<p>Lights:</p>
-		<p>Mediums:</p>
-		<p>Destroyers:</p>
-		<p>Heavies:</p>
-		<h2>Detailed</h2>
-		<p>A wonderfully lush area, Westfield features forests, fields, farmland, and multiple villages throughout the map. Included is a large war-damaged bridge crossing the eastern valley. Plentiful ridges give ambush positions along nearly every route, and large fields can leave a tank vulnerable when moving between positions.</p>
-	</div>
-	<div class="mapNotes" ng-show="selectedMap.value=='widepark'">
-		<h1>Widepark</h1>
-		<h2>Quick Strategy</h2>
-		<p></p>
-		<p>Lights:</p>
-		<p>Mediums:</p>
-		<p>Destroyers:</p>
-		<p>Heavies:</p>
-		<h2>Detailed</h2>
-		<p></p>
+	<div class="mapNotes" ng-show="selectedMap.value=='siegfried_e'">
+		<h1>Siegfried Line Encounter Battle</h1>
+		<p class="attention">Share your expertise! See the Contribute tab for more information.</p>
+		<div siegfried-encounter-comments></div>
 	</div>
