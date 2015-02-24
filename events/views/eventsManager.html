@@ -1,0 +1,22 @@
+<div class="leftColumn">
+	<h5>Event Mgr</h5>
+	
+</div>
+<div class="fixed content">
+	<dl class="sub-nav">
+	  <dt>Task:</dt>
+	  <dd ng-class="{ active: isCurrentPath('/eventMgr.update') }"><a href="eventMgr.update">Update</a></dd>
+	  <dd ng-class="{ active: isCurrentPath('/eventMgr.edit') }"><a href="eventMgr.edit">Edit Event</a></dd>
+	  <dd ng-class="{ active: isCurrentPath('/eventMgr.add') }"><a href="eventMgr.add">Add Event</a></dd>
+	  <dd ng-class="{ active: isCurrentPath('/eventMgr.delete') }"><a href="eventMgr.delete">Delete Event</a></dd>
+	</dl>
+	<div ui-view>
+
+
+	</div>
+	<h1>EVENT MANAGER</h1>
+	 <select id="selectEvent" ng-model="selectedEvent" ng-options="c.event for c in eventListDP" ng-change="selectEvent(selectedEvent)"></select>
+	
+	
+</div>
+

@@ -7,13 +7,12 @@ define( "DATABASE_USERNAME", "wotdata");
 define( "DATABASE_PASSWORD", "SaDie9954!");
 define( "DATABASE_NAME", "wotdata");
 //connect to the database.
-$con = mysql_connect(DATABASE_SERVER, DATABASE_USERNAME, DATABASE_PASSWORD) or die ('cannot reach database');
-mysql_select_db(DATABASE_NAME,$con) or die ("This is not a valid database");
-$primary_id = mysql_real_escape_string($data->PRIMARY_ID);
+$con = mysqli_connect(DATABASE_SERVER, DATABASE_USERNAME, DATABASE_PASSWORD,DATABASE_NAME) or die ('cannot reach database');
+$primary_id = mysqli_real_escape_string($con,$data->PRIMARY_ID);
 
 $query = "DELETE FROM events WHERE PRIMARY_ID='".$primary_id."'";
 
-$qry_res = mysql_query($query,$con);
+$qry_res = mysqli_query($con,$query);
 
 if ($qry_res) {
 	$arr = array('msg' => "Delete successful", 'result' => $qry_res, 'params' => $primary_id);

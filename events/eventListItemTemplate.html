@@ -1,0 +1,12 @@
+<div>
+<div class="datetitle" ng-show="!eventExpired"><h2>{{month}} {{day}}</h2></div>
+<div class="datetitleExpired" ng-show="eventExpired"><h2>{{month}} {{day}}</h2></div>
+<div class="ulContainer">
+	<ul><li ng-repeat="item in attendees">{{item.gamerTag}}</li></ul>
+</div>
+<button ng-click="addMe('{{myWeek}}')" type="button" class="button tiny" ng-show="!isRegistered && !eventExpired && !eventClosed">Add Me</button>
+<button ng-click="cancelMe('{{myWeek}}')" type="button" class="button tiny alert" ng-show="isRegistered && !eventExpired">Remove Me</button>
+<div class="expired" ng-show="eventExpired">EXPIRED</div>
+<div class="expired" ng-show="!isRegistered && eventClosed && !eventExpired">EVENT IS FULL</div>
+</div>
+

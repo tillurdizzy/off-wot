@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<dwsync>
+<file name="getAllEvents.php" server="bluewaveproduction.com/wot/" local="130600136459707867" remote="130640660400000000" Dst="1" />
+<file name="getEventsData.php" server="bluewaveproduction.com/wot/" local="130670062212875678" remote="130670040600000000" Dst="1" />
+<file name="insertTag.php" server="C:/wamp/www/off-wot/" local="130641417401946695" remote="130641417400000000" Dst="1" />
+<file name="removeTag.php" server="C:/wamp/www/off-wot/" local="130641418190221782" remote="130641418190000000" Dst="1" />
+<file name="insertTag.php" server="bluewaveproduction.com/wot/" local="130641417401946695" remote="130641420000000000" Dst="1" />
+<file name="removeTag.php" server="bluewaveproduction.com/wot/" local="130641418190221782" remote="130641420000000000" Dst="1" />
+<file name="getEventsData.php" server="C:/wamp/www/off-wot/" local="130655268175825233" remote="130655268170000000" Dst="1" />
+<file name="updateEventDates.php" server="bluewaveproduction.com/wot/" local="130646563810000000" remote="130646539800000000" Dst="1" />
+<file name="updateEventHost.php" server="bluewaveproduction.com/wot/" local="130645895081769014" remote="130646539800000000" Dst="1" />
+<file name="updateEventTime.php" server="bluewaveproduction.com/wot/" local="130645895080098919" remote="130646539800000000" Dst="1" />
+<file name="updateEventTitle.php" server="bluewaveproduction.com/wot/" local="130645902798330376" remote="130646539800000000" Dst="1" />
+<file name="updateEventZone.php" server="bluewaveproduction.com/wot/" local="130645915931461548" remote="130646539800000000" Dst="1" />
+<file name="updateEventDates.php" server="C:/wamp/www/off-wot/" local="130646563810000000" remote="130646563810000000" Dst="1" />
+<file name="updateEventHost.php" server="C:/wamp/www/off-wot/" local="130645895081769014" remote="130645895080000000" Dst="1" />
+<file name="updateEventTime.php" server="C:/wamp/www/off-wot/" local="130645895080098919" remote="130645895080000000" Dst="1" />
+<file name="updateEventTitle.php" server="C:/wamp/www/off-wot/" local="130645902798330376" remote="130645902790000000" Dst="1" />
+<file name="updateEventZone.php" server="C:/wamp/www/off-wot/" local="130645915931461548" remote="130645915930000000" Dst="1" />
+<file name="updateEventDay.php" server="C:/wamp/www/off-wot/" local="130645895082549059" remote="130645895080000000" Dst="1" />
+<file name="updateEventTiers.php" server="C:/wamp/www/off-wot/" local="130646547284742216" remote="130646547280000000" Dst="1" />
+<file name="updateEventDay.php" server="bluewaveproduction.com/wot/" local="130645895082549059" remote="130646539800000000" Dst="1" />
+<file name="updateEventTiers.php" server="bluewaveproduction.com/wot/" local="130646547284742216" remote="130646539800000000" Dst="1" />
+<file name="updateEventPhoto.php" server="C:/wamp/www/off-wot/" local="130650906203797770" remote="130650906200000000" Dst="1" />
+<file name="updateEvent.php" server="C:/wamp/www/off-wot/" local="130643191630000000" remote="130643191630000000" Dst="1" />
+<file name="getEventAttendees.php" server="C:/wamp/www/off-wot/" local="130650942843953467" remote="130650942840000000" Dst="1" />
+<file name="getEventAttendees.php" server="bluewaveproduction.com/wot/" local="130650942843953467" remote="130651845000000000" Dst="1" />
+<file name="updateEvent.php" server="bluewaveproduction.com/wot/" local="130643191630000000" remote="130651845000000000" Dst="1" />
+<file name="updateEventPhoto.php" server="bluewaveproduction.com/wot/" local="130650906203797770" remote="130651845000000000" Dst="1" />
+<file name="deleteEvent.php" server="C:/wamp/www/off-wot/" local="130653498067845301" remote="130653498060000000" Dst="1" />
+<file name="deleteEvent.php" server="bluewaveproduction.com/wot/" local="130653498067845301" remote="130653471600000000" Dst="1" />
+<file name="updateEventActive.php" server="C:/wamp/www/off-wot/" local="130655268903366846" remote="130655268900000000" Dst="1" />
+<file name="updateEventActive.php" server="bluewaveproduction.com/wot/" local="130655268903366846" remote="130655301000000000" Dst="1" />
+<file name="getTeamAttendees.php" server="C:/wamp/www/off-wot/" local="130657947694107219" remote="130657947690000000" Dst="1" />
+<file name="insertTeamTag.php" server="C:/wamp/www/off-wot/" local="130657943716874809" remote="130657943710000000" Dst="1" />
+<file name="removeTeamTag.php" server="C:/wamp/www/off-wot/" local="130657885159591741" remote="130657885150000000" Dst="1" />
+<file name="getTeamAttendees.php" server="bluewaveproduction.com/wot/" local="130657947694107219" remote="130657923600000000" Dst="1" />
+<file name="insertTeamTag.php" server="bluewaveproduction.com/wot/" local="130657943716874809" remote="130657923600000000" Dst="1" />
+<file name="removeTeamTag.php" server="bluewaveproduction.com/wot/" local="130657885159591741" remote="130657923600000000" Dst="1" />
+<file name="resetFiveXTeams.php" server="bluewaveproduction.com/wot/" local="130665722813235338" remote="130665692400000000" Dst="1" />
+<file name="resetFiveXTeams.php" server="C:/wamp/www/off-wot/" local="130665722813235338" remote="130665722810000000" Dst="1" />
+<file name="updateEventSort.php" server="bluewaveproduction.com/wot/" local="130670063469717565" remote="130670040600000000" Dst="1" />
+<file name="clearEventSignUps.php" server="bluewaveproduction.com/wot/" local="130673622344946115" remote="130691625000000000" Dst="1" />
+<file name="removeNewMembers.php" server="bluewaveproduction.com/wot/" local="130691667314207514" remote="130691631600000000" Dst="1" />
+</dwsync>

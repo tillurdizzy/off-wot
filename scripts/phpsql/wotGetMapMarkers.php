@@ -8,16 +8,15 @@ define( "DATABASE_USERNAME", "wotdata");
 define( "DATABASE_PASSWORD", "SaDie9954!");
 define( "DATABASE_NAME", "wotdata");
 //connect to the database.
-$con = mysql_connect(DATABASE_SERVER, DATABASE_USERNAME, DATABASE_PASSWORD) or die ('cannot reach database');
-mysql_select_db(DATABASE_NAME,$con) or die ("This is not a valid database");
-$map = mysql_real_escape_string($data->map);
-$author = mysql_real_escape_string($data->author);
-$query = sprintf("SELECT * FROM maps WHERE map = '".$map."'");
-$result = mysql_query($query,$con);
+$con = mysqli_connect(DATABASE_SERVER, DATABASE_USERNAME, DATABASE_PASSWORD,DATABASE_NAME) or die ('cannot reach database');
+$map = mysqli_real_escape_string($con,$data->map);
+$author = mysqli_real_escape_string($con,$data->author);
+$query = sprintf("SELECT * FROM maps WHERE map = '".$map."' AND author = '".$author."'");
+$result = mysqli_query($con,$query);
 
 $resultValueObjects = array();
 
-while ($row = mysql_fetch_object($result)) {
+while ($row = mysqli_fetch_object($result)) {
 	$oneVO = new wotVO();
 	$oneVO->PRIMARY_ID = $row->PRIMARY_ID;
 	$oneVO->xpos = $row->xpos;

@@ -4,7 +4,10 @@
 
  	$scope.goTo = function(link){
  		$state.transitionTo(link);
- 	}
+ 	};
+	
+	
+	$scope.linkView;
 	
  }]);
 

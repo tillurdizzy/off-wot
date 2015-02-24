@@ -4,5 +4,6 @@ class eventVO{
 	var $eventID;
 	var $eventWeek;
 	var $gamerTag;
+	var $startTime;
 }
 ?>

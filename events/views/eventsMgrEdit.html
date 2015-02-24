@@ -1,0 +1,169 @@
+<h5>Edit Event</h5>
+<div style="height:50px;width:200px;">
+	<button ng-click="getEvents()" type="button" class="button tiny">Get Events</button>
+</div>
+<div style="width:200px; clear:both; margin-top:20px;">
+	<select id="selectEvent" ng-model="selectedEvent" ng-options="c.title for c in eventsDataResult" ng-change="parseSelectedEvent(selectedEvent)" style="width:200px;"></select>
+    
+</div>
+<div ng-show="eventsDataResult.length>0">
+	<table st-table="eventDetails" class="table table-striped left" >
+		<thead>
+		<tr>
+			<th>Item</th>
+			<th>Detail</th>
+            <th>Edit</th>
+		</tr>
+		</thead>
+		<tbody>
+		<tr ng-repeat="row in selectedEventTableDP">
+			<td style="font-weight:bold">{{row.item}}</td>
+			<td style="width:220px;">{{row.detail}}</td>
+            <td>
+                <button ng-click="editThisItem($index)" type="button" class="button tiny">Edit</button>
+            </td>
+		</tr>
+		</tbody>
+	</table>
+    
+     <div class="left" style="margin-left:20px;width:150px;" ng-show="editItem=='active'">
+		<button ng-click="toggleActive('True')" type="button" class="button tiny alert" ng-show=isActive=='False'>Activate</button>
+        <button ng-click="toggleActive('False')" type="button" class="button tiny alert" ng-show=isActive=='True'>De-Activate</button>
+	</div>
+    
+    <div class="left" style="margin-left:20px;" ng-show="editItem=='title'">
+		<h5>Edit Title</h5>
+       <form name="titleForm" ng-submit="submitEditForm(titleForm.$valid)" novalidate>
+        	<input type="text" name="txtInput" placeholder="Event Title" ng-model="editedTitle" required ng-minlength=4 ng-maxlength=25>
+            <small class="attention" ng-show="titleForm.txtInput.$invalid && submitted">Input required.</small>
+            <small class="attention" ng-show="titleForm.txtInput.$error.minlength && !titleForm.txtInput.$pristine && submitted">Too short.</small>
+            <small class="attention" ng-show="titleForm.txtInput.$error.maxlength && !titleForm.txtInput.$pristine && submitted">Too long.</small>
+            <button type="submit" class="button small">Submit</button>
+       </form>
+	</div>
+    <div class="left compact" style="margin-left:20px;margin-top:30px;" ng-show="editItem=='title'">
+     	<p>Limited to 25 characters</br>
+    </div>
+    
+    <div class="left" style="margin-left:20px;" ng-show="editItem=='host'">
+		<h5>Edit Host</h5>
+       <form name="hostForm" ng-submit="submitEditForm(hostForm.$valid)" novalidate>
+        	<input type="text" name="txtInput" placeholder="Event Host" ng-model="editedHost" required ng-minlength=4 ng-maxlength=20>
+            <small class="attention" ng-show="hostForm.txtInput.$invalid && submitted">Input required.</small>
+            <small class="attention" ng-show="hostForm.txtInput.$error.minlength  && !hostForm.txtInput.$pristine && submitted">Too short.</small>
+            <small class="attention" ng-show="hostForm.txtInput.$error.maxlength  && !hostForm.txtInput.$pristine && submitted">Too long.</small>
+            <button type="submit" class="button small">Submit</button>
+       </form>
+	</div>
+    <div class="left compact" style="margin-left:20px;margin-top:30px;" ng-show="editItem=='host'">
+     	<p>Limited to 20 characters</br>
+    </div>
+    
+     <div class="left" style="margin-left:20px;" ng-show="editItem=='photo'" class="clearFloat">
+		<h5>Edit Photo</h5>
+        <form name="imageForm" class="clearFloat" ng-submit="submitEditForm(true)" novalidate>
+        <label>Select</label>
+         <select id="selectPhoto" ng-model="selectedPhoto" ng-change="selectPhoto(selectedPhoto)" class="clearFloat">
+            	<option ng-repeat="item in imageList" value="{{item}}">{{item}}</option>
+            </select>
+         <label></label>
+          <img class="clearFloat" src="{{selectedPhotoFullPath}}" width="250"/>
+         <label></label>
+          <button type="submit" class="button small clearFloat">Submit</button>
+       </form>
+      
+	</div>
+   
+    
+    <div class="left" style="margin-left:20px;" ng-show="editItem=='tiers'">
+		<h5>Edit Tiers</h5>
+       <form name="tiersForm" ng-submit="submitEditForm(tiersForm.$valid)" novalidate>
+       		<label>Display</label>
+        	<input type="text" name="txtInput" placeholder="I - X" ng-model="editedTiers" required>
+            <small class="attention" ng-show="tiersForm.txtInput.$invalid && submitted">Input required.</small>
+            <label>Low Tier</label>
+         	<select id="selectLo" ng-model="selectedLow" ng-options="c.tier for c in tierList" ng-change="selectLow(selectedLow)"></select>
+            <label>High Tier</label>
+         	<select id="selectHi" ng-model="selectedHigh" ng-options="c.tier for c in tierList" ng-change="selectHigh(selectedHigh)"></select>
+            <button type="submit" class="button small">Submit</button>
+       </form>
+	</div>
+    <div class="left compact" style="margin-left:20px;margin-top:40px;" ng-show="editItem=='tiers'">
+     	<p>Display is what the user sees and has no bearing on any programming code. Max length 15.</br>
+        <p>High Tier and Low Tier are integers is used in programming.</p>
+    </div>
+    <div class="left " style="margin-left:20px;width:150px;" ng-show="editItem=='time'">
+		<h5>Edit Time</h5>
+       <form name="timeForm" ng-submit="submitEditForm(timeForm.$valid)" novalidate>
+       	 <label>Display</label>
+         <input type="text" name="txtInput" placeholder="Event Time" ng-model="editedTime" required ng-minlength=4 ng-maxlength=20>
+         <small class="attention" ng-show="timeForm.txtInput.$invalid && submitted">Input required.</small>
+         <small class="attention" ng-show="timeForm.txtInput.$error.minlength  && !timeForm.txtInput.$pristine && submitted">Too short.</small>
+         <small class="attention" ng-show="timeForm.txtInput.$error.maxlength  && !timeForm.txtInput.$pristine && submitted">Too long.</small>
+         <label>Start time</label>
+         <select id="selectBegin" ng-model="selectedBegin" ng-options="c.clock for c in timeList" ng-change="selectBegin(selectedBegin)"></select>
+         <label>End time</label>
+         <select id="selectEnd" ng-model="selectedEnd" ng-options="c.clock for c in timeListB" ng-change="selectEnd(selectedEnd)"></select>
+         <button type="submit" class="button small">Submit</button>
+       </form>
+	</div>
+    <div class="left compact" style="margin-left:20px;margin-top:30px;" ng-show="editItem=='time'">
+     	<p>Display is what the user sees and has no bearing on any programming code.</br>
+        <p>Start Time and End Time is 24-hr time used in programming.</p>
+    </div>
+    
+    <div class="left" style="margin-left:20px;width:150px;" ng-show="editItem=='zone'">
+		<h5>Edit Zone</h5>
+       <form name="zoneForm" ng-submit="submitEditForm(zoneForm.$valid)" novalidate>
+        	<select id="selectZone" ng-model="selectedZone" ng-options="c.label for c in zoneList" ng-change="selectZone(selectedZone)" required></select>
+            <button type="submit" class="button small">Submit</button>
+       </form>
+	</div>
+    
+    <div class="left" style="margin-left:20px;width:150px;" ng-show="editItem=='day'">
+		<h5>Edit Day</h5>
+       <form name="dayForm" ng-submit="submitEditForm(dayForm.$valid)" novalidate>
+        	<select id="selectDay" ng-model="selectedDay" ng-options="c.label for c in weekDayLabels" ng-change="selectDay(selectedDay)" required></select>
+            <button type="submit" class="button small">Submit</button>
+       </form>
+	</div>
+    
+    <div class="left" style="margin-left:20px;width:150px;" ng-show="editItem=='sort'">
+		<h5>Edit Sort</h5>
+       <form name="sortForm" ng-submit="submitEditForm(sortForm.$valid)" novalidate>
+        	<select id="selectSort" ng-model="selectedSort" ng-options="c.label for c in sortValObjects" ng-change="selectSort(selectedSort)" required></select>
+            <button type="submit" class="button small">Submit</button>
+       </form>
+	</div>
+     <div class="left compact" style="margin-left:20px;margin-top:30px;" ng-show="editItem=='sort'">
+     	<p>Events are first sorted by Day of Week (Sunday = 1... Saturday = 7)</br>
+        <p>This secondary sort is used for events on the same day.</p>
+    </div>
+    
+    <div class="left" style="margin-left:20px;width:150px;" ng-show="editItem=='dates'">
+		<h5>Edit Dates</h5>
+        
+       <form name="datesForm" ng-submit="submitEditForm(datesForm.$valid)" novalidate>
+        	<input type="text" placeholder="Instance One" required ng-model="instOne" ng-minlength=1 ng-maxlength=2>
+            <input type="text" placeholder="Instance Two" required ng-model="instTwo" ng-minlength=1 ng-maxlength=2>
+            <input type="text" placeholder="Instance Three" required ng-model="instThree" ng-minlength=1 ng-maxlength=2>
+            <input type="text" placeholder="Instance Four" required ng-model="instFour" ng-minlength=1 ng-maxlength=2>
+            <input type="text" placeholder="Instance Five" required ng-model="instFive" ng-minlength=1 ng-maxlength=2>
+            <button type="submit" class="button small">Submit</button>
+       </form>
+	</div>
+     <div class="left compact" style="margin-left:20px;margin-top:30px;" ng-show="editItem=='dates'">
+     	<p>There are 5 possible dates (instances) for an event in a single month. All 5 fields must be filled.</p>
+        <p>Zero indicates a void instance, and are always trailing.</p>
+     	<p>Example for every week with 5 instances: 1,8,15,22,29</p>
+        <p>Example for every week with 4 instances: 5,12,19,26,0</p>
+        <p>Example for every other week: 5,19,0,0,0</p>
+        <p>Example for only one day of the month: 14,0,0,0,0</p>
+     </div>
+     <div class="left compact" style="margin-left:20px;" ng-show="editItem=='success'">
+		<h5>Successfully Updated.</h5>
+        <p>Make more edits, or click 'Get Events' again to refresh data with changes.</p>
+     </div>
+</div>
+
+

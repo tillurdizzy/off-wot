@@ -1,129 +1,36 @@
-<div class="leftColumn">
-	<h5>Events</h5>
-	<div ng-show="gamerCookie==null">
-		<h5>Log in</h5>
-		<input type="text" placeholder="XBL Gamertag" ng-model="signInTag">
-		<h3 class="attention" ng-show="signInResult=='FAIL_gamer'">Gamertag not found.</h3>
-		<input type="text" placeholder="Password" ng-model="signInPword">
-		<h3 class="attention" ng-show="signInResult=='FAIL_password'">Password incorrect.</h3>
-		<button ng-click="submitSignIn()" type="button" class="button tiny" >Submit</button>
-	</div>
-	<div><img src="images/tak.jpg"></div>
-</div>
-<div class="fixed content">
-	<div class="eventItem">
-		<h4>Events for October 2014</h4>
-	</div>
-	<div class="eventItem" ng-show="gamerCookie==null">
-		<h2 class="smallNote"><a ui-sref="registration">Register</a> and/or Log-in at left to sign-up for an event.</hs>
-	</div>
+
+<div class="mobilecontent">
 	
-	<div class="eventItem">
-		<div class="buttons">
-			<button ng-click="showEventPage('monday01')" type="button" class="button small" ng-disabled="gamerCookie==null">Sign Up</button>
-		</div>
-		<h2>Monday Medium Maddness</h2>
-		<p>Got a case of the Mondays? Grab your fav Mediums and roll!</p>
+	<h4>{{titleDisplay}}</h4>
+	
+    <div ng-show="signedIn==false">
+		<button class="button" ng-click='toggleModal()'>Sign In</button>  
 	</div>
+    <div class="gridrow" ng-show="signedIn==true" >
+    	<div event-menu-item title="{{e.title}}" imgsrc="{{e.photo}}" class="col-1-4 eventItemGrid"
+      		ng-click="showEventPage(e.PRIMARY_ID)" ng-repeat="e in eventsDataResult">
+        </div>
+    </div>
+    <sign-in-modal show='modalShown'>
+       <form name="userForm" ng-submit="submitSignIn(userForm.$valid)" novalidate>
+            <label style="font-size:14px; font-weight:bold">Log In</label>
+            <div class="form-group">
+                <label>Gamertag</label>
+                <input type="text" name="name" class="form-control" placeholder="XBL Gamertag" ng-model="signInTag" required>
+                <h3 class="attention" ng-show="userForm.name.$invalid && submitted">Gamertag is required.</h3>
+                <h3 class="attention" ng-show="signInResult=='FAIL_gamer'">Gamertag not found.</h3>
+            </div>
+            
+            <div class="form-group">
+                <label>Password</label>
+                <input type="password" name="password" class="form-control" placeholder="Password" ng-model="signInPword" required>
+                <h3 class="attention" ng-show="signInResult=='FAIL_password'">Password incorrect.</h3>
+                <h3 class="attention" ng-show="userForm.password.$invalid &&  submitted">Pasword is required.</h3>
+            </div>
+            
+            <button type="submit" class="btn btn-primary">Submit</button>
+    	</form>
+    </sign-in-modal>
 
-	<div class="eventItem">
-		<div class="buttons">
-			<button ng-click="showEventPage('monday02')" type="button" class="button small" ng-disabled="gamerCookie==null">Sign Up</button>
-		</div>
-		<h2>Murica Mondays</h2>
-		<p>Don't be shy or nuttin, just come on in and let freedom ring!</p>
-	</div>
-
-	<div class="eventItem">
-		<div class="buttons">
-			<button ng-click="showEventPage('tuesday01')" type="button" class="button small" ng-disabled="gamerCookie==null">Sign Up</button>
-		</div>
-		<h2>TD Tuesday</h2>
-		<p>Strap on your sniping helmet, find a bush, and lets do some damage!</p>
-	</div>
-
-	<div class="eventItem">
-		<div class="buttons">
-			<button ng-click="showEventPage('tuesday02')" type="button" class="button small" ng-disabled="gamerCookie==null">Sign Up</button>
-		</div>
-		<h2>Tier VIII Grindage</h2>
-		<p>Join the party for that long haul to your first Tier IX.</p>
-	</div>
-
-	<div class="eventItem">
-		<div class="buttons">
-			<button ng-click="showEventPage('wednesday01')" type="button" class="button small" ng-disabled="gamerCookie==null">Sign Up</button>
-		</div>
-		<h2>Wallet Warrior Wednesday</h2>
-		<p>Need cash? Time to roll a Premium and get that sweet silver flavor.</p>
-	</div>
-	<div class="eventItem">
-		<div class="buttons">
-			<button ng-click="showEventPage('wednesday02')" type="button" class="button small" ng-disabled="gamerCookie==null">Sign Up</button>
-		</div>
-		<h2>Heavy Education</h2>
-		<p>Roll with the big boys.  They may be slow, but they pack a big punch!</p>
-	</div>
-	<div class="eventItem">
-		<div class="buttons">
-			<button ng-click="showEventPage('thursday01')" type="button" class="button small" ng-disabled="gamerCookie==null">Sign Up</button>
-		</div>
-		<h2>Top Tier Thursday</h2>
-		<p>Grab your Tier 9's and 10's and hit the battlefield! Take no prisoners!</p>
-	</div>
-
-	<div class="eventItem">
-		<div class="buttons">
-			<button ng-click="showEventPage('thursday02')" type="button" class="button small" ng-disabled="gamerCookie==null">Sign Up</button>
-		</div>
-		<h2>Medium Mayhem Thursdays (Morning)</h2>
-		<p>"Hard knock" lessons on how to play a Medium tank.</p>
-	</div>
-	<div class="eventItem">
-		<div class="buttons">
-			<button ng-click="showEventPage('thursday03')" type="button" class="button small" ng-disabled="gamerCookie==null">Sign Up</button>
-		</div>
-		<h2>Medium Mayhem Thursdays (Evening)</h2>
-		<p>"Hard knock" lessons on how to play a Medium tank.</p>
-	</div>
-	<div class="eventItem">
-		<div class="buttons">
-			<button ng-click="showEventPage('thursday04')" type="button" class="button small" ng-disabled="gamerCookie==null">Sign Up</button>
-		</div>
-		<h2>Medium Mayhem Thursdays (Late Night)</h2>
-		<p>"Hard knock" lessons on how to play a Medium tank.</p>
-	</div>
-
-	<div class="eventItem">
-		<div class="buttons">
-			<button ng-click="showEventPage('friday01')" type="button" class="button small" ng-disabled="gamerCookie==null">Sign Up</button>
-		</div>
-		<h2>Friday Night Lights</h2>
-		<p>From the Locust to the Leopard, it's spottin' time!</p>
-	</div>
-
-	<div class="eventItem">
-		<div class="buttons">
-			<button ng-click="showEventPage('saturday01')" type="button" class="button small" ng-disabled="gamerCookie==null">Sign Up</button>
-		</div>
-		<h2>Sniper Saturday</h2>
-		<p>Grab your TD or favorite snipers and go hunting!</p>
-	</div>
-
-	<div class="eventItem">
-		<div class="buttons">
-			<button ng-click="showEventPage('sunday01')" type="button" class="button small" ng-disabled="gamerCookie==null">Sign Up</button>
-		</div>
-		<h2>Sunday Morning Starter</h2>
-		<p>Start off your Sunday with a healthy does of Tier I to IV goodness!</p>
-	</div>
-
-	<div class="eventItem">
-		<div class="buttons">
-			<button ng-click="showEventPage('sunday02')" type="button" class="button small" ng-disabled="gamerCookie==null">Sign Up</button>
-		</div>
-		<h2>Sunday Night Lights</h2>
-		<p>Grab your lower tier lights and go Clubbin'</p>
-	</div>
-		
+	
 </div>

@@ -1,0 +1,83 @@
+
+<div class="mobilecontent">
+	<div quick-login ng-show=!signedIn ></div>
+	<div ng-show=signedIn class="battleForm">
+	<h5>Battle Records for {{gamerTag}}</h5>
+	<p class="noMarginNoPad">Battles - Overall: {{numBattles}}  Session: {{numBattlesSession}}</p>
+	<p class="noMarginNoPad">Fart Score: {{OFF_Rating}}</p>
+	<div class="hrule"></div>
+	<H5 class="noMarginNoPad">Battle Start</H5>
+	<p class="noMarginNoPad">Choose your position in the battle tier.</p>
+	<div id="tierSelection" class="positionContainer" ng-show=signedIn==true>
+		<div position-dir display="{{sessionData.tierTop}}" history="" labeltitle="'Top'" selected="tiertopselected"
+			class="positionBox bkgClrBlue" ng-click="selectTierPosition(0)" style="cursor: hand;cursor: pointer;"></div>
+		<div position-dir display="{{sessionData.tierMid}}" history="" labeltitle="'Middle'" selected="tiermidselected"
+			class="positionBox bkgClrBlue" ng-click="selectTierPosition(1)" style="cursor: hand;cursor: pointer;"></div>
+		<div position-dir display="{{sessionData.tierBot}}" history="" labeltitle="'Bottom'" selected="tierbotselected"
+			class="positionBox bkgClrBlue" ng-click="selectTierPosition(2)" style="cursor: hand;cursor: pointer;"></div>
+	</div>
+	<div class="hrule" style="margin-top:6px;"></div>
+	<H5  class="noMarginNoPad">Battle End</H5>
+	<p  class="noMarginNoPad">Choose your position on the leader board.</p>
+	<div id="leaderBoardSelection" class="positionContainer" ng-show=signedIn==true>
+		<div position-dir display="{{sessionData.One}}" history="{{battlesData.One}}" labeltitle="'First'"  selected="boardfirselected"
+		class="positionBox bkgClrDrab" ng-click="selectBoardPosition(1)" style="cursor: hand;cursor: pointer;"></div>
+		<div position-dir display="{{sessionData.Top}}" history="{{battlesData.Top}}" labeltitle="'Top 5'"  selected="boardtopselected"
+		class="positionBox bkgClrDrab" ng-click="selectBoardPosition(2)" style="cursor: hand;cursor: pointer;"></div>
+		<div position-dir display="{{sessionData.Mid}}" history="{{battlesData.Mid}}" labeltitle="'Middle 5'"  selected="boardmidselected"
+		class="positionBox bkgClrDrab" ng-click="selectBoardPosition(3)" style="cursor: hand;cursor: pointer;"></div>
+		<div position-dir display="{{sessionData.Bot}}" history="{{battlesData.Bot}}" labeltitle="'Bottom 5'"  selected="boardbotselected"
+		class="positionBox bkgClrDrab" ng-click="selectBoardPosition(4)" style="cursor: hand;cursor: pointer;"></div>
+	</div>
+	<div class="hrule" style="margin-top:6px;"></div>
+	<button id="placeholderBtn" type="button" style="margin-top:20px;" class="button small" ng-show=formstate==0 ng-disabled=true>Waiting</button>
+	<button id="garageBtn" type="button" style="margin-top:20px;" class="button small alert" ng-show=formstate==1 ng-click="skipBattle()">Return to Garage</button>
+	<button id="submitBattleBtn" type="button" style="margin-top:20px;" class="button small success" ng-show=formstate==2 ng-click="submitBattle()">Save</button>
+	<div class="hrule" style="margin-top:10px;"></div>
+<div  class="footer">
+	<h5>Instructions</h5>
+	<h5>This page is formatted to use on your smart phone!</h5>
+	<p>Plug it in to the charger and set the display to never turn off.</p>
+	<h5>Battle Tier Position</h5>
+	<p>The Battle Tier is the tier of the highest ranking tank in the battle.</p>
+	<table>
+	<thead>
+	<tr>
+		<th>Your Tank Tier</th>
+		<th>Battle Tier</th>
+		<th>Your Battle Tier position</th>
+	</tr>
+	</thead>
+	<tbody>
+	<tr>
+		<td>7</td>
+		<td>7</td>
+		<td>Top</td>
+	</tr>
+	<tr>
+		<td>6</td>
+		<td>7</td>
+		<td>Middle</td>
+	</tr>
+	<tr>
+		<td>5 or below</td>
+		<td>7</td>
+		<td>Bottom</td>
+	</tr>
+	</tbody>
+	</table>
+	</br>
+	<h5>Leader Board Position</h5>
+	<p>Press the A Button on the Battle Results screen after the battle to see the leader board.</p>
+	<h5>Fart Score</h5>
+	<p>Scoring is based on the Battle Tier/Leader Board Position combination, with Bottom Tier/First on Leader Board being the highest possible score, and Top Tier/Bottom 5 being the lowest score.</br>
+	Your score may be quite eratic until you have recorded 20-30 battles, then it will even out.</br>
+	40 or Above: Excellent</br>
+	30-40: Good</br>
+	20-30: Average</br>
+	20 or Below: Needs Improvement</br>
+	<h5>Return to Garage</h5>
+	<p>If you don't want to wait for the end of the battle, selecting Return to Garage will automatically select Bottom of Leader Board and Submit.</p>
+	</div>
+	</div>
+</div>

@@ -1,0 +1,30 @@
+<div class="compact">
+	<p>This page changes the dates of all events to a new month.</br>
+	<p>Use the Edit Event tab to customize specific event dates (e.g. every other week).</br>
+</div>
+<h4 class="clearFloat" style="margin-top:15px;">Delete all sign-ups:</h4>
+<div>
+  <button ng-click="clearSignUps()" type="button" class="button small">Delete</button>
+</div>
+<h4 class="clearFloat" style="margin-top:15px;">Update Events Calendar to:</h4>
+<div>
+  <button ng-click="setUpdateMonth(0)" type="button" class="button small">{{thisMonthStr}}</button>
+  <button ng-click="setUpdateMonth(1)" type="button" class="button small">{{nextMonthStr}}</button>
+</div>
+
+<div class="compact">
+	<p>Sundays: {{sundays}}</p>
+    <p>mondays: {{mondays}}</p>
+    <p>Tuesdays: {{tuesdays}}</p>
+    <p>Wednesdays: {{wednesdays}}</p>
+    <p>Thursdays: {{thursdays}}</p>
+    <p>Fridays: {{fridays}}</p>
+    <p>Saturdays: {{saturdays}}</p>
+</div>
+<div ng-show="sundays.length>0" style="margin-top:15px;">
+	<h4>Check the above dates against a calendar.</h4>
+	<button ng-click="submitUpdate()" type="button" class="button small alert">Submit</button>
+</div>
+
+<h4 ng-show="updateComplete">Success!</h4>
+<p>{{}}</p>

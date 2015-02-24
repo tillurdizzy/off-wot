@@ -4,11 +4,9 @@ APP.service('platoonSrvc',['$http','$q',function sqlQueries($http,$q){
 	var self = this;
 	self.mapResult = [];
 	self.mapMarkers = [];
-	
+	self.mapStrategies=[];
 	self.dataVO = new Object();
 	self.pointsArray = [];
-
-	
 
 	self.insertData = function(dataObj){
 		var deferred = $q.defer();
@@ -81,9 +79,54 @@ APP.service('platoonSrvc',['$http','$q',function sqlQueries($http,$q){
 	    return deferred.promise; //return the data
 	};
 
-	
-	
+	self.putStrategy = function(dataObj){
+		var deferred = $q.defer();
+		$http({method: 'POST', url: 'platoon/platoonStrategyPut.php',data:dataObj}).
+		success(function(data, status, headers, config) {
+     		deferred.resolve(data);
+	    }).
+	    error(function(data, status, headers, config) {
+			deferred.reject(data);
+	    });
 
+	    return deferred.promise; //return the data
+	};
+
+	self.updateStrategy = function(dataObj){
+		var deferred = $q.defer();
+		$http({method: 'POST', url: 'platoon/platoonStrategyUpdate.php',data:dataObj}).
+		success(function(data, status, headers, config) {
+     		deferred.resolve(data);
+	    }).
+	    error(function(data, status, headers, config) {
+			deferred.reject(data);
+	    });
+
+	    return deferred.promise; //return the data
+	};
+
+	self.getStrategy = function(mapname,author){
+		self.mapStrategies = [];
+		var dataObj = new Object();
+		dataObj.map = mapname;
+		dataObj.author = author;
+		var deferred = $q.defer();
+		$http({method: 'POST', url: 'platoon/platoonStrategyGet.php',data:dataObj}).
+		success(function(data, status) {
+     		self.mapStrategies = data;
+     		//console.log("Success " + data);
+     		deferred.resolve(data);
+	    }).
+		error(function(data, status, headers, config) {
+	      	self.mapStrategies = data;
+	      	//console.log("Error " + data);
+			deferred.reject(data);
+	    });
+
+	    return deferred.promise; //return the data
+	};
+
+	
 	self.getMapMarkers = function(mapname,author){
 		self.mapMarkers = [];
 		var dataObj = new Object();

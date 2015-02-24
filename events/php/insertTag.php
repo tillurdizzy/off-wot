@@ -7,18 +7,19 @@ define( "DATABASE_USERNAME", "wotdata");
 define( "DATABASE_PASSWORD", "SaDie9954!");
 define( "DATABASE_NAME", "wotdata");
 //connect to the database.
-$con = mysql_connect(DATABASE_SERVER, DATABASE_USERNAME, DATABASE_PASSWORD) or die ('cannot reach database');
-mysql_select_db(DATABASE_NAME,$con) or die ("This is not a valid database");
-$_gamerTag = mysql_real_escape_string($data->gamerTag);
-$_eventID = mysql_real_escape_string($data->eventID);
-$_eventWeek = mysql_real_escape_string($data->eventWeek);
+$con = mysqli_connect(DATABASE_SERVER, DATABASE_USERNAME, DATABASE_PASSWORD,DATABASE_NAME) or die ('cannot reach database');
+$_gamerTag = mysqli_real_escape_string($con,$data->gamerTag);
+$_eventID = mysqli_real_escape_string($con,$data->eventID);
+$_eventWeek = mysqli_real_escape_string($con,$data->eventWeek);
+$_startTime = mysqli_real_escape_string($con,$data->startTime);
 
-$query = "INSERT INTO events(eventID,eventWeek,gamerTag)
+$query = "INSERT INTO events(eventID,eventWeek,gamerTag,startTime)
 VALUES(
 '" . $_eventID . "', " .
 "'" . $_eventWeek . "', " .
-"'" . $_gamerTag . "')";
-$qry_res = mysql_query($query,$con);
+"'" . $_gamerTag . "', " .
+"'" . $_startTime . "')";
+$qry_res = mysqli_query($con,$query);
 if ($qry_res) {
 	$arr = array('msg' => "Insert successful", 'result' => $qry_res, 'params' => $gamerTag);
 	$jsn = json_encode($arr);

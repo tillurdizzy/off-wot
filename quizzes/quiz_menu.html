@@ -1,0 +1,59 @@
+
+<div class="mobilecontent">
+	<h5>Quizzes</h5>
+    <div style="color:#FF0000; font-size:36px; font-weight:bold">OUT OF ORDER - COMING SOON</div>
+	<div id="SelectQuiz" ng-show="!quizActive && !quizComplete">
+        <select id="selectQuiz" ng-model="selectedQuiz" ng-options="c.label for c in quizList" ng-change="selectQuiz(selectedQuiz)" ></select>
+        <div class="hiliteBox"  ng-show="!quizActive && !quizComplete">
+            <h5 class="title">Study Guides</h5>
+            <ul>
+                <li ng-repeat="guide in studyGuides"><a href='{{guide.url}}' target="_blank">{{guide.label}}</a></li>
+            </ul>
+            <p>You can take the quiz as many times as you like, but only the first time will be used for the OFF Quiz Contest.</p>
+        </div>
+    	<button ng-click="isSignedIn()" type="button" class="button small">Begin Quiz</button>
+    </div>
+    
+    <div id="QuizInProgress" class="" ng-show="quizActive && !quizComplete">
+    	<h3>{{quizTitle}}</h3>
+    	<div class="hiliteBox" >
+            <h5 class="title">Question #{{thisQuestion.num}}</h5>
+            <p>{{thisQuestion.Question}}</p>
+        </div>
+        <div class="radioGroup" ng-show=quizActive>
+                <p><input type="radio" ng-model="answerRB" value="A"> {{thisQuestion.A}}</p>
+                <p><input type="radio" ng-model="answerRB" value="B"> {{thisQuestion.B}}</p>
+                <p><input type="radio" ng-model="answerRB" value="C"> {{thisQuestion.C}}</p>
+            </div>
+		<button id="submitBtn" ng-click="clickSubmitBtn()" type="button" class="button small" ng-disabled="answerRB==''">Submit</button>
+    </div>
+    
+    <div id="QuizComplete" class="" ng-show="!quizActive && quizComplete">
+    	<div class="hiliteBox" >
+            <h5 class="title">You correctly answered {{quizResult}} out of 20 questions.</h5>
+        </div>
+    	<button ng-click="resetPage()" type="button" class="button small">Continue</button>
+    </div>
+    
+    <sign-in-modal show='modalShown'>
+       <form name="userForm" ng-submit="submitSignIn(userForm.$valid)" novalidate>
+            <label style="font-size:14px; font-weight:bold">Log In</label>
+            <div class="form-group">
+                <label>Gamertag</label>
+                <input type="text" name="name" class="form-control" placeholder="XBL Gamertag" ng-model="signInTag" required>
+                <h3 class="attention" ng-show="userForm.name.$invalid && submitted">Gamertag is required.</h3>
+                <h3 class="attention" ng-show="signInResult=='FAIL_gamer'">Gamertag not found.</h3>
+            </div>
+            
+            <div class="form-group">
+                <label>Password</label>
+                <input type="password" name="password" class="form-control" placeholder="Password" ng-model="signInPword" required>
+                <h3 class="attention" ng-show="signInResult=='FAIL_password'">Password incorrect.</h3>
+                <h3 class="attention" ng-show="userForm.password.$invalid &&  submitted">Pasword is required.</h3>
+            </div>
+            
+            <button type="submit" class="button small">Submit</button>
+    	</form>
+    </sign-in-modal>
+    
+</div>

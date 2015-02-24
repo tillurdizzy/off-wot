@@ -1,0 +1,11 @@
+<div class="leftColumn">
+	<h5>WoT Vehicles</h5>
+	<select id="selectVehicle" ng-model="selectedVehicle" ng-options="c.name_i18n for c in vehicles" ng-change="selectVehicle(selectedVehicle)" ></select>
+</div>
+<div class="fixed content">
+	<h3>WoT API</h3>
+	<img src={{selectedVehicle.image}}>
+	<h5>{{selectedVehicle.name_i18n}}</h5>
+	<h5>{{selectedVehicle.nation_i18n}}</h5>
+	<h5>{{selectedVehicle.type_i18n}}</h5>
+</div>

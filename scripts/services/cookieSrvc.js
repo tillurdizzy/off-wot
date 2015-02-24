@@ -4,12 +4,18 @@ APP.service('cookieSrvc',['$cookieStore',function ($cookieStore){
 	var self = this;
 
 	self.gamerCookie = null;
-	self.canEdit = null;
+	self.memberID = null;
+	self.canEdit = null;// not being used!
 
 	// SET COOKIES
 	
 	self.setCookie = function(gamertag){
 		$cookieStore.put('Gamertag',gamertag);
+		self.getCookie();
+	};
+
+	self.setMemberID = function(_id){
+		$cookieStore.put('memberID',_id);
 		self.getCookie();
 	};
 
@@ -24,6 +30,8 @@ APP.service('cookieSrvc',['$cookieStore',function ($cookieStore){
 		var myCookie = $cookieStore.get('Gamertag');
 		if(myCookie!=undefined){		
 			self.gamerCookie = myCookie;
+		}else{
+			self.gamerCookie = null;
 		}
 	};
 
@@ -34,10 +42,18 @@ APP.service('cookieSrvc',['$cookieStore',function ($cookieStore){
 		}
 	};
 
+	self.getID = function(){
+		var myID = $cookieStore.get('memberID');
+		if(myID!=undefined){		
+			self.memberID = myID;
+		}
+	};
+
 	//REMOVE COOKIES
 
 	self.removeCookie = function(){
 		$cookieStore.remove('Gamertag');
+		self.gamerCookie = null;
 		self.getCookie();
 	};
 
@@ -47,6 +63,7 @@ APP.service('cookieSrvc',['$cookieStore',function ($cookieStore){
 	};
 
 	self.getCookie();
+	self.getID();
 	self.getEditStatus();
 
 	// production only : remove cookies every refresh

@@ -1,0 +1,15 @@
+<div class="leftColumn">
+	<h5>Event Mgr</h5>
+</div>
+<div class="content">
+	<h3>Event Manager</h3>
+	<dl class="sub-nav">
+	  <dt>Task:</dt>
+      <dd ng-class="{ active: isCurrentPath('/eventMgr.weekly') }"><a ui-sref="eventMgr.weekly">Weekly</a></dd>
+	  <dd ng-class="{ active: isCurrentPath('/eventMgr.update') }"><a ui-sref="eventMgr.update">Monthly</a></dd>
+	  <dd ng-class="{ active: isCurrentPath('/eventMgr.edit') }"><a ui-sref="eventMgr.edit">Edit Event</a></dd>
+	</dl>
+	<div ui-view>
+	</div>
+</div>
+

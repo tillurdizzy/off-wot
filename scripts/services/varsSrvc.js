@@ -188,13 +188,14 @@ APP.service('VarsSrvc',[function (){
 		{offset:34,clock:"10AM",hour:10,day:3},
 		{offset:35,clock:"11AM",hour:11,day:3},
 		{offset:36,clock:"Noon",hour:12,day:3},
-		{offset:38,clock:"1PM",hour:13,day:3},
-		{offset:39,clock:"2PM",hour:14,day:3},
-		{offset:40,clock:"3PM",hour:15,day:3},
-		{offset:41,clock:"4PM",hour:16,day:3},
-		{offset:42,clock:"5PM",hour:17,day:3},
-		{offset:43,clock:"6PM",hour:18,day:3},
-		{offset:44,clock:"7PM",hour:19,day:3},
+		{offset:37,clock:"1PM",hour:13,day:3},
+		{offset:38,clock:"2PM",hour:14,day:3},
+		{offset:39,clock:"3PM",hour:15,day:3},
+		{offset:40,clock:"4PM",hour:16,day:3},
+		{offset:41,clock:"5PM",hour:17,day:3},
+		{offset:42,clock:"6PM",hour:18,day:3},
+		{offset:43,clock:"7PM",hour:19,day:3},
+		{offset:44,clock:"8PM",hour:20,day:3},
 		];
 
 	self.tierList = [
@@ -209,6 +210,69 @@ APP.service('VarsSrvc',[function (){
 		{tier:'IX',value:9},
 		{tier:'X',value:10}
 	];
+	self.weekDayObjects = [
+		{label:"Sunday",value:0},
+		{label:"Monday",value:1},
+		{label:"Tuesday",value:2},
+		{label:"Wednesday",value:3},
+		{label:"Thursday",value:4},
+		{label:"Friday",value:5},
+		{label:"Saturday",value:6}];
+		
+	self.sortValObjects = [
+		{label:"1",value:1},
+		{label:"2",value:2},
+		{label:"3",value:3},
+		{label:"4",value:4},
+		{label:"5",value:5},
+		{label:"6",value:6}];
+	
+	self.weekDayLabels = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+	self.monthLabels = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+
+	self.returnTierObj = function(val){
+		var rtnObj = new Object();
+		for (var i = 0; i < self.tierList.length; i++) {
+			if(self.tierList[i].value == val){
+				rtnObj = self.tierList[i];
+				break;
+			}
+		};
+		return rtnObj;
+	};
+
+	self.returnZoneObj = function(val){
+		var rtnObj = new Object();
+		for (var i = 0; i < self.zoneList.length; i++) {
+			if(self.zoneList[i].value == val){
+				rtnObj = self.zoneList[i];
+				break;
+			}
+		};
+		return rtnObj;
+	};
+
+	self.returnTimeObj = function(val){
+		var rtnObj = new Object();
+		for (var i = 0; i < self.timeList.length; i++) {
+			if(self.timeList[i].hour == parseInt(val)){
+				rtnObj = self.timeList[i];
+				break;
+			}
+		};
+		return rtnObj;
+	};
+
+	self.returnTimeObjB = function(val){
+		var rtnObj = new Object();
+		for (var i = 0; i < self.timeListB.length; i++) {
+			if(self.timeListB[i].hour == parseInt(val)){
+				rtnObj = self.timeListB[i];
+				break;
+			}
+		};
+		return rtnObj;
+	};
 
 	self.returnClockHour = function(Hr24){
 		var rtnStr;

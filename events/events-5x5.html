@@ -1,0 +1,82 @@
+
+<div class="eventListings mobilecontent">
+	<h1>{{eventData.title}}</h1>
+	<div class="eventPhoto"><img src="{{eventImage}}" width="250"></div>
+	<div class="eventDetails">
+		<div event-hdr eventdata="eventData"></div>
+	</div>
+    <div style="clear height:50px; width:100%">
+    	<button ng-click="cancelEvent()" type="button" class="button tiny alert"  style="margin-bottom:10px;" ng-disabled="!isRegistered">Remove Me</button>
+    </div>
+    
+    
+	 <div class="gridrow">
+        <div class="col-1-4 listItem" ng-class="{'listItemBkg':!eventExpiredA,'listItemBkgExpired':eventExpiredA}" team-item 
+                team-letter="A"
+                team-name="The Spartans"
+                attendees="AttendeesA"
+                event-closed="eventClosedA"
+                event-expired="eventExpired"
+                is-registered="isRegistered"
+                add-me="addAttendeeA()"
+                cancel-me="cancelAttendeeA()">
+        </div>
+    
+        <div class="col-1-4 listItem" ng-class="{'listItemBkg':!eventExpiredB,'listItemBkgExpired':eventExpiredB}" team-item
+                team-letter="B"
+                team-name="The Marauders"
+                attendees="AttendeesB"
+                event-closed="eventClosedB"
+                event-expired="eventExpired"
+                is-registered="isRegistered"
+                add-me="addAttendeeB()"
+                cancel-me="cancelAttendeeB()">
+        </div>
+    
+        <div class="col-1-4 listItem" ng-class="{'listItemBkg':!eventExpiredC,'listItemBkgExpired':eventExpiredC}" team-item 
+                team-letter="C"
+                team-name="The Renegades"
+                attendees="AttendeesC"
+                event-closed="eventClosedC"
+                event-expired="eventExpired"
+                is-registered="isRegistered"
+                add-me="addAttendeeC()"
+                cancel-me="cancelAttendeeC()">
+        </div>
+    
+        <div class="col-1-4 listItem" ng-class="{'listItemBkg':!eventExpiredD,'listItemBkgExpired':eventExpiredD}" team-item 
+                team-letter="D"
+                team-name="The Dawgs"
+                attendees="AttendeesD"
+                event-closed="eventClosedD"
+                event-expired="eventExpired"
+                is-registered="isRegistered"
+                add-me="addAttendeeD()"
+                cancel-me="cancelAttendeeD()">
+        </div>
+        <div class="col-1-4 listItem" ng-class="{'listItemBkg':!eventExpiredE,'listItemBkgExpired':eventExpiredE}" team-item 
+                team-letter="E"
+                team-name="The Strykers"
+                attendees="AttendeesE"
+                event-closed="eventClosedE"
+                event-expired="eventExpired"
+                is-registered="isRegistered"
+                add-me="addAttendeeE()"
+                cancel-me="cancelAttendeeE()">
+        </div>
+         <div class="col-1-4 listItem" ng-class="{'listItemBkg':!eventExpiredE,'listItemBkgExpired':eventExpiredE}" team-item 
+                team-letter="F"
+                team-name="The Punishers"
+                attendees="AttendeesF"
+                event-closed="eventClosedF"
+                event-expired="eventExpired"
+                is-registered="isRegistered"
+                add-me="addAttendeeF()"
+                cancel-me="cancelAttendeeF()">
+        </div>
+	</div>
+
+</div>
+
+
+

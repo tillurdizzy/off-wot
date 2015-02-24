@@ -55,6 +55,12 @@ a {
     border: none; 
  }
  
+.compact p{
+  font-size:.8em;
+  margin-top:0;
+  margin-bottom:0;
+}
+ 
 h1{
 	font-size: 3em;
 	color: #000000;
@@ -101,7 +107,9 @@ h5{
 	 margin-top:1px;
 }
 
-
+.clearFloat{
+ clear:both;
+}
 
 .submitForm {
   color:#ffffff;
@@ -152,9 +160,11 @@ textarea {
 
 select {
   font-size: 0.8rem;
+  font-weight: 700;
   height:2rem;
   padding: 0;
   margin:0 0 8px 0;
+  max-width:20em;
 }
 
 .subHeader{
@@ -170,6 +180,50 @@ select {
   margin-top:10px;
   width: 700px;
   height: 400px
+}
+
+.reveal-modal{
+  min-height: 300px;
+}
+
+.ng-modal {
+  transition: 0.2s ease-in-out opacity;
+}
+
+.ng-modal .reveal-modal {
+  display: block;
+  visibility: visible;
+}
+
+.ng-modal .reveal-modal-bg {
+  display: block;
+  z-index: 98;
+}
+
+.ng-modal.ng-hide-add,
+.ng-modal.ng-hide-remove{
+  display: block !important;
+}
+
+.ng-modal.ng-hide{
+  opacity: 0;
+}
+
+.reveal-modal{
+  transition: 0.2s ease-in-out all;
+  transition-delay: 0.2s;
+  -webkit-transform: scale(1);
+  opacity: 1;
+}
+
+.reveal-modal.ng-hide-add,
+.reveal-modal.ng-hide-remove{
+  display: block !important;
+}
+
+.reveal-modal.ng-hide{
+  -webkit-transform: scale(0.9);
+  opacity: 0;
 }
 
 

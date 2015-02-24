@@ -1,16 +1,13 @@
 'use strict';
 
 
-APP.controller('HomeCtrl', ['$scope','cookieSrvc',function ($scope,cookieSrvc) {
-	var CS = cookieSrvc;
+APP.controller('HomeCtrl', ['$scope','memberSrvc','$state',function ($scope,memberSrvc,$state) {
+	//This will also invoke cookieSrvc
+	var MS = memberSrvc;
 
-    $scope.gamerCookie = null;
-
-	$scope.getGamerCookie = function(){
- 		$scope.gamerCookie = CS.gamerCookie;
- 	};
-
- 	$scope.getGamerCookie();
+	$scope.goTracker = function(){
+		$state.transitionTo("battles");
+	}
 
  }]);
 

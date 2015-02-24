@@ -2,18 +2,18 @@
 	<div class="leftColumn">  
 		<h5>Select Map</h5>
 		<select id="selectMap" ng-model="selectedMap" ng-options="c.label for c in mapList" ng-change="selectMap(selectedMap)" ></select>
-		<div class="radioGroup">
+		<!-- <div class="radioGroup">
 			<p><input type="checkbox" ng-model="showHeavy" ng-change="filterMapLayers()">  Heavy</p>
 			<p><input type="checkbox" ng-model="showMedium" ng-change="filterMapLayers()">  Medium</p>
 			<p><input type="checkbox" ng-model="showLight" ng-change="filterMapLayers()">  Light</p>
 			<p><input type="checkbox" ng-model="showDestroyer" ng-change="filterMapLayers()">  TD</p>
   			<p><input type="checkbox" ng-model="showArty" ng-change="filterMapLayers()">  Arty</p>
   			<p><input type="checkbox" ng-model="showDanger" ng-change="filterMapLayers()">  Danger</p>
-		</div>
+		</div> -->
 		
-
-		<div class="submitForm" ng-show="canEdit">
-			<p class="smallNote" ng-show="formstate.visible">Choose spawn location and object type then click on the map to draw.</p>
+		<p ng-show=signedIn==false style="color:#FFFF00">Log-in to view/edit your markers.</p>
+		<div class="submitForm" ng-show=signedIn==true>
+			<p class="smallNote" ng-show="formstate.visible" style="color:#FFFF00">Choose spawn location and tank class then click on the map to place.</p>
 			<select id="selectSpawn" ng-model="selectedSpawn" ng-options="c.label for c in spawnLocationList" ng-change="selectSpawnType(selectedSpawn)" ng-show="formstate.visible"></select>
 			<select id="selectType" ng-model="selectedType" ng-options="c.label for c in drawTypeList" ng-change="selectDrawType(selectedType)" ng-show="formstate.visible"></select>
 			<button id="addMarker" ng-click="saveMarker()" type="button" class="button small" ng-show="formstate.role=='saveMarker'">Save</button>
@@ -24,229 +24,82 @@
 			<button id="savePath" ng-click="savePath()" type="button" class="button small" ng-show="formstate.role=='createPath'">Save Path</button>
 			<button id="canceldelete" ng-click="cancelDelete()" type="button" class="button small" ng-show="formstate.role=='deleteMarker'">Cancel</button>
 			<button id="cancelPath" ng-click="cancelPath()" type="button" class="button small" ng-show="formstate.role=='createPath'">Cancel Path</button>
-			<p class="smallNote" ng-show="formstate.role=='createPath'">Click along path route.  Click 'Save' when complete.</p>
+			<p class="smallNote" ng-show="formstate.visible" style="color:#FFFF00">WARNING: Page zoom must be set at 100% for marker to position correctly.</p>
 		</div>
 	</div>
 
 	<div kinetic-canvas class="canvasContainer" formstate="formstate" is-editable="yes" id="idforkinetic"></div>
 
 
-	<div class="mapNotes" ng-show="selectedMap.value=='abbey'">
-		<h1>Abbey Standard Battle</h1>
-		<p class="attention">Share your expertise! See the Contribute tab for more information.</p>
-		<div abby-comments></div>
-	</div>
-	
-	<div class="mapNotes" ng-show="selectedMap.value=='cliff'">
-		<h1>Cliff Standard Battle</h1>
-		<p class="attention">Share your expertise! See the Contribute tab for more information.</p>
-		<div cliff-comments></div>
-	</div>
-
-	<div class="mapNotes" ng-show="selectedMap.value=='cliff_e'">
-		<h1>Cliff Encounter Battle</h1>
-		<p class="attention">Share your expertise! See the Contribute tab for more information.</p>
-		<div cliff-encounter-comments></div>
-	</div>
-	
-	<div class="mapNotes" ng-show="selectedMap.value=='hallouf'">
-		<h1>El Hallouf Standard Battle</h1>
-		<p class="attention">Share your expertise! See the Contribute tab for more information.</p>
-		<div elhalluf-comments></div>
-	</div>
-
-	<div class="mapNotes" ng-show="selectedMap.value=='hallouf_e'">
-		<h1>El Hallouf Encounter Battle</h1>
-		<p class="attention">Share your expertise! See the Contribute tab for more information.</p>
-		<div elhalluf-encounter-comments></div>
-	</div>
-
-	<div class="mapNotes" ng-show="selectedMap.value=='ensk'">
-		<h1>Ensk Standard Battle</h1>
-		<p class="attention">Share your expertise! See the Contribute tab for more information.</p>
-		<div ensk-comments></div>
-	</div>
-
-	<div class="mapNotes" ng-show="selectedMap.value=='ensk_e'">
-		<h1>Ensk Encounter Battle</h1>
-		<p class="attention">Share your expertise! See the Contribute tab for more information.</p>
-		<div ensk-encounter-comments></div>
-	</div>
-
-	<div class="mapNotes" ng-show="selectedMap.value=='erlenberg'">
-		<h1>Erlenberg Standard Battle</h1>
-		<p class="attention">Share your expertise! See the Contribute tab for more information.</p>
-		<div erlenberg-comments></div>
-	</div>
-
-	<div class="mapNotes" ng-show="selectedMap.value=='erlenberg_e'">
-		<h1>Erlenberg Encounter Battle</h1>
-		<p class="attention">Share your expertise! See the Contribute tab for more information.</p>
-		<div erlenberg-encounter-comments></div>
-	</div>
-
-	<div class="mapNotes" ng-show="selectedMap.value=='erlenberg_a'">
-		<h1>Erlenberg Assault Battle</h1>
-		<p class="attention">Share your expertise! See the Contribute tab for more information.</p>
-		<div erlenberg-assault-comments></div>
-	</div>
-
-	<div class="mapNotes" ng-show="selectedMap.value=='fish'">
-		<h1>Fisherman's Bay Standard Battle</h1>
-		<p class="attention">Share your expertise! See the Contribute tab for more information.</p>
-		<div fishbay-comments></div>
-	</div>
-
-	<div class="mapNotes" ng-show="selectedMap.value=='fish_e'">
-		<h1>Fisherman's Bay Encounter Battle</h1>
-		<p class="attention">Share your expertise! See the Contribute tab for more information.</p>
-		<div fishbay-encounter-comments></div>
-	</div>
-	
-	<div class="mapNotes" ng-show="selectedMap.value=='himmelsdorf'">
-		<h1>Himmelsdorf Standard Battle</h1>
-		<p class="attention">Share your expertise! See the Contribute tab for more information.</p>
-		<div himmelsdorf-comments></div>
-	</div>
-
-	<div class="mapNotes" ng-show="selectedMap.value=='himmelsdorf_e'">
-		<h1>Himmelsdorf Encounter Battle</h1>
-		<p class="attention">Share your expertise! See the Contribute tab for more information.</p>
-		<div himmelsdorf-encounter-comments></div>
-	</div>
-
-	<div class="mapNotes" ng-show="selectedMap.value=='karelia'">
-		<h1>Karelia</h1>
-		<p class="attention">Share your expertise! See the Contribute tab for more information.</p>
-		<div karelia-comments></div>
-	</div>
-
-	<div class="mapNotes" ng-show="selectedMap.value=='komarin'">
-		<h1>Komarin Standard Battle</h1>
-		<p class="attention">Share your expertise! See the Contribute tab for more information.</p>
-		<div komarin-comments></div>
-	</div>
-
-	<div class="mapNotes" ng-show="selectedMap.value=='lakeville'">
-		<h1>Lakeville Standard Battle</h1>
-		<p class="attention">Share your expertise! See the Contribute tab for more information.</p>
-		<div lakeville-comments></div>
-	</div>
-
-	<div class="mapNotes" ng-show="selectedMap.value=='lakeville_e'">
-		<h1>Lakeville Encounter Battle</h1>
-		<p class="attention">Share your expertise! See the Contribute tab for more information.</p>
-		<div lakeville-encounter-comments></div>
-	</div>
-
-	<div class="mapNotes" ng-show="selectedMap.value=='oaks'">
-		<h1>Live Oaks Standard Battle</h1>
-		<p class="attention">Share your expertise! See the Contribute tab for more information.</p>
-		<div liveoak-comments></div>
-	</div>
-
-	<div class="mapNotes" ng-show="selectedMap.value=='malinovka'">
-		<h1>Malinovka Standard Battle</h1>
-		<p class="attention">Share your expertise! See the Contribute tab for more information.</p>
-		<div malinovka-comments></div>
-	</div>
-
-	<div class="mapNotes" ng-show="selectedMap.value=='malinovka_e'">
-		<h1>Malinovka Encounter Battle</h1>
-		<p class="attention">Share your expertise! See the Contribute tab for more information.</p>
-		<div malinovka-encounter-comments></div>
-	</div>
-
-	<div class="mapNotes" ng-show="selectedMap.value=='malinovka_a'">
-		<h1>Malivnoka Assault Battle</h1>
-		<p class="attention">Share your expertise! See the Contribute tab for more information.</p>
-		<div malinovka-assault-comments></div>
-	</div>
-
-	<div class="mapNotes" ng-show="selectedMap.value=='mines'">
-		<h1>Mines Standard Battle</h1>
-		<p class="attention">Share your expertise! See the Contribute tab for more information.</p>
-		<div mines-comments></div>
-	</div>
-
-	<div class="mapNotes" ng-show="selectedMap.value=='mines_e'">
-		<h1>Mines Encounter Battle</h1>
-		<p class="attention">Share your expertise! See the Contribute tab for more information.</p>
-		<div mines-encounter-comments></div>
-	</div>
-
-	<div class="mapNotes" ng-show="selectedMap.value=='mountain'">
-		<h1>Mountain Pass Standard Battle</h1>
-		<p class="attention">Share your expertise! See the Contribute tab for more information.</p>
-		<div mountainpass-comments></div>
-	</div>
-
-	<div class="mapNotes" ng-show="selectedMap.value=='mountain_e'">
-		<h1>Mountain Pass Encounter Battle</h1>
-		<p class="attention">Share your expertise! See the Contribute tab for more information.</p>
-		<div mountainpass-encounter-comments></div>
-	</div>
-
-	<div class="mapNotes" ng-show="selectedMap.value=='murovanka'">
-		<h1>Murovanka</h1>
-		<p class="attention">Share your expertise! See the Contribute tab for more information.</p>
-		<div murovanka-comments></div>
-	</div>
-
-	<div class="mapNotes" ng-show="selectedMap.value=='murovanka_e'">
-		<h1>Murovanka Encounter Battle</h1>
-		<p class="attention">Share your expertise! See the Contribute tab for more information.</p>
-		<div murovanka-encounter-comments></div>
-	</div>
-
-	<div class="mapNotes" ng-show="selectedMap.value=='port'">
-		<h1>Port Standard Battle</h1>
-		<p class="attention">Share your expertise! See the Contribute tab for more information.</p>
-		<div port-comments></div>
-	</div>
-
-	<div class="mapNotes" ng-show="selectedMap.value=='prokhorovka'">
-		<h1>Prokhorovka Standard Battle</h1>
-		<p class="attention">Share your expertise! See the Contribute tab for more information.</p>
-		<div prokhorovka-comments></div>
-	</div>
-
-	<div class="mapNotes" ng-show="selectedMap.value=='prokhorovka_e'">
-		<h1>Prokhorovka Encounter Battle</h1>
-		<p class="attention">Share your expertise! See the Contribute tab for more information.</p>
-		<div prokhorovka-encounter-comments></div>
-	</div>
-
-	<div class="mapNotes" ng-show="selectedMap.value=='province'">
-		<h1>Province Standard Battle</h1>
-		<p class="attention">Share your expertise! See the Contribute tab for more information.</p>
-		<div province-comments></div>
-	</div>
-
-	<div class="mapNotes" ng-show="selectedMap.value=='redshire'">
-		<h1>Redshire Standard Battle</h1>
-		<p class="attention">Share your expertise! See the Contribute tab for more information.</p>
-		<div redshire-comments></div>
-	</div>
-
-	<div class="mapNotes" ng-show="selectedMap.value=='redshire_e'">
-		<h1>Redshire Encounter Battle</h1>
-		<p class="attention">Share your expertise! See the Contribute tab for more information.</p>
-		<div redshire-encounter-comments></div>
-	</div>
-	
-	<div class="mapNotes" ng-show="selectedMap.value=='siegfried'">
-		<h1>Siegfried Line Standard Battle</h1>
-		<p class="attention">Share your expertise! See the Contribute tab for more information.</p>
-		<div siegfried-comments></div>
-	</div>
-	<div class="mapNotes" ng-show="selectedMap.value=='siegfried_a'">
-		<h1>Siegfried Line Assault Battle</h1>
-		<p class="attention">Share your expertise! See the Contribute tab for more information.</p>
-		<div siegfried-assault-comments></div>
-	</div>
-	<div class="mapNotes" ng-show="selectedMap.value=='siegfried_e'">
-		<h1>Siegfried Line Encounter Battle</h1>
-		<p class="attention">Share your expertise! See the Contribute tab for more information.</p>
-		<div siegfried-encounter-comments></div>
+	<!-- Directives are in mapComments.js -->
+	<div class="mapNotes">
+		<h1>{{selectedMap.label}}</h1>
+		<div abby-comments ng-show="selectedMap.value=='abbey'"></div>
+		<div arctic-comments ng-show="selectedMap.value=='arctic'"></div>
+		<div airfield-comments ng-show="selectedMap.value=='aifield'"></div>
+		<div pearl-comments ng-show="selectedMap.value=='pearlriver'"></div>
+		<div pearl-comments ng-show="selectedMap.value=='pearlriver_e'"></div>
+		<div cliff-comments ng-show="selectedMap.value=='cliff'"></div>
+		<div cliff-encounter-comments ng-show="selectedMap.value=='cliff_e'"></div>
+		<div elhalluf-comments ng-show="selectedMap.value=='hallouf'"></div>
+		<div elhalluf-encounter-comments ng-show="selectedMap.value=='hallouf_e'"></div>
+		<div ensk-comments ng-show="selectedMap.value=='ensk'"></div>
+		<div ensk-encounter-comments ng-show="selectedMap.value=='ensk_e'"></div>
+		<div erlenberg-comments ng-show="selectedMap.value=='erlenberg'"></div>
+		<div erlenberg-encounter-comments ng-show="selectedMap.value=='erlenberg_e'"></div>
+		<div erlenberg-assault-comments ng-show="selectedMap.value=='erlenberg_a'"></div>
+		<div fishbay-comments ng-show="selectedMap.value=='fish'"></div>
+		<div fishbay-encounter-comments ng-show="selectedMap.value=='fish_e'"></div>
+		<div highway-comments ng-show="selectedMap.value=='highway'"></div>
+		<div himmelsdorf-comments ng-show="selectedMap.value=='himmelsdorf'"></div>
+		<div himmelsdorf-encounter-comments ng-show="selectedMap.value=='himmelsdorf_e'"></div>
+		<div karelia-comments ng-show="selectedMap.value=='karelia'"></div>
+		<div karelia-assault-comments ng-show="selectedMap.value=='karelia_a'"></div>
+		<div karelia-encounter-comments ng-show="selectedMap.value=='karelia_e'"></div>
+		<div komarin-comments ng-show="selectedMap.value=='komarin'"></div>
+		<div lakeville-comments ng-show="selectedMap.value=='lakeville'"></div>
+		<div lakeville-encounter-comments ng-show="selectedMap.value=='lakeville_e'"></div>
+		<div liveoak-comments ng-show="selectedMap.value=='oaks'"></div>
+		<div malinovka-comments ng-show="selectedMap.value=='malinovka'"></div>
+		<div malinovka-encounter-comments ng-show="selectedMap.value=='malinovka_e'"></div>
+		<div malinovka-assault-comments ng-show="selectedMap.value=='malinovka_a'"></div>
+		<div mines-comments ng-show="selectedMap.value=='mines'"></div>
+		<div mines-encounter-comments ng-show="selectedMap.value=='mines_e'"></div>
+		<div mountainpass-comments ng-show="selectedMap.value=='mountain'"></div>
+		<div mountainpass-encounter-comments ng-show="selectedMap.value=='mountain_e'"></div>
+		<div murovanka-comments ng-show="selectedMap.value=='murovanka'"></div>
+		<div murovanka-encounter-comments ng-show="selectedMap.value=='murovanka_e'"></div>
+		<div port-comments ng-show="selectedMap.value=='port'"></div>
+		<div port-encounter-comments ng-show="selectedMap.value=='port_e'"></div>
+		<div prokhorovka-comments ng-show="selectedMap.value=='prokhorovka'"></div>
+		<div prokhorovka-encounter-comments ng-show="selectedMap.value=='prokhorovka_e'"></div>
+		<div province-comments ng-show="selectedMap.value=='province'"></div>
+		<div redshire-comments ng-show="selectedMap.value=='redshire'"></div>
+		<div redshire-encounter-comments ng-show="selectedMap.value=='redshire_e'"></div>
+		<div sandriver-comments ng-show="selectedMap.value=='sandriver'"></div>
+		<div sandriver-assault-comments ng-show="selectedMap.value=='sandriver_a'"></div>
+		<div sandriver-encounter-comments ng-show="selectedMap.value=='sandriver_e'"></div>
+		<div steppes-comments ng-show="selectedMap.value=='steppes'"></div>
+		<div siegfried-comments ng-show="selectedMap.value=='siegfried'"></div>
+		<div siegfried-assault-comments ng-show="selectedMap.value=='siegfried_a'"></div>
+		<div siegfried-encounter-comments ng-show="selectedMap.value=='siegfried_e'"></div>
+		<div westfield-standard-comments ng-show="selectedMap.value=='westfield'"></div>
+		<div westfield-assault-comments ng-show="selectedMap.value=='westfield_a'"></div>
+		<div westfield-encounter-comments ng-show="selectedMap.value=='westfield_e'"></div>
+		<div widepark-standard-comments ng-show="selectedMap.value=='widepark'"></div>
+		<div widepark-encounter-comments ng-show="selectedMap.value=='widepark_e'"></div>
+		<h2>Customize</h2>
+		<h3>Add your own personal markers to the map</h3>
+		<ol>
+			<li>You must be logged in.</li>
+			<li>Click the Add Marker button</li>
+			<li>Select the spawn location (red or green)</li>
+			<li>Select the class of tank (Light, Medium, Heavy, TD or SPG).  There is also a Danger marker to remind yourslef where not to go.</li>
+			<li>Click once on the map to place your marker</li>
+			<li>Click Reject to try again, or Save to keep it.</li>
+			<li>To delete a marker, click on it, then select Delete.</li>
+		</ol>
+		
+		
+		
 	</div>

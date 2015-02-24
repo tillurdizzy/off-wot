@@ -5,11 +5,21 @@ APP.controller('ScheduleCtrl',['$scope','scheduleDbSrvc','VarsSrvc','$state','co
 	$scope.selectedZoneDescription = 'Greenwich Mean Time, UTC -0 hours';
  	//$scope.currentTimelineData = [];
  	$scope.currentTableData = [];
+ 	var tablePages = [];
+ 	$scope.currentTablePage = [];// only what shows in table - 12 rows at a time
+ 	$scope.prevBtnDisabled = true;
+ 	$scope.nextBtnDisabled = true;
+ 	var numPages = 0;
+ 	var currentPage = 0;
+
+
  	$scope.newMemberData = [];
  	$scope.gamerCookie = cookieSrvc.gamerCookie;
  	$scope.searchResultsDisplay = false;
  	$scope.searchTimeDisplay = "";
- 	 $scope.isLoading = false;
+ 	$scope.regMemberCount = 0;
+ 	
+ 	//$scope.itemsByPage=15;
  	
  	$scope.displayType = "ALL";// either ALL or EVENTS
 	var DB = scheduleDbSrvc;
@@ -21,11 +31,6 @@ APP.controller('ScheduleCtrl',['$scope','scheduleDbSrvc','VarsSrvc','$state','co
 	$scope.searchActive = false;
   	//$scope.dataTable = new google.visualization.DataTable();
   	$scope.oneDay = 3600000*24;
-
-	/*$scope.dataTable.addColumn({ type: 'string', id: 'Member' });
-	$scope.dataTable.addColumn({ type: 'string', id: 'Tiers' });
-	$scope.dataTable.addColumn({ type: 'date', id: 'Start' });
-	$scope.dataTable.addColumn({ type: 'date', id: 'End' });*/
 
 
     $scope.zoneList = VarsSrvc.zoneList;
@@ -51,61 +56,53 @@ APP.controller('ScheduleCtrl',['$scope','scheduleDbSrvc','VarsSrvc','$state','co
 			$scope.currentTableData =  DB.returnEventsTableData($scope.selectedZone.value);
 		}else{
 			$scope.currentTableData =  DB.returnTableData($scope.selectedZone.value);
-		}		
+		};
+		splitToPages();
 	};
-
-	function getAPage() {
-        var data = [];
-        for (var j = 0; j < 20; j++) {
-            data.push(createRandomItem());
-        }
-        return data;
-    }
-
-    var lastStart = 0;
-    var maxNodes = 40;
-
-	$scope.callServer = function getData(tableState) {
-
-            //here you could create a query string from tableState
-            //fake ajax call
-            $scope.isLoading = true;
-
-            $timeout(function () {
-
-                //if we reset (like after a search or an order)
-                if (tableState.pagination.start === 0) {
-                    $scope.rowCollection = getAPage();
-                } else {
-                    //we load more
-                    $scope.rowCollection = $scope.rowCollection.concat(getAPage());
-
-                    //remove first nodes if needed
-                    if (lastStart < tableState.pagination.start && $scope.rowCollection.length > maxNodes) {
-                        //remove the first nodes
-                        $scope.rowCollection.splice(0, 20);
-                    }
-                }
-
-                lastStart = tableState.pagination.start;
-
-                $scope.isLoading = false;
-            }, 1000);
-
-        };
-
-    $scope.rowCollection = getAPage();
 
 	$scope.resetTable = function(){
 		$scope.searchResultsDisplay = false;
 		$scope.displayType = "ALL";
 		$scope.currentTableData =  DB.returnTableData($scope.selectedZone.value);
+		splitToPages();
+	};
+
+	$scope.showNextPage = function(){
+		currentPage = currentPage+1;
+		$scope.currentTablePage = tablePages[currentPage];
+		setButtonsEnabled();
 	}
+	$scope.showPreviousPage = function(){
+		currentPage = currentPage-1;
+		$scope.currentTablePage = tablePages[currentPage];
+		setButtonsEnabled();
+	}
+
+	var setButtonsEnabled = function(){
+		if(tablePages.length == 1){
+			$scope.nextBtnDisabled = true;
+			$scope.prevBtnDisabled = true;
+		}else if(currentPage == tablePages.length-1){
+			$scope.nextBtnDisabled = true;
+			$scope.prevBtnDisabled = false;
+		}
+		else if(currentPage == 0){
+			$scope.nextBtnDisabled = false;
+			$scope.prevBtnDisabled = true;
+		}
+		else if(currentPage > 0 && currentPage<tablePages.length-1){
+			$scope.nextBtnDisabled = false;
+			$scope.prevBtnDisabled = false;
+		};
+		
+	};
 
 	
 	DB.querySchedule().then(function(result){
 		DB.queryEvents().then(function(result){
 			$scope.currentTableData =  DB.returnTableData('UTC');
+			$scope.regMemberCount = DB.returnMemberCount();
+			splitToPages();
 		})
 	});
 
@@ -153,6 +150,7 @@ APP.controller('ScheduleCtrl',['$scope','scheduleDbSrvc','VarsSrvc','$state','co
 		$scope.currentTableData =  DB.returnEventsTableData($scope.selectedZone.value);
 		$scope.displayType = "EVENTS";
 		$scope.searchResultsDisplay = true;
+		splitToPages();
 	}
 
 	$scope.submitSearchForm = function(){
@@ -165,6 +163,31 @@ APP.controller('ScheduleCtrl',['$scope','scheduleDbSrvc','VarsSrvc','$state','co
 		$scope.currentTableData = DB.searchFarts(startTime,$scope.currentZone);
 		$scope.searchTimeDisplay = VarsSrvc.returnClockHour(startTime) + " " + $scope.currentZone;
 		$scope.searchResultsDisplay = true;
+		splitToPages();
+	};
+
+	var splitToPages = function(){
+		var pageLength = 12;
+		$scope.previousBtnEnabled = false;
+ 		$scope.nextBtnEnabled = false;
+		currentPage = 0;
+		tablePages = [];
+		numPages = Math.ceil($scope.currentTableData.length/pageLength);
+		var maxNum = $scope.currentTableData.length;
+		var begSlice = 0;
+		var endSlice = pageLength;
+		for (var i = 0; i < numPages; i++) {
+			var thisPage=[];
+			thisPage = $scope.currentTableData.slice(begSlice,endSlice);
+			tablePages.push(thisPage);
+			begSlice+=pageLength;
+			endSlice+=pageLength;
+			if(i == numPages-1){
+				endSlice = maxNum-1;
+			};
+		};
+		$scope.currentTablePage = tablePages[0];
+		setButtonsEnabled();
 	};
 
 	$scope.convertTo_ms = function(hour){

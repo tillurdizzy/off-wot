@@ -1,13 +1,72 @@
-<div class="leftColumn">
-	<h5>Events</h5>
-	<div><img src="images/tak.jpg"></div>
-</div>
-<div class="eventListings fixed content">
-	<h1>NO EVENTS SCHEDULED</h1>
-	<h1>THIS IS A TEST - PLEASE IGNORE</h1>
-	
-	<div event-reservation  eventweek="A" eventdate="October 5"></div>
-	
+
+<div class="eventListings mobilecontent">
+	<h1>{{eventData.title}}</h1>
+	<div class="eventPhoto"><img src="{{eventImage}}" width="250"></div>
+	<div class="eventDetails">
+		<div event-hdr eventdata="eventData"></div>
+	</div>
+	 <div class="gridrow">
+        <div class="col-1-4 listItem" ng-class="{'listItemBkg':!eventExpiredA,'listItemBkgExpired':eventExpiredA}" ng-show="eventData.weekA!=0" event-item 
+                my-week="A"
+                month="{{monthDisplay}}"
+                day="{{eventData.weekA}}"
+                attendees="AttendeesA"
+                event-closed="eventClosedA"
+                event-expired="eventExpiredA"
+                is-registered="isRegistered_A"
+                add-me="addAttendeeA()"
+                cancel-me="cancelAttendeeA()">
+        </div>
+    
+        <div class="col-1-4 listItem" ng-class="{'listItemBkg':!eventExpiredB,'listItemBkgExpired':eventExpiredB}" ng-show="eventData.weekB!=0" event-item
+                my-week="B"
+                month="{{monthDisplay}}"
+                day="{{eventData.weekB}}"
+                attendees="AttendeesB"
+                event-closed="eventClosedB"
+                event-expired="eventExpiredB"
+                is-registered="isRegistered_B"
+                add-me="addAttendeeB()"
+                cancel-me="cancelAttendeeB()">
+        </div>
+    
+        <div class="col-1-4 listItem" ng-class="{'listItemBkg':!eventExpiredC,'listItemBkgExpired':eventExpiredC}" ng-show="eventData.weekC!=0" event-item 
+                my-week="C"
+                month="{{monthDisplay}}"
+                day="{{eventData.weekC}}"
+                attendees="AttendeesC"
+                event-closed="eventClosedC"
+                event-expired="eventExpiredC"
+                is-registered="isRegistered_C"
+                add-me="addAttendeeC()"
+                cancel-me="cancelAttendeeC()">
+        </div>
+    
+        <div class="col-1-4 listItem" ng-class="{'listItemBkg':!eventExpiredD,'listItemBkgExpired':eventExpiredD}" ng-show="eventData.weekD!=0" event-item 
+                my-week="D"
+                month="{{monthDisplay}}"
+                day="{{eventData.weekD}}"
+                attendees="AttendeesD"
+                event-closed="eventClosedD"
+                event-expired="eventExpiredD"
+                is-registered="isRegistered_D"
+                add-me="addAttendeeD()"
+                cancel-me="cancelAttendeeD()">
+        </div>
+        <div class="col-1-4 listItem" ng-class="{'listItemBkg':!eventExpiredE,'listItemBkgExpired':eventExpiredE}" ng-show="eventData.weekE!=0" event-item 
+                my-week="E"
+                month="{{monthDisplay}}"
+                day="{{eventData.weekE}}"
+                attendees="AttendeesE"
+                event-closed="eventClosedE"
+                event-expired="eventExpiredE"
+                is-registered="isRegistered_E"
+                add-me="addAttendeeE()"
+                cancel-me="cancelAttendeeE()">
+        </div>
+	</div>
 
 </div>
+
+
 

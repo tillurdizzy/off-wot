@@ -1,34 +1,31 @@
 'use strict';
 
-APP.controller('MapCtrl',['$scope','$state','mapsDb','mapSrvc','cookieSrvc','memberSrvc', function ($scope,$state,mapsDb,mapSrvc,cookieSrvc,memberSrvc) {
+APP.controller('MapCtrl',['$scope','$state','mapsDb','mapSrvc','memberSrvc', function ($scope,$state,mapsDb,mapSrvc,memberSrvc) {
 
 	$scope.formstate = new Object();
 	$scope.formstate.visible = false;
 	$scope.formstate.role = 'hidden';
 
-	$scope.showHeavy = true;
+	/*$scope.showHeavy = true;
 	$scope.showMedium = true;
 	$scope.showLight = true;
 	$scope.showArty = true;
 	$scope.showDestroyer = true;
-	$scope.showDanger = true;
-	$scope.selectedAuthor = "typical";
+	$scope.showDanger = true;*/
 
 	var ME = "MAPS CTRL: ";
 	var DB = mapsDb;
 	var COM = mapSrvc;
-	var CS = cookieSrvc;
 	var MS = memberSrvc;
 
-	$scope.gamerCookie = null;
-	$scope.canEdit = null;
-	$scope.showLogIn = false;
+	$scope.gamerTag = "";
+	$scope.signedIn = false;
 
 	//These 3 are dataProviders for selection dropdown
 	$scope.mapList = COM.mapList;
 	$scope.drawTypeList = COM.drawTypeList;
 	$scope.spawnLocationList = COM.spawnLocationList;
-	$scope.authorList = COM.authorList;
+	//$scope.authorList = COM.authorList;
 
 	// Default (init) dropdown selections
 	$scope.selectedMap = COM.mapList[0];
@@ -47,7 +44,7 @@ APP.controller('MapCtrl',['$scope','$state','mapsDb','mapSrvc','cookieSrvc','mem
 		$scope.selectedMap = mapListObj;
 		COM.currentMapName = mapListObj.value;
 		COM.mapUrl = mapListObj.url;
-		DB.getMapMarkers($scope.selectedMap.value,$scope.selectedAuthor).then(function(result){
+		DB.getMapMarkers($scope.selectedMap.value,$scope.gamerTag).then(function(result){
 			COM.currentMapData = result;
 			$scope.$broadcast('event:newMapImage');
 		});
@@ -57,10 +54,9 @@ APP.controller('MapCtrl',['$scope','$state','mapsDb','mapSrvc','cookieSrvc','mem
 	$scope.saveMarker = function(){
 		DB.insertData(COM.newMarker).
 		then(function(result){
-			console.log("saveMarker result: " + result.result + " PARAMS: " +result.params);
+			//console.log("saveMarker result: " + result.result + " PARAMS: " +result.params);
 			$scope.hideForm();
-
-		},function(result){
+		},function(error){
 			
 		});
 	};
@@ -85,13 +81,13 @@ APP.controller('MapCtrl',['$scope','$state','mapsDb','mapSrvc','cookieSrvc','mem
 	$scope.deleteMarker = function(){
 		DB.removeMarker(COM.removeID).
 		then(function(result){
-			console.log("deleteMarker result: " + result.result + " PARAMS: " +result.params);
+			//console.log("deleteMarker result: " + result.result + " PARAMS: " +result.params);
 			$scope.hideForm();
-			DB.getMapMarkers($scope.selectedMap.value,$scope.selectedAuthor).then(function(result){
+			DB.getMapMarkers($scope.selectedMap.value,$scope.gamerTag).then(function(result){
 				COM.currentMapData = result;
 				$scope.$broadcast('event:refreshMap');
 			});
-		},function(result){
+		},function(error){
 			
 		});
 	};
@@ -128,29 +124,7 @@ APP.controller('MapCtrl',['$scope','$state','mapsDb','mapSrvc','cookieSrvc','mem
 		$scope.$broadcast('event:eraseLastDraw');
 	};
 
-	$scope.clickEditBtn = function(){	
-		if($scope.gamerCookie != null  && $scope.canEdit == "true"){
-			$state.transitionTo("mapedit");
-		}else{
-			$scope.showLogIn = true;
-		}
-	};
-
-	$scope.submitSignIn = function(){
- 		var tag = $scope.signInTag;
- 		var pword = $scope.signInPword;
- 		MS.queryMember(tag,pword).then(function(result){
- 			$scope.signInResult = MS.validateSubmission();
- 			if($scope.signInResult == "SUCCESS"){
- 				$scope.getGamerCookie();
- 				$scope.showLogIn = false;
- 				if($scope.canEdit == "true"){
- 					$state.transitionTo("mapedit");
- 				}	
- 			}
- 		});
- 	}
-
+	
 	
 	$scope.selectDrawType = function(typeObj){
 		$scope.selectedType = typeObj;
@@ -166,7 +140,7 @@ APP.controller('MapCtrl',['$scope','$state','mapsDb','mapSrvc','cookieSrvc','mem
 		COM.spawnType = typeObj.value;
 	};
 
-	$scope.filterMapLayers = function(){
+	/*$scope.filterMapLayers = function(){
 		var filters = new Object();
 		filters.heavy = $scope.showHeavy;
 		filters.light = $scope.showLight;
@@ -175,19 +149,17 @@ APP.controller('MapCtrl',['$scope','$state','mapsDb','mapSrvc','cookieSrvc','mem
 		filters.arty = $scope.showArty;
 		filters.danger = $scope.showDanger;
 		$scope.$broadcast('event:updateLayerFilters',filters);
-	};
+	};*/
 
-	$scope.getGamerCookie = function(){
- 		$scope.gamerCookie = CS.gamerCookie;
- 		$scope.canEdit = CS.canEdit;
- 		if($scope.canEdit == "true"){
- 			$scope.selectedAuthor = $scope.gamerCookie;
- 		}
- 		
- 		console.log(ME + "getGamerCookie " + $scope.gamerCookie + " Edit=" + $scope.canEdit);
+	$scope.getMemberStatus = function(){
+ 		$scope.gamerTag = MS.gamerTag;
+		$scope.signedIn = MS.signedIn;
+		if($scope.signedIn){
+			COM.author = $scope.gamerTag;
+		}
  	};
 
- 	$scope.getGamerCookie();
+ 	$scope.getMemberStatus();
 
 	$scope.selectMap($scope.selectedMap);
 

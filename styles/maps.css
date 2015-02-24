@@ -53,7 +53,7 @@
 
 .radioGroup{
   padding-top: 20px;
- font-size: 1em;
+ font-size: .9em;
  color: #FFFFFF;
 }
 
@@ -74,9 +74,18 @@
  color: #000000;
 }
 
-.mapNotes p a{
- font-size: 1em;
- color: #0000FF;
+
+
+.mapNotes a:link{
+    color: #0000FF; 
+}
+
+.mapNotes a:visited{
+    color: #AAAAAA; 
+}
+
+.mapNotes a:hover, a:focus {
+    color: #666666; 
 }
 
 

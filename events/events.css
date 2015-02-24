@@ -145,6 +145,13 @@
 	float:left;
 }
 
+.listItem h1{
+	color: #692929;
+	line-height: 40px;
+	padding-left: 10px;
+	float:left;
+}
+
 .listItem button.tiny, .button.tiny{
 	width: 100px;
 	height: 40px;
@@ -164,6 +171,45 @@
 .eventDetails{
 	margin-left: 8px;
 	float:left;
+}
+
+.platoon7x7{
+	clear: both;
+	width: 600px;
+}
+
+.platoon7x7 button.button.tiny .button.button.tiny{
+	clear: both;
+}
+
+.platoon7x7 h1{
+	clear: both;
+}
+
+.platoon7x7 button{
+	clear: both;
+}
+
+.platoon7x7 ol{
+	clear: both;
+	display: normal;
+}
+
+.platoon7x7 p{
+	clear: both;
+	margin: 0;
+	padding: 0;
+}
+
+.platoon7x7 select{
+	clear: both;
+	width:100px;
+}
+
+.bigBoldBlue{
+	font-size: 1.2em;
+	color: #FF0000;
+	font-weight: bold;
 }
 
 

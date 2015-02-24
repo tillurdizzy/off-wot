@@ -10,6 +10,26 @@ APP.directive('abbyComments', function () {
   	}
 });
 
+APP.directive('arcticComments', function () {
+    return {
+      restrict: 'A',
+        templateUrl:'maps/arcticStandardComments.html',
+      link: function($scope, elm, attrs) {
+        
+      }
+    }
+});
+
+APP.directive('airfieldComments', function () {
+    return {
+      restrict: 'A',
+        templateUrl:'maps/airfieldStandardComments.html',
+      link: function($scope, elm, attrs) {
+        
+      }
+    }
+});
+
 APP.directive('cliffComments', function () {
     return {
     	restrict: 'A',
@@ -130,6 +150,16 @@ APP.directive('himmelsdorfComments', function () {
     }
 });
 
+APP.directive('highwayComments', function () {
+    return {
+      restrict: 'A',
+        templateUrl:'maps/highwayStandardComments.html',
+      link: function($scope, elm, attrs) {
+        
+      }
+    }
+});
+
 APP.directive('himmelsdorfEncounterComments', function () {
     return {
       restrict: 'A',
@@ -144,6 +174,26 @@ APP.directive('kareliaComments', function () {
     return {
       restrict: 'A',
         templateUrl:'maps/kareliaComments.html',
+      link: function($scope, elm, attrs) {
+        
+      }
+    }
+});
+
+APP.directive('kareliaAssaultComments', function () {
+    return {
+      restrict: 'A',
+        templateUrl:'maps/kareliaAssaultComments.html',
+      link: function($scope, elm, attrs) {
+        
+      }
+    }
+});
+
+APP.directive('kareliaEncounterComments', function () {
+    return {
+      restrict: 'A',
+        templateUrl:'maps/kareliaEncounterComments.html',
       link: function($scope, elm, attrs) {
         
       }
@@ -280,11 +330,31 @@ APP.directive('murovankaEncounterComments', function () {
     }
 });
 
+APP.directive('pearlComments', function () {
+    return {
+      restrict: 'A',
+        templateUrl:'maps/pearlComments.html',
+      link: function($scope, elm, attrs) {
+        
+      }
+    }
+});
+
 
 APP.directive('portComments', function () {
     return {
       restrict: 'A',
         templateUrl:'maps/portComments.html',
+      link: function($scope, elm, attrs) {
+        
+      }
+    }
+});
+
+APP.directive('portEncounterComments', function () {
+    return {
+      restrict: 'A',
+        templateUrl:'maps/portEncounterComments.html',
       link: function($scope, elm, attrs) {
         
       }
@@ -341,6 +411,36 @@ APP.directive('redshireEncounterComments', function () {
     }
 });
 
+APP.directive('sandriverComments', function () {
+    return {
+      restrict: 'A',
+        templateUrl:'maps/sandriverStandardComments.html',
+      link: function($scope, elm, attrs) {
+        
+      }
+    }
+});
+
+APP.directive('sandriverEncounterComments', function () {
+    return {
+      restrict: 'A',
+        templateUrl:'maps/sandriverEncounterComments.html',
+      link: function($scope, elm, attrs) {
+        
+      }
+    }
+});
+
+APP.directive('sandriverAssaultComments', function () {
+    return {
+      restrict: 'A',
+        templateUrl:'maps/sandriverAssaultComments.html',
+      link: function($scope, elm, attrs) {
+        
+      }
+    }
+});
+
 APP.directive('siegfriedComments', function () {
     return {
       restrict: 'A',
@@ -365,6 +465,68 @@ APP.directive('siegfriedAssaultComments', function () {
     return {
       restrict: 'A',
         templateUrl:'maps/siegfriedAssaultComments.html',
+      link: function($scope, elm, attrs) {
+        
+      }
+    }
+});
+
+APP.directive('steppesComments', function () {
+    return {
+      restrict: 'A',
+        templateUrl:'maps/steppesStandardComments.html',
+      link: function($scope, elm, attrs) {
+        
+      }
+    }
+});
+
+APP.directive('westfieldStandardComments', function () {
+    return {
+      restrict: 'A',
+        templateUrl:'maps/westfieldStandardComments.html',
+      link: function($scope, elm, attrs) {
+        
+      }
+    }
+});
+
+APP.directive('westfieldEncounterComments', function () {
+    return {
+      restrict: 'A',
+        templateUrl:'maps/westfieldEncounterComments.html',
+      link: function($scope, elm, attrs) {
+        
+      }
+    }
+});
+
+APP.directive('westfieldAssaultComments', function () {
+    return {
+      restrict: 'A',
+        templateUrl:'maps/westfieldAssaultComments.html',
+      link: function($scope, elm, attrs) {
+        
+      }
+    }
+});
+
+APP.directive('wideparkStandardComments', function () {
+    return {
+      restrict: 'A',
+        templateUrl:'maps/wideparkStandardComments.html',
+      link: function($scope, elm, attrs) {
+        
+      }
+    }
+});
+
+
+
+APP.directive('wideparkEncounterComments', function () {
+    return {
+      restrict: 'A',
+        templateUrl:'maps/wideparkEncounterComments.html',
       link: function($scope, elm, attrs) {
         
       }

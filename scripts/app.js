@@ -1,6 +1,18 @@
 'use strict';
 
-var APP = angular.module('myApp', ['smart-table','ui.router','ngResource','ngSanitize','ngCookies','mm.foundation'])
+var APP = angular.module('myApp', ['smart-table','ui.router','ngResource','ngSanitize','ngCookies','mm.foundation','ngAnimate']);
+
+APP.run(['$rootScope', '$location', '$window', function($rootScope, $location, $window){
+     $rootScope
+        .$on('$stateChangeSuccess',
+            function(event){
+ 
+                if (!$window.ga)
+                    return;
+ 
+                $window.ga('send', 'pageview', { page: $location.path() });
+        });
+}]);
 
 APP.config(function($stateProvider, $urlRouterProvider) {
  	
@@ -15,7 +27,7 @@ APP.config(function($stateProvider, $urlRouterProvider) {
 		})
 		.state('registration', {
 			url: "/registration",
-			templateUrl: "views/registration.html",
+			templateUrl: "registration/registration.html",
 			controller:"RegistrationCtrl"
 		})
 		.state('contribute', {
@@ -46,7 +58,6 @@ APP.config(function($stateProvider, $urlRouterProvider) {
 			controller:"ScheduleCtrl"
 		})
 		
-
 		.state('reference', {
 			url: "/reference",
 			templateUrl: "ref/reference.html",
@@ -70,19 +81,39 @@ APP.config(function($stateProvider, $urlRouterProvider) {
 			url: "/refmaps",
 			templateUrl: "ref/reference_maps.html"
 		})
-		.state('reference.strategy', {
-			url: "/refstragey",
-			templateUrl: "ref/reference_strategy.html"
+		.state('reference.tanks', {
+			url: "/reftanks",
+			templateUrl: "ref/reference_tanks.html",
+			controller:"WOTAPICtrl"
+		})
+		
+		.state('reference.guides', {
+			url: "/refguides",
+			templateUrl: "ref/reference_guides.html"
 		})
 
 		.state('reference.perks', {
 			url: "/refperks",
 			templateUrl: "ref/reference_perks.html"
 		})
+		.state('reference.optics', {
+			url: "/refoptics",
+			templateUrl: "ref/reference_optics.html"
+		})
 		.state('reference.glossary', {
 			url: "/refglossary",
 			templateUrl: "ref/reference_glossary.html",
 			controller:"GlossaryCtrl"
+		})
+		.state('reference.radials', {
+			url: "/refradials",
+			templateUrl: "ref/reference_radials.html"
+		})
+
+		.state('quizmenu', {
+			url: "/quizmenu",
+			templateUrl: "quizzes/quiz_menu.html",
+			controller:"QuizCtrl"
 		})
 
 		.state('events', {
@@ -90,75 +121,41 @@ APP.config(function($stateProvider, $urlRouterProvider) {
 			templateUrl: "events/events.html",
 			controller:"EventsCtrl"
 		})
-		.state('monday01', {
-			url: "/monday01",
-			templateUrl: "events/events-monday01.html",
+		
+		.state('eventCalendar', {
+			url: "/eventCalendar",
+			templateUrl: "events/events-calendar.html",
 			controller:"CalendarCtrl"
 		})
-		.state('monday02', {
-			url: "/monday02",
-			templateUrl: "events/events-monday02.html",
-			controller:"CalendarCtrl"
+
+		.state('eventMgr', {
+			url: "/eventsmanager",
+			templateUrl: "events/views/eventsManager2.html"
 		})
-		.state('tuesday01', {
-			url: "/tuesday01",
-			templateUrl: "events/events-tuesday01.html",
-			controller:"CalendarCtrl"
+		.state('eventMgr.weekly', {
+			url: "/weekly",
+			templateUrl: "events/views/eventsMgrWeekly.html",
+			controller:"EventsUpdateCtrl"
 		})
-		.state('tuesday02', {
-			url: "/tuesday02",
-			templateUrl: "events/events-tuesday02.html",
-			controller:"CalendarCtrl"
+		.state('eventMgr.update', {
+			url: "/update",
+			templateUrl: "events/views/eventsMgrUpdate.html",
+			controller:"EventsUpdateCtrl"
 		})
-		.state('wednesday01', {
-			url: "/wednesday01",
-			templateUrl: "events/events-wednesday01.html",
-			controller:"CalendarCtrl"
+		.state('eventMgr.edit', {
+			url: "/edit",
+			templateUrl: "events/views/eventsMgrEdit.html",
+			controller:"EventsEditCtrl"
 		})
-		.state('wednesday02', {
-			url: "/wednesday02",
-			templateUrl: "events/events-wednesday02.html",
-			controller:"CalendarCtrl"
+		.state('eventMgr.add', {
+			url: "/add",
+			templateUrl: "events/views/eventsMgrAdd.html",
+			controller:"EventsMgrCtrl"
 		})
-		.state('thursday01', {
-			url: "/thursday01",
-			templateUrl: "events/events-thursday01.html",
-			controller:"CalendarCtrl"
-		})
-		.state('thursday02', {
-			url: "/thursday02",
-			templateUrl: "events/events-thursday02.html",
-			controller:"CalendarCtrl"
-		})
-		.state('thursday03', {
-			url: "/thursday03",
-			templateUrl: "events/events-thursday03.html",
-			controller:"CalendarCtrl"
-		})
-		.state('thursday04', {
-			url: "/thursday04",
-			templateUrl: "events/events-thursday04.html",
-			controller:"CalendarCtrl"
-		})
-		.state('friday01', {
-			url: "/friday01",
-			templateUrl: "events/events-friday01.html",
-			controller:"CalendarCtrl"
-		})
-		.state('saturday01', {
-			url: "/saturday01",
-			templateUrl: "events/events-saturday01.html",
-			controller:"CalendarCtrl"
-		})
-		.state('sunday01', {
-			url: "/sunday01",
-			templateUrl: "events/events-sunday01.html",
-			controller:"CalendarCtrl"
-		})
-		.state('sunday02', {
-			url: "/sunday02",
-			templateUrl: "events/events-sunday02.html",
-			controller:"CalendarCtrl"
+		.state('eventMgr.delete', {
+			url: "/delete",
+			templateUrl: "events/views/eventsMgrDelete.html",
+			controller:"EventsMgrCtrl"
 		})
 		
 		.state('platoon', {
@@ -166,12 +163,41 @@ APP.config(function($stateProvider, $urlRouterProvider) {
 			templateUrl: "platoon/maps-platoon.html",
 			controller:"PlatoonCtrl"
 		})
+		.state('teamBattles', {
+			url: "/teamBattles",
+			templateUrl: "events/events-5x5.html",
+			controller:"TeamsCtrl"
+		})
+		
 		.state('platoonedit', {
 			url: "/platoonedit",
 			templateUrl: "platoon/maps-platoon-edit.html",
 			controller:"PlatoonCtrl"
 		})
+		.state('error', {
+			url: "/error",
+			templateUrl: "views/oops.html"
+		})
+
+		.state('wotapi', {
+			url: "/wotapi",
+			templateUrl: "wotapi/apitest.html",
+			controller:"WOTAPICtrl"
+		})
+
+		.state('battles', {
+			url: "/battles",
+			templateUrl: "battles/battles.html",
+			controller:"BattleCtrl"
+		})
+		.state('battlesdata', {
+			url: "/battles",
+			templateUrl: "battles/battlesdata.html",
+			controller:"BattleCtrl"
+		})
 
     
 });
+
+
 

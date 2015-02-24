@@ -1,0 +1,9 @@
+<div>
+<div class="datetitle" ng-show="!eventExpired"><h2>{{teamName}}</h2></div>
+<div class="datetitleExpired" ng-show="eventExpired"><h2>{{teamLetter}} - {{teamName}}</h2></div>
+<div class="ulContainer">
+	<ul><li ng-repeat="item in attendees">{{item.gamerTag}}</li></ul>
+</div>
+<button ng-click="addMe('{{teamLetter}}')" type="button" class="button tiny" ng-show="!isRegistered && !eventExpired && !eventClosed">Add Me</button>
+</div>
+

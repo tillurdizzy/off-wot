@@ -1,23 +1,22 @@
 <h4>WoT Glossary</h4>
 <div class="hilite">Contribute by posting in the 'Website Suggestions' Board in the OFF Forum.</div>
 <div class="glossaryBtnRow">
-	<button ng-click="changeGroup('AC')" type="button" class="button tiny">A - C</button>
-	<button ng-click="changeGroup('DF')" type="button" class="button tiny">D - F</button>
-	<button ng-click="changeGroup('GI')" type="button" class="button tiny">G - I</button>
-	<button ng-click="changeGroup('JL')" type="button" class="button tiny">J - L</button>
-	<button ng-click="changeGroup('MO')" type="button" class="button tiny">M - O</button>
-	<button ng-click="changeGroup('PR')" type="button" class="button tiny">P - R</button>
-	<button ng-click="changeGroup('SU')" type="button" class="button tiny">S - U</button>
-	<button ng-click="changeGroup('VZ')" type="button" class="button tiny">V - Z</button>
+	<button ng-click="changeGroup('AC')" type="button" class="button tiny" style="float:left;">A - C</button>
+	<button ng-click="changeGroup('DF')" type="button" class="button tiny" style="float:left;">D - F</button>
+	<button ng-click="changeGroup('GI')" type="button" class="button tiny" style="float:left;">G - I</button>
+	<button ng-click="changeGroup('JL')" type="button" class="button tiny" style="float:left;">J - L</button>
+	<button ng-click="changeGroup('MO')" type="button" class="button tiny" style="float:left;">M - O</button>
+	<button ng-click="changeGroup('PR')" type="button" class="button tiny" style="float:left;">P - R</button>
+	<button ng-click="changeGroup('SU')" type="button" class="button tiny" style="float:left;">S - U</button>
+	<button ng-click="changeGroup('VZ')" type="button" class="button tiny" style="float:left;">V - Z</button>
 </div>
 <div style="margin-bottom:'5px;'"><h4>{{pageTitle}}</h4></div>
-	<div class="row">
-      <div class="small-12 columns accordion">
-		<div accordion>
-		    <div accordion-group heading="{{group.term}}" ng-repeat="group in groups">
-				{{group.def}}
-		    </div>
-		 </div>
-	  </div> 
+	
+<div class="accordion">
+	<div accordion>
+		<div accordion-group heading="{{group.term}}" ng-repeat="group in groups">
+			{{group.def}}
+		   </div>
+	</div>
 </div>
 

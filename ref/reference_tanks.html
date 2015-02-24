@@ -1,63 +1,45 @@
-<h4>Tips and Guides</h4>
-<div class="hilite">Contribute you favorite links and other information in the 'Website Suggestions' Board in the OFF Forum.</div>
-<div class="refList">
-	<h2>KV1-S</h2>
-	<h3>PROS</h3>
-	<ul>
-		<li>Above average speed and maneuverability.</li>
-		<li>122mm is one of the most powerful guns at tier 6</li>
-	</ul>
-	<h3>CONS</h3>
-	<ul>
-		<li>Low radio signal and view range - don't get too far away from team members.</li>
-		<li>Very slow reload and poor aim time on 122mm, inaccurate at long range.</li>
-		<li>Lowest hitpoint pool of all tier 6 heavies. Avoid brawls.</li>
-	</ul>
-	<h3>EQUIPMENT</h3>
-	<ul>
-		<li>Rammer</li>
-		<li>Vents</li>
-		<li>Coated Optics</li>
+<h4>Tanks</h4>
+<p>Test of the WoT API</p>
+<button id="getBtn" type="button" class="button small" ng-click="getVehicles()">GET</button>
+<div ui-view>
+	<div style="width:200px;">
+		<select id="selectVehicle" ng-model="selectedVehicle" ng-options="c.name_i18n for c in vehicles" ng-change="selectVehicle(selectedVehicle)" ></select>
+	</div>
+	<img src={{selectedVehicle.image}}>
+	<h5>{{selectedVehicle.name_i18n}}</h5>
 
-	</ul>
-	<h3>STRATEGY</h3>
-	<p>It can outrun most of its same tier kin and thus enables it to reach positions other tanks would have trouble reaching before the enemy does.</p>
+	<table st-table="vehicleDetails" class="table table-striped">
+		<thead>
+		<tr>
+			<th>Item</th>
+			<th>Detail</th>
+		</tr>
+		</thead>
+		<tbody>
+		<tr ng-repeat="row in vehicleDetails">
+			<td>{{row.item}}</td>
+			<td>{{row.detail}}</td>
+		</tr>
+		</tbody>
+	</table>
 
-	<h2>SU-122-44</h2>
-	<h3>PROS</h3>
-	<ul>
-		<li>Good mobility and traverse - above average speed</li>
-		<li>Good damage (122mm gun)</li>
-		<li>Good angle and front armor - can engage head-on</li>
-		<li>Rate of fire</li>
-		<li>Low profile</li>
-		<li>Signal range - 700m</li>
-	</ul>
-	<h3>CONS</h3>
-	<ul>
-		<li>Accuracy - not that great for long distance sniping.  Keep under 400 m</li>
-		<li>Low Penetration</li>
-		<li>View Range 330m - again, not a long-range sniper.</li>
-		<li>Aim time</li>
-		<li>Expensive ammo.  Don't waste shots.</li>
-	</ul>
-	<h3>EQUIPMENT</h3>
-	<ul>
-		<li>Gun Rammer</li>
-		<li>GLD</li>
-		<li>Optics or Binocs</li>
-		<li>Vents</li>
-	</ul>
-	<h3>SKILLS and PERKS</h3>
-	<ul>
-		<li>Camo</li>
-		<li>Sixth Sense</li>
-	</ul>
-	<h3>STRATEGY</h3>
-	<p>Hang behind front line at beginning then use mobility to flank.</p>
-	<p>Find cover.  Take a shot, back off to reload.</p>
-	<h3>STRATEGY</h3>
-	<p><a href="https://www.youtube.com/watch?v=XlTeWKP87D8" target="blank">Jingles</a></p>
-	<p><a href="https://www.youtube.com/watch?v=E-uE9opboUU" target="blank">QuickBabyTV</a></p>
-
+</div>
+<div class="refList" ng-show=false>
+	<button type="button" class="button tiny" ng-click="linkView='general'">TOG</button>
+    <div class="indent compact" ng-show="linkView=='general'">
+    	<p><a href="http://forum.worldoftanks.com/index.php?/topic/188800-lerts-guide-to-the-tog-ii/" target="_blank">Basic TOG II Guide</a></p>
+    </div>
+    
+    <button type="button" class="button tiny" ng-click="linkView='kv2'">KV-2</button>
+    <div class="indent" ng-show="linkView=='kv2'">
+    	<p><a href="http://forum.worldoftanks.com/index.php?/topic/352092-kv-2-overview-and-guide/" target="_blank">Overview and Guide</a></p>
+    </div>
+    
+    <button type="button" class="button tiny" ng-click="linkView='kv2'">M4A3E2 Jumbo Sherman</button>
+    <div class="indent" ng-show="linkView=='kv2'">
+    	<p><a href="https://www.youtube.com/watch?v=GljV5ry_fKU" target="_blank">Tips (video)</a></p>
+    </div>
+    
+   
+	
 </div>

@@ -7,20 +7,19 @@ define( "DATABASE_USERNAME", "wotdata");
 define( "DATABASE_PASSWORD", "SaDie9954!");
 define( "DATABASE_NAME", "wotdata");
 //connect to the database.
-$con = mysql_connect(DATABASE_SERVER, DATABASE_USERNAME, DATABASE_PASSWORD) or die ('cannot reach database');
-mysql_select_db(DATABASE_NAME,$con) or die ("This is not a valid database");
-$member = mysql_real_escape_string($data->member);
-$gamertag = mysql_real_escape_string($data->gamertag);
-$age = mysql_real_escape_string($data->age);
-$pword = mysql_real_escape_string($data->pword);
-$residence = mysql_real_escape_string($data->residence);
-$zone = mysql_real_escape_string($data->zone);
-$beg = mysql_real_escape_string($data->beg);
-$end = mysql_real_escape_string($data->end);
-$inputBeg = mysql_real_escape_string($data->inputBeg);
-$inputEnd = mysql_real_escape_string($data->inputEnd);
-$tier_high = mysql_real_escape_string($data->tier_high);
-$tier_low = mysql_real_escape_string($data->tier_low);
+$con = mysqli_connect(DATABASE_SERVER, DATABASE_USERNAME, DATABASE_PASSWORD,DATABASE_NAME) or die ('cannot reach database');
+$member = mysqli_real_escape_string($con,$data->member);
+$gamertag = mysqli_real_escape_string($con,$data->gamertag);
+$age = mysqli_real_escape_string($con,$data->age);
+$pword = mysqli_real_escape_string($con,$data->pword);
+$residence = mysqli_real_escape_string($con,$data->residence);
+$zone = mysqli_real_escape_string($con,$data->zone);
+$beg = mysqli_real_escape_string($con,$data->beg);
+$end = mysqli_real_escape_string($con,$data->end);
+$inputBeg = mysqli_real_escape_string($con,$data->inputBeg);
+$inputEnd = mysqli_real_escape_string($con,$data->inputEnd);
+$tier_high = mysqli_real_escape_string($con,$data->tier_high);
+$tier_low = mysqli_real_escape_string($con,$data->tier_low);
 
 $query = "INSERT INTO schedule(beg,end,inputBeg,inputEnd,member,gamertag,age,pword,residence,tier_high,tier_low,zone)
 VALUES(
@@ -36,7 +35,7 @@ VALUES(
 "'" . $tier_high . "', " .
 "'" . $tier_low . "', " .
 "'" . $zone . "')";
-$qry_res = mysql_query($query,$con);
+$qry_res = mysqli_query($con,$query);
 if ($qry_res) {
 	$arr = array('msg' => "Insert successful", 'result' => $qry_res, 'params' => $beg . ":" + $end . ":" . $member . ":" . $zone);
 	$jsn = json_encode($arr);

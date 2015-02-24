@@ -1,10 +1,29 @@
 @charset "utf-8";
 
-
+// When using min-width, the default is for the smallest screen
+// Read the queries as "if the screen is greater than X, then apply this....
 .refList{
   margin-top: 10px;
   padding-left: 10px;
+  padding-right: 10px;
+  width:100%;
 }
+
+
+@media all and ( min-width: 600px ) {
+.refList{
+  width:80%;
+}
+ 
+}
+
+@media all and ( min-width: 900px ) {
+.refList{
+  width:50%;
+}
+ 
+}
+
 
 .refList p{
   font-size:.8em;
@@ -12,15 +31,39 @@
   margin-bottom:0;
 }
 
+.refListHeader{
+  height: 30px;
+  width: inherit;
+  background-color: #2D352A;
+  margin-top: 10px;
+  padding-left: 5px;
+  vertical-align: middle;
+}
+
+.refListHeader h2{
+  font-size:1em;
+  vertical-align: middle;
+  line-height: 30px;
+  color:#FC8D00;
+  font-weight: normal;
+}
+
 .refListLink{
   height: 25px;
-  width: 400px;
+  width: 100%;
   background-color: #2d352a;
-  border: 1px solid #000000;
   color:#ffffff;
   margin-bottom: 5px;
   padding-left: 5px;
   vertical-align: middle;
+}
+
+.refList button.tiny, .button.tiny{
+  height:30px;
+  width:100%;
+  font-size: .8em;
+  padding: 0;
+  margin-bottom: 3px;
 }
 
 .refListLink a{
@@ -30,7 +73,7 @@
 }
 
 .refListLink a:link{
-    color: #FC9200; 
+    color: #FFFFFF; 
 }
 
 .refListLink a:visited{
@@ -38,7 +81,7 @@
 }
 
 .refListLink a:hover, a:focus {
-    color: #CC2801; 
+    color: #FD9208; 
 }
 
 .refList h2{
@@ -49,38 +92,72 @@
   margin-bottom:0;
 }
 
-.indent a{
-  margin-left:10px;
+.indent{
+  margin:2px 0 2px 10px;
 }
 
-.refList .indent a{
-  margin-left:10px;
-}
 
 .hilite{
   font-size:.9em;
- font-weight:500;
+  font-weight:500;
   color:#e7535e;
   margin-bottom: 10px;
 }
 
 .columnOne{
-  width:300px;
+  width:210px;
+  background-color:#a4ae7b;
   position: absolute;
   left: 0;
+  height: 550px;
 }
 
 .columnTwo{
-  width:300px;
+  width:210px;
   position: absolute;
-  left: 300px;
+  left: 210px;
+  background-color:#c8ceb0;
+  height: 550px;
+}
+
+.columnTwoWide{
+  width:100%;
+  position: absolute;
+  left: 210px;
+  background-color:#c8ceb0;
+  height: 550px;
 }
 
 .columnThree{
-  width:300px;
+  width:210px;
+  background-color:#a4ae7b;
   position: absolute;
-  left: 600px;
+  left: 420px;
+  height: 550px;
 }
+
+.columnFour{
+  width:210px;
+  position: absolute;
+  left: 630px;
+  background-color:#c8ceb0;
+  height: 550px;
+}
+
+.columnFive{
+  width:210px;
+  position: absolute;
+  left: 840px;
+  background-color:#a4ae7b;
+  height: 550px;
+}
+
+.tankheader{
+  height:120px;
+}
+
+
+
 
 
 

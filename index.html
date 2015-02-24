@@ -16,34 +16,30 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>OFFicial Website</title>
     <meta name="World of Tanks WOT Maps OFF Old Farts Fogies" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-    <!-- build:css styles/vendor.css -->
-    <!-- bower:css -->
-    <!-- endbower -->
-    <!-- endbuild -->
-    <!-- build:css({.tmp,app}) styles/main.css -->
-    <!-- <link rel="stylesheet" href="bower_components/foundation-5.0.3/css/foundation.css" />-->
-    <script type="text/javascript" src="bower_components/foundation-5.0.3/js/vendor/modernizr.js"></script>
-    <script type="text/javascript" src="bower_components/foundation-5.0.3/js/vendor/jquery.js"></script>
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/foundation/5.2.0/css/foundation.css">
-    <script type="text/javascript" src="bower_components/foundation-5.0.3/js/foundation.min.js"></script>
-    <script type="text/javascript" src="bower_components/underscore.js"></script>
-    <script type="text/javascript" src="http://d3lp1msu2r81bx.cloudfront.net/kjs/js/lib/kinetic-v5.0.2.min.js"></script>
+    <meta name="viewport" content="width=device-width, maximum-scale=1.0, minimum-scale=1.0, initial-scale=1.0" />
    
-    <link rel="stylesheet" href="styles/main.css">
-    <link rel="stylesheet" href="styles/home.css">
-    <link rel="stylesheet" href="styles/twitter.css">
-    <link rel="stylesheet" href="styles/side-bar-left.css">
-    <link rel="stylesheet" href="styles/view.css">
-    <link rel="stylesheet" href="ref/reference.css">
-    <link rel="stylesheet" href="styles/maps.css">
-    <link rel="stylesheet" href="events/events.css">
-    <META HTTP-EQUIV="Pragma" CONTENT="no-cache">
-    <META HTTP-EQUIV="Expires" CONTENT="-1">
+    <!-- <link rel="stylesheet" href="bower_components/foundation-5.0.3/css/foundation.css" />-->
+    <script src="bower_components/foundation-5.0.3/js/vendor/modernizr.js"></script>
+    <script src="bower_components/foundation-5.0.3/js/vendor/jquery.js"></script>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/foundation/5.2.0/css/foundation.css">
+    <script src="bower_components/foundation-5.0.3/js/foundation.min.js"></script>
+    <script src="bower_components/underscore.js"></script>
+    <script src="scripts/include/date-en-US.js"></script>
+    <script src="scripts/include/kinetic-v5.0.2.min.js"></script>
+   
+    <link rel='stylesheet' href='styles/main.css?v=1'>
+    <link rel='stylesheet' href='styles/home.css?v=2'>
+    <link rel='stylesheet' href='styles/side-bar-left.css?v=1'>
+    <link rel='stylesheet' href='styles/view.css?v=1'>
+    <link rel='stylesheet' href='ref/reference.css?v=2'>
+    <link rel='stylesheet' href='styles/maps.css?v=1'>
+    <link rel='stylesheet' href='events/events-11-06.css?v=1'>
+    <link rel='stylesheet' href='styles/twitter.css?v=1'>
+    <link rel='stylesheet' href='battles/templates/battles.css?v=1'>
+  
 
   </head>
-  <body ng-app="myApp" id="ng-app">
+  <body ng-app="myApp" id="ng-app" class="ng-cloak" style="overflow-x: hidden;">
     <!--[if lt IE 7]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
@@ -54,34 +50,26 @@
     </div>
     <div style="clear:both">
       <div class="header-bar"></div>
-        <nav class="top-bar" data-topbar ng-controller="NavCtrl">
+        <nav class="top-bar" data-topbar ng-controller="NavCtrl" ng-show=showNav==true>
            <section class="top-bar-section">
             <!-- Left Nav Section -->
             <ul class="left" >
               <li ng-class="{ active: isCurrentPath('/home') }"><a ui-sref="home">Home</a></li>
               <li ng-class="{ active: isCurrentPath('/members') }"><a ui-sref="members">New Members</a></li>
               <li ng-class="{ active: isCurrentPath('/events') }"><a ui-sref="events">Events</a></li>
-              <li ng-class="{ active: isCurrentPath('/schedule') }"><a ui-sref="schedule">XBOX Live</a></li>
+              <li ng-class="{ active: isCurrentPath('/schedule') }"><a ui-sref="schedule">XBL</a></li>
               <li ng-class="{ active: isCurrentPath('/reference') }"><a ui-sref="reference">Reference</a></li>
-              <li ng-class="{ active: isCurrentPath('/map') }"><a ui-sref="map">Maps POI</a></li>
-              <li ng-class="{ active: isCurrentPath('/platoon') }"><a ui-sref="platoon">Platoon Strategy</a></li>
-              <li ng-class="{ active: isCurrentPath('/contribute') }"><a ui-sref="contribute">Contribute</a></li>
-              <li ng-class="{ active: isCurrentPath('/registration') }"><a ui-sref="registration">Registration</a></li>
-            </ul>
-            <ul class="right">
-              <li class="name" ng-show="gamerCookie!=null">
-                <h1>Welcome {{gamerCookie}}</h1>
-              </li>
-              <li class="name" ng-show="gamerCookie==null">
-                <h1>Unregistered or not signed in</h1>
+              <li ng-class="{ active: isCurrentPath('/mapedit') }"><a ui-sref="mapedit">Maps</a></li>
+              <li ng-class="{ active: isCurrentPath('/registration') }"><a ui-sref="registration">Register</a></li>
+              <li class="name">
+                <h1 style="color:#FD9208; font-size:.8em;">{{gamerTag}}</h1>
               </li>
             </ul>
           </section>
         </nav>
-       <!--  <div sub-header sectiontitle="{{sectiontitle}}" ng-controller="NavCtrl"/> -->
      </div>
      <div class="hrule"></div>
-      <div class="container view" ui-view></div>
+    <div class="container view" ui-view></div>
 
    
 
@@ -90,57 +78,71 @@
     <script src="bower_components/json3/lib/json3.min.js"></script>
     <![endif]-->
 
-    <!-- build:js scripts/vendor.js -->
-    <!-- bower:js -->
     <script src="bower_components/angular/angular.min.js"></script>
-    <script type="text/javascript" src="bower_components/angular-smart-table/dist/smart-table.min.js"></script>
+    <script src="bower_components/angular-smart-table/dist/smart-table.min.js"></script>
     <script src="//pineconellc.github.io/angular-foundation/mm-foundation-0.3.1.js"></script>
      <!-- <script type="text/javascript" src="bower_components/angular-foundation/mm-foundation-tpls.min.js"></script> -->
-    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.6/angular-cookies.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.6/angular-cookies.js"></script>
     <script src="bower_components/angular-resource/angular-resource.min.js"></script>
     <script src="bower_components/angular-sanitize/angular-sanitize.min.js"></script>
-    <script type="text/javascript" src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
-
-    <!-- endbower -->
-    <!-- endbuild -->
-
-        <!-- build:js({.tmp,app}) scripts/scripts.js -->
-        <script src="scripts/app.js"></script>
-        <script src="scripts/controllers/home.js"></script>
-        <script src="scripts/controllers/schedule.js"></script>
-        <script src="scripts/controllers/navBar.js"></script>
-        <script src="scripts/controllers/maps.js"></script>
-        <script src="scripts/controllers/newmembers.js"></script>
-        <script src="scripts/controllers/registration.js"></script>
-        <script src="scripts/directives/canvasKinetic.js"></script>
-        <script src="scripts/directives/googleTimeline.js"></script>
-        <script src="scripts/directives/subHeader.js"></script>
-        <script src="scripts/directives/IrInfiniteScroll.js"></script>
-        <script src="scripts/directives/twitter-timeline.js"></script>
-        <script src="scripts/services/scheduleDataSrvc.js"></script>
-        <script src="scripts/services/mapsDataSrvc.js"></script>
-        <script src="scripts/services/registrationDataSrvc.js"></script>
-        <script src="scripts/services/mapSrvc.js"></script>
-        <script src="scripts/services/cookieSrvc.js"></script>
-        <script src="scripts/services/memberSrvc.js"></script>
-        <script src="scripts/services/varsSrvc.js"></script>
-        <script src="platoon/platoon.js"></script>
-        <script src="platoon/platoonSrvc.js"></script>
-        <script src="platoon/canvasPlatoon.js"></script>
-        <script src="events/eventsCtrl.js"></script>
-        <script src="events/calendarCtrl.js"></script>
-        <script src="events/eventsDataSrvc.js"></script>
-        <script src="events/eventLeftColumn.js"></script>
-        <script src="events/eventReservation.js"></script>
-        <script src="events/eventComSrvc.js"></script>
-        <script src="maps/mapComments.js"></script>
-        <script src="ref/referenceCtrl.js"></script>
-        <script src="ref/glossaryCtrl.js"></script>
-        <script src="ref/glossarySrvc.js"></script>
+    <script src="bower_components/angular-animate/angular-animate.min.js"></script>
+    <script src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
     
-        <!-- endbuild -->
+	<script src='scripts/app.js?v=4'></script>
+    <script src='scripts/controllers/home.js?v=1'></script>
+    <script src='scripts/controllers/schedule.js?v=1'></script>
+    <script src='scripts/controllers/navBar.js?v=1'></script>
+    <script src='scripts/controllers/maps.js?v=1'></script>
+    <script src='scripts/controllers/newmembers.js?v=1'></script>
+    <script src='registration/registration.js?v=1'></script>
+    <script src='registration/registrationDataSrvc.js?v=1'></script>
+    <script src='scripts/directives/canvasKinetic.js?v=1'></script>
+    <script src='scripts/directives/subHeader.js?v=1'></script>
+    <script src='scripts/directives/logInModalDir.js?v=1'></script>
+    <script src='scripts/directives/twitter-timeline.js?v=1'></script>
+    <script src='scripts/services/scheduleDataSrvc.js?v=1'></script>
+    <script src='scripts/services/mapsDataSrvc.js?v=1'></script>
+    <script src='scripts/services/mapSrvc.js?v=2'></script>
+    <script src='scripts/services/cookieSrvc.js?v=1'></script>
+    <script src='scripts/services/memberSrvc.js?v=1'></script>
+    <script src='scripts/services/varsSrvc.js?v=2'></script>
+    <script src='platoon/platoon.js?v=1'></script>
+    <script src='platoon/platoonSrvc.js?v=1'></script>
+    <script src='platoon/canvasPlatoon.js?v=1'></script>
+    <script src='events/controllers/eventsCtrl.js?v=5'></script>
+    <script src='events/controllers/teamsCtrl.js?v=5'></script>
+    <script src='events/controllers/calendarCtrl.js?v=5'></script>
+    <script src='events/controllers/eventsUpdateCtrl.js?v=5'></script>
+    <script src='events/controllers/eventsEditCtrl.js?v=5'></script>
+    <script src='events/services/eventsDataSrvc.js?v=7'></script>
+    <script src='events/directives/eventLeftColumn.js?v=1'></script>
+    <script src='events/directives/eventHeaderDir.js?v=1'></script>
+    <script src='events/directives/eventListItemDir.js?v=2'></script>
+    <script src='events/directives/eventMenuItemDir.js?v=2'></script>
+    <script src='events/directives/teamItemDir.js?v=3'></script>
+    <script src='maps/mapComments.js?v=1'></script>
+    <script src='ref/referenceCtrl.js?v=2'></script>
+    <script src='ref/glossaryCtrl.js?v=1'></script>
+    <script src='ref/glossarySrvc.js?v=1'></script>
+    <script src='ref/wotapi.js?v=1'></script>
+    <script src='ref/wotApiSrvc.js?v=1'></script>
+    <script src='quizzes/quiz.js?v=1'></script>
+    <script src='quizzes/quizService.js?v=1'></script>
+    
+        
+        
       <script>
         $(document).foundation();
+      </script>
+      <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-37270883-1', 'auto');
+        //ga('send', 'pageview');
+
       </script>
 
   </body>

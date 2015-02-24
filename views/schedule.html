@@ -26,12 +26,11 @@
 <div class=" content timeline">
 	<h4>{{selectedZoneDescription}}<h4/>
 	<p ng-show="searchResultsDisplay && displayType=='ALL'">Tankers who might be online at {{searchTimeDisplay}}</p>
-	<p ng-show="!searchResultsDisplay && displayType=='ALL'">XBL Schedule for all Registered Members and Events</p>
+	<p ng-show="!searchResultsDisplay && displayType=='ALL'">XBL Schedule for all Registered Members ({{regMemberCount}}) and Events</p>
 	<p ng-show="searchResultsDisplay && displayType=='EVENTS'">XBL Schedule for all Events Only</p>
 	
-	<div class="table-container">
-		<table st-table="currentTableData" st-pagination-scroll  st-pipe="callServer" class="table table-striped">
-			<thead>
+	<table st-table="currentTablePage" class="table table-striped" style="width:700px;">
+		<thead>
 			<tr>
 				<th>XBL Gamertag</th>
 				<th>Begin Time</th>
@@ -39,17 +38,20 @@
 				<th>Tier Low</th>
 				<th>Tier High</th>
 			</tr>
-			</thead>
-			<tbody>
-			<tr ng-repeat="row in currentTableData">
+		</thead>
+		<tbody>
+			<tr ng-repeat="row in currentTablePage">
 				<td>{{row.member}}</td>
 				<td>{{row.beg}}</td>
 				<td>{{row.end}}</td>
 				<td>{{row.tier_low}}</td>
 				<td>{{row.tier_high}}</td>
 			</tr>
-			</tbody>
+		</tbody>
 	</table>
-	<div ng-show="isLoading" class="loading-indicator"></div>
-</div>
+	<div class="tableBtnRow">
+		<button type="button" class="button small"  ng-click="showPreviousPage()" ng-disabled="prevBtnDisabled">Prev</button>
+		<button type="button" class="button small"  ng-click="showNextPage()"  ng-disabled="nextBtnDisabled">Next</button>
+	</div>
+		
 </div>

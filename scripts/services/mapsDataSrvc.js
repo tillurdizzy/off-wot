@@ -113,7 +113,7 @@ APP.service('mapsDb',['$http','$q','VarsSrvc',function sqlQueries($http,$q,VarsS
 	};
 
 	self.getMapMarkers = function(mapname,author){
-		self.mapMarkers = [];
+		self.mapMarkers = [];		
 		var dataObj = new Object();
 		dataObj.map = mapname;
 		dataObj.author = author;

@@ -11,19 +11,27 @@ define( "DATABASE_NAME", "wotdata");
 
 
 //connect to the database.
-$con = mysql_connect(DATABASE_SERVER, DATABASE_USERNAME, DATABASE_PASSWORD) or die ('cannot reach database');
-mysql_select_db(DATABASE_NAME,$con) or die ("This is not a valid database");
-$_gamertag = mysql_real_escape_string($data->gamertag);
+$con = mysqli_connect(DATABASE_SERVER, DATABASE_USERNAME, DATABASE_PASSWORD,DATABASE_NAME) or die ('cannot reach database');
+$_gamertag = mysqli_real_escape_string($con,$data->gamertag);
 $query = sprintf("SELECT * FROM schedule WHERE gamertag = '".$_gamertag."'");
-$result = mysql_query($query,$con);
+$result = mysqli_query($con,$query);
 
 $resultValueObjects = array();
-while ($row = mysql_fetch_object($result)) {
+while ($row = mysqli_fetch_object($result)) {
 	$oneVO = new memberVO();
 	$oneVO->PRIMARY_ID = $row->PRIMARY_ID;
 	$oneVO->pword = $row->pword;
 	$oneVO->gamertag = $row->gamertag;
+	$oneVO->residence = $row->residence;
+	$oneVO->member = $row->member;
+	$oneVO->age = $row->age;
+	$oneVO->zone = $row->zone;
+	$oneVO->inputBeg = $row->inputBeg;
+	$oneVO->inputEnd = $row->inputEnd;
+	$oneVO->lowtier = $row->tier_low;
+	$oneVO->hitier = $row->tier_high;
 	$oneVO->canEdit = $row->canEdit;
+	$oneVO->visits = $row->visits;
 	array_push( $resultValueObjects, $oneVO );
 }
 

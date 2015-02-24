@@ -21,9 +21,19 @@ margin: 0 auto;
 	position:absolute;
 	color: #ffffff;
 	top:1px;
+	margin-top: 5px;
     bottom:0;
     height: 1500px;
 	left:0;
+}
+
+.leftColumnHome h2{
+	color:#FD9208;
+}
+
+.leftColumnHome h3{
+	color:#FFFFFF;
+	font-size: 1.2em;
 }
 
 .contenthome{

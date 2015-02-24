@@ -176,6 +176,10 @@ APP.directive('kineticPlatoon',['mapSrvc',function(mapSrvc){
 				var findid = '#'+scope.tempID;
 				var shape = scope.kineticStage.find(findid);
 				shape.destroy();
+				scope.plan_I.draw();
+				scope.plan_II.draw();
+				scope.plan_III.draw();
+				scope.plan_IV.draw();
 				scope.kineticStage.draw();
 			});
 

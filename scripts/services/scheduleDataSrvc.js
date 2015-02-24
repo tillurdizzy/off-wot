@@ -22,7 +22,8 @@ APP.service('scheduleDbSrvc',['$http','$q','VarsSrvc',function sqlQueries($http,
 		var deferred = $q.defer();
 		$http({method: 'POST', url: 'scripts/phpsql/getSchedule.php'}).
 		success(function(data, status) {
-     		self.scheduleResult = data;
+     		//self.scheduleResult = _.sortBy(data, 'gamertag');
+     		self.scheduleResult = _.sortBy(data, function (i) { return i.gamertag.toLowerCase(); });
      		deferred.resolve(data);
 	    }).
 		error(function(data, status, headers, config) {
@@ -50,6 +51,10 @@ APP.service('scheduleDbSrvc',['$http','$q','VarsSrvc',function sqlQueries($http,
 	    return deferred.promise; //return the data
 	};
 
+	self.returnMemberCount = function(){
+		return self.scheduleResult.length;
+	}
+
 	self.returnTableData = function(ZONE){
 		self.tableProvider = new Array();
 		var selectedZoneOffset = self.returnOffset(ZONE);// integer from -12 to +12
@@ -70,7 +75,8 @@ APP.service('scheduleDbSrvc',['$http','$q','VarsSrvc',function sqlQueries($http,
 			//self.logHour(begMember,endMember,gamer + " "+ memberZone);
 
 			var tblObj = new Object();
-			tblObj.member = gamer;
+			tblObj.member = gamer + " ("+self.scheduleResult[i].member+")";
+			tblObj.memberName = self.scheduleResult[i].member;
 			tblObj.tier_low = self.scheduleResult[i].tier_low;
 			tblObj.tier_high = self.scheduleResult[i].tier_high;
      		tblObj.beg = begMember;
@@ -168,116 +174,7 @@ APP.service('scheduleDbSrvc',['$http','$q','VarsSrvc',function sqlQueries($http,
 		return self.tableProvider;
 	};
 
-	/*self.returnTimelineData = function(ZONE){
-		console.log("***************** NEW LOOKUP *********************");
-		self.timeLineProvider = new Array();
-		var selectedZoneOffset = self.returnOffset(ZONE);// integer from -12 to +12
-		var AM = self.utc12AM;
-		var PM = self.utcMidnight;
-		var rtnObj = new Object();
 
-		rtnObj.member = ZONE + " 24 Hrs.";
-		rtnObj.tier_low = "";
-		rtnObj.tier_high =  "NA";
-     	rtnObj.beg = new Date(0,0,0,0,0,0);
-     	rtnObj.end = new Date(0,0,1,0,0,0);
-     	self.timeLineProvider.push(rtnObj);
-
-
-		for (var i = 0; i < self.scheduleResult.length; i++) {
-			rtnObj = new Object();
-			var gamer = self.scheduleResult[i].gamertag;
-			var memberZone = self.scheduleResult[i].zone;
-			var memberOffset = self.returnOffset(memberZone);
-			var begHour = parseInt(self.scheduleResult[i].inputBeg);// integer from 0 to 24
-			var endHour = parseInt(self.scheduleResult[i].inputEnd);
-
-			var zoneDifference = selectedZoneOffset - memberOffset;
-			//console.log("Difference between " + ZONE + " and " + memberZone + " = " + zoneDifference);
-			var begMember = self.returnHour(begHour+zoneDifference);// Member's input time converted to selected zone (int)
-			var endMember = self.returnHour(endHour+zoneDifference);
-			console.log(gamer + "****************************")
-			console.log("Day:" + begMember.day + " Hour:" + begMember.hour);
-			console.log("Day:" + endMember.day + " Hour:" + endMember.hour);
-
-			var splitBar = false;
-			var beginBarOne = new Date(0,0,0,begMember.hour,0,0);
-			var endBarOne = new Date(0,0,0,begMember.hour + 12,0,0);
-			var beginBarTwo;
-			var endBarTwo;
-
-			if(begMember.day == endMember.day){
-				if(endMember.hour > begMember.hour){
-					console.log("Case 1A");
-					beginBarOne = new Date(0,0,0,begMember.hour,0,0);
-					endBarOne = new Date(0,0,0,endMember.hour,0,0);
-				}else if(endMember.hour < begMember.hour){
-					console.log("Case 1B");
-					splitBar = true;
-					beginBarOne = new Date(0,0,0,0,0,0);
-					endBarOne = new Date(0,0,0,endMember.hour,0,0);
-					beginBarTwo = new Date(0,0,0,begMember.hour,0,0);
-					endBarTwo = new Date(0,0,1,0,0,0);
-				}
-			}
-
-			if(begMember.day < endMember.day){
-				if(endMember.hour > begMember.hour){
-					console.log("Case 2A");
-					
-				}else if(endMember.hour < begMember.hour){
-					console.log("Case 2B");
-					splitBar = true;
-					beginBarOne = new Date(0,0,0,begMember.hour,0,0);
-					endBarOne = new Date(0,0,1,0,0,0);
-					beginBarTwo = new Date(0,0,0,0,0,0);
-					endBarTwo = new Date(0,0,0,endMember.hour,0,0);
-				}
-			}
-
-			if(begMember.day > endMember.day){
-				if(endMember.hour > begMember.hour){
-					console.log("Case 3A");
-					beginBarOne = new Date(0,0,0,begMember.hour,0,0);
-					endBarOne = new Date(0,0,0,endMember.hour,0,0);
-				}else if(endMember.hour < begMember.hour){
-					console.log("Case 3B");
-					var validateHr = endMember.hour+=12;
-					if(validateHr > 24){
-						splitBar = true;
-						begMember.hour+=12;
-					}else{
-						begMember.hour-=12;
-					}
-				}
-			}
-
-			
-			rtnObj.member = self.scheduleResult[i].gamertag;
-			rtnObj.tier_low = self.integerToTier(self.scheduleResult[i].tier_low);
-			rtnObj.tier_high = self.integerToTier(self.scheduleResult[i].tier_high);
-     		rtnObj.beg = beginBarOne;
-     		rtnObj.end = endBarOne;
-     		rtnObj.zone = memberZone;
-     		self.timeLineProvider.push(rtnObj);
-
-			if(splitBar == true){
-     			rtnObj = new Object();
-				rtnObj.member = self.scheduleResult[i].gamertag;
-				rtnObj.tier_low = self.integerToTier(self.scheduleResult[i].tier_low);
-				rtnObj.tier_high = self.integerToTier(self.scheduleResult[i].tier_high);
-     			rtnObj.beg = beginBarTwo;
-     			rtnObj.end = endBarTwo;
-     			rtnObj.zone = memberZone;
-     			self.timeLineProvider.push(rtnObj);
-			}
-     	};
-     
-     	for (var x = 0; x < self.timeLineProvider.length; x++) {
-     		console.log(x + self.timeLineProvider[x].gamertag);
-     	};
-		return self.timeLineProvider;
-	};*/
 
 	// used for table data
 	self.returnClock = function(offset){

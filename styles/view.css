@@ -3,9 +3,9 @@
 	position:absolute;
  	left:0;
  	top:113px;
-    bottom:0;
-    width: 100%;
-  	color:#000000;
+  bottom:0;
+  width: 100%;
+  color:#000000;
 }
 
 .content{
@@ -13,10 +13,35 @@
 	top:1px;
 	left:151px;
 	right: 0;
-  bottom:0;
+  	bottom:0;
 	margin-left: 10px;
 	margin-top: 10px;
 	width: 100%
+}
+
+.mobilecontent{
+  max-width:1000px; 
+  margin:10px 5px 0 5px; 
+  padding:0 20px 0 20px;
+}
+
+@media all and ( min-width: 500px ) {
+	
+}
+
+@media all and ( min-width: 700px ) {
+	
+}
+
+@media all and ( min-width: 1000px ) {
+	
+}
+
+
+
+.noMarginNoPad{
+  margin:0;
+  padding: 0;
 }
 
 .fixed{
@@ -28,9 +53,13 @@
 	padding-top: 0;
 }
 
-/*.fixed{
-	width:900px;
-}*/
+.left{
+	float:left;
+}
+
+.right{
+  float:right;
+}
 
 .content a{
   color: #0000FF;
@@ -73,6 +102,18 @@ a:hover, a:focus {
   text-align: center;
 }
 
+.content .singleLineSmall{
+  clear:both;
+}
+
+.content .singleLineSmall p{
+  color: #000000;
+  font-size: .8em;
+  padding:0;
+  margin:0;
+  text-align: left;
+}
+
 .content .footer{
 	color:#000000;
 	right: 2em;
@@ -90,7 +131,7 @@ a:hover, a:focus {
 
 .alternatingBlockB{
   background-color:#c8ceb0;
-   padding: 1em;
+  padding: 1em;
   margin: 0;
 }
 
@@ -170,54 +211,76 @@ summary:hover, summary:focus { background: #ddd; }
     content: '\25BC';
 }
 
-.table-container{
-    height:500px;
-    overflow-y:scroll;
+.tableBtnRow{
+  height:40px;
+  width: 500px;
 }
 
-.loading-indicator {
-    box-sizing: border-box;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    width: 100%;
-    text-align: center;
-    padding: 0.7em; }
+.tableBtnRowLeft{
+  height:40px;
+  float:left;
+  width: 70px;
+  margin-left: 5px;
 
-.loading-indicator:before {
-    display: inline-block;
-    margin: 0 0.4em;
-    min-width: 1em;
-    min-height: 1em;
-    border-top: 4px solid #646464;
-    border-right: 4px solid #e6e6e6;
-    border-left: 4px solid #e6e6e6;
-    border-bottom: 4px solid #646464;
-    content: "";
-    -webkit-animation: halfspin 1s ease infinite;
-    -moz-animation: halfspin 1s ease infinite;
-    -o-animation: halfspin 1s ease infinite;
-    animation: halfspin 1s ease infinite;
-    border-radius: 100%; }
+}
 
-@-webkit-keyframes halfspin {
-    to {
-        -webkit-transform: rotate(180deg);
-        -moz-transform: rotate(180deg);
-        transform: rotate(180deg); } }
+.tableBtnRowRight{
+  height:40px;
+  float:right;
+  width: 70px;
+  margin-left: 5px;
 
-@-moz-keyframes halfspin {
-    to {
-        -webkit-transform: rotate(180deg);
-        -moz-transform: rotate(180deg);
-        transform: rotate(180deg); } }
+}
 
-@keyframes halfspin {
-    to {
-        -webkit-transform: rotate(180deg);
-        -moz-transform: rotate(180deg);
-        transform: rotate(180deg); } }
+.floatLeft{
+  float:left;
+  margin-right:20px;
+}
 
+.floatLeftRadio{
+  clear:both;
+}
 
+.floatLeftRadio p{
+  float:left;
+  margin-right:20px;
+  margin-bottom: 0;
+}
 
+.floatLeftRadio .labeltxt{
+  float:left;
+  margin-right:20px;
+  margin-bottom: 0;
+}
+
+.hiliteBox{
+	border:1px solid #333333;
+	background-color:#2D352A;
+	color:#FFFFFF;
+	padding:5px 5px 5px 5px;
+}
+
+.hiliteBox p{
+	font-size:.9em;
+	color:#FFFFFF;
+}
+
+.hiliteBox .title{
+	font-size:14px;
+	color:#FD9208;
+}
+
+.hiliteBox a:link{
+    color: #FFFFFF;
+	font-size:.9em;
+}
+
+.hiliteBox a:visited{
+    color: #ffd396; 
+}
+
+.hiliteBox a:hover, a:focus {
+    color: #FD9208; 
+}
 
 

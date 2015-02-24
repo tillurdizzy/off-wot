@@ -1,26 +1,36 @@
 'use strict';
 
 
- APP.controller('NavCtrl',['$scope','$location','cookieSrvc', function ($scope,$location,cookieSrvc) {
+ APP.controller('NavCtrl',['$scope','$rootScope','$location','memberSrvc', function ($scope,$rootScope,$location,memberSrvc) {
 
- 	var CS = cookieSrvc;
+ 	var MS = memberSrvc;
  	$scope.sectiontitle = "Welcome";
- 	$scope.gamerCookie = null;
+ 	$scope.gamerTag = "";
+ 	$scope.signedIn = false;
+ 	$scope.showNav = true;
  	
     $scope.isCurrentPath = function (path) {
     	$scope.sectiontitle = path;
+    	if($location.path() == "/battles"){
+    		$scope.showNav = false;
+    	}else{
+    		$scope.showNav = true;
+    	}
     	return $location.path() == path;
     };
 
    
-	$scope.getGamerCookie = function(){
- 		$scope.gamerCookie = CS.gamerCookie;
+	$scope.getMemberStatus = function(){
+ 		$scope.gamerTag = MS.gamerTag;
+ 		$scope.signedIn = MS.signedIn;
  	};
 
- 	 $scope.$watch($scope.getGamerCookie, function() {
-  		$scope.gamerCookie = CS.gamerCookie;
+ 	$scope.$watch($scope.getMemberStatus, function() {
+  		$scope.gamerTag = MS.gamerTag;
+  		$scope.signedIn = MS.signedIn;
 	});
 
- 	 $scope.getGamerCookie();
+
+ 	$scope.getMemberStatus();
     
  }]);

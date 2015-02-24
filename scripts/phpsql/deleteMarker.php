@@ -7,13 +7,12 @@ define( "DATABASE_USERNAME", "wotdata");
 define( "DATABASE_PASSWORD", "SaDie9954!");
 define( "DATABASE_NAME", "wotdata");
 //connect to the database.
-$con = mysql_connect(DATABASE_SERVER, DATABASE_USERNAME, DATABASE_PASSWORD) or die ('cannot reach database');
-mysql_select_db(DATABASE_NAME,$con) or die ("This is not a valid database");
-$id = mysql_real_escape_string($data->id);
+$con = mysqli_connect(DATABASE_SERVER, DATABASE_USERNAME, DATABASE_PASSWORD,DATABASE_NAME) or die ('cannot reach database');
 
-
+$id = mysqli_real_escape_string($con,$data->id);
 $query = "DELETE FROM maps WHERE PRIMARY_ID = " . "'" . $id ."'";
-$qry_res = mysql_query($query,$con);
+
+$qry_res = mysqli_query($con,$query);
 if ($qry_res) {
 	$arr = array('msg' => "Delete successful", 'result' => $qry_res, 'params' => $id);
 	$jsn = json_encode($arr);
